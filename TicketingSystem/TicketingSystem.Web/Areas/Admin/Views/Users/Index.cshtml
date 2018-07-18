@@ -1,0 +1,72 @@
+﻿@model UserListingViewModel
+
+@{
+    ViewData["Title"] = "User Administration";
+}
+
+<h1 style="text-align: center">@ViewData["Title"]</h1>
+
+@if (Model.Users.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var user in Model.Users)
+                {
+                    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to remove @user.Username?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <a asp-controller="Users" asp-action="Remove" asp-route-id="@user.Id" class="btn btn-danger">Yes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <tr>
+                        <th>@user.Username</th>
+                        <th>@user.Email</th>
+                        <th>
+                            <form asp-controller="Users" asp-action="AddToRole" method="post">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="hidden" name="UserId" value="@user.Id" />
+                                        <select name="Role" asp-items="Model.Roles" class="form-control"></select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <button class="btn btn-success" type="submit">Add To Role</button>
+                                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirm-delete">Remove</button>
+                                        <a asp-controller="Users" asp-action="ChangeUserPassword" asp-route-id="@user.Id" class="btn btn-primary">Change Password</a>
+                                        <a asp-controller="Users" asp-action="ChangeUserData" asp-route-id="@user.Id" class="btn btn-warning">Change Data</a>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </th>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p id="no-users" style="text-align:center">No active users</p>
+}
