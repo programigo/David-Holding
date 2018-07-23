@@ -11,24 +11,6 @@ else
     {
         @foreach (var ticket in Model)
         {
-            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Confirm</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to remove @ticket.Title?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@ticket.Id" class="btn btn-danger">Yes</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-md-5">
                 <div class="panel panel-success">
                     <div class="panel-heading" style="text-align: center">
@@ -55,7 +37,7 @@ else
                             @if (User.IsInRole("Administrator") || User.IsInRole("Support"))
                             {
                                 <a asp-controller="Tickets" asp-action="Edit" asp-route-id="@ticket.Id" class="btn btn-warning">Edit</a>
-                                <button id="btnSave" class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirm-delete">Delete</button>
+                                <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@ticket.Id" class="btn btn-danger">Delete</a>
                             }
                         </p>
 

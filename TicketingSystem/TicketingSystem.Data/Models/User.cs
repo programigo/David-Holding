@@ -13,6 +13,8 @@
 
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();
 
+        public List<Message> Messages { get; set; } = new List<Message>();
+
         public bool IsApproved { get; set; }
     }
 }

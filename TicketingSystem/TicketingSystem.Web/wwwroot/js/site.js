@@ -1,3 +1,3 @@
-﻿$("#confirm-attach-button").click(function () {
-    alert('stana');
+﻿$("#messages-button").click(function () {
+    $('#message-toggle-div').toggle();
 });

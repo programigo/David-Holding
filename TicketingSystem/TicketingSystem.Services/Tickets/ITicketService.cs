@@ -17,7 +17,7 @@
 
         bool SaveFiles(int ticketId, byte[] attachedFiles);
 
-        bool Edit(int id, TicketType ticketType, TicketState ticketState);
+        bool Edit(int id, string title, string description, TicketType ticketType, TicketState ticketState);
 
         TicketListingServiceModel Details(int id);
 

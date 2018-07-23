@@ -29,7 +29,11 @@
 
         public IActionResult Index()
         {
-            var users = this.users.All().Where(u => u.IsApproved == true && u.Username != WebConstants.AdministratorRole);
+            var users = this.users.All().Where(
+                u => u.IsApproved == true && 
+                u.Username != WebConstants.AdministratorRole && 
+                u.Id != User.GetUserId());
+
             var roles = this.roleManager
                 .Roles
                 .Select(r => new SelectListItem
@@ -48,7 +52,10 @@
 
         public IActionResult Pending()
         {
-            var users = this.users.All().Where(u => u.IsApproved == false && u.Username != WebConstants.AdministratorRole);
+            var users = this.users.All().Where(
+                u => u.IsApproved == false && 
+                u.Username != WebConstants.AdministratorRole && 
+                u.Id != User.GetUserId());
 
             return View(new UserPendingViewModel
             {
@@ -87,8 +94,7 @@
             await this.userManager.AddToRoleAsync(user, model.Role);
 
             TempData.AddSuccessMessage($"User {user.UserName} successfully added to {model.Role} role.");
-            
-            
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -125,15 +131,21 @@
                 await userManager.CreateAsync(user, model.Password);
 
                 TempData.AddSuccessMessage($"User {user.UserName} successfully created");
+
                 return RedirectToAction(nameof(Index));
             }
            
             return View(model);
         }
+
         
-        public IActionResult Remove(string id)
+        public async Task<IActionResult> Remove(string id)
         {
+            var user = await this.userManager.FindByIdAsync(id);
+
             this.users.Remove(id);
+
+            TempData.AddSuccessMessage($"User {user.UserName} successfully removed");
 
             return RedirectToAction(nameof(Index));
         }

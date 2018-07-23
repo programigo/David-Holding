@@ -27,6 +27,13 @@
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder
+               .Entity<User>()
+               .HasMany(u => u.Messages)
+               .WithOne(m => m.Author)
+               .HasForeignKey(m => m.AuthorId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            builder
                 .Entity<Project>()
                 .HasMany(p => p.Tickets)
                 .WithOne(t => t.Project)
@@ -36,7 +43,8 @@
                 .Entity<Ticket>()
                 .HasOne(t => t.Sender)
                 .WithMany(s => s.Tickets)
-                .HasForeignKey(t => t.SenderId);
+                .HasForeignKey(t => t.SenderId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .Entity<Message>()

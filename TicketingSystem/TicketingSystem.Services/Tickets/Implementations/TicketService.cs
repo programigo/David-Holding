@@ -73,7 +73,7 @@
             .ProjectTo<TicketListingServiceModel>()
             .ToList();
 
-        public bool Edit(int id, TicketType ticketType, TicketState ticketState)
+        public bool Edit(int id, string title, string description, TicketType ticketType, TicketState ticketState)
         {
             var ticket = this.db.Tickets.FirstOrDefault(t => t.Id == id);
 
@@ -82,6 +82,8 @@
                 return false;
             }
 
+            ticket.Title = title;
+            ticket.Description = description;
             ticket.TicketType = ticketType;
             ticket.TicketState = ticketState;
 

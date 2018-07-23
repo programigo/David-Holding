@@ -1,17 +1,17 @@
 ﻿namespace TicketingSystem.Web.Areas.Tickets.Controllers
 {
+    using Data;
+    using Data.Models;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Services.Tickets;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TicketingSystem.Data;
-    using TicketingSystem.Data.Models;
-    using TicketingSystem.Services.Tickets;
-    using TicketingSystem.Web.Areas.Tickets.Models.Messages;
-    using TicketingSystem.Web.Infrastructure.Extensions;
+    using Web.Areas.Tickets.Models.Messages;
+    using Web.Infrastructure.Extensions;
 
     [Area("Tickets")]
     public class MessagesController : Controller

@@ -126,7 +126,7 @@
         [HttpPost]
         public IActionResult Edit(int id, SubmitTicketFormModel model)
         {
-            var updatedTicket = this.tickets.Edit(id, model.TicketType, model.TicketState);
+            var updatedTicket = this.tickets.Edit(id, model.Title, model.Description, model.TicketType, model.TicketState);
 
             if (!updatedTicket)
             {
@@ -149,9 +149,11 @@
 
         public IActionResult Delete(int id)
         {
+            var ticket = tickets.Details(id);
+
             this.tickets.Delete(id);
 
-            TempData.AddSuccessMessage($"Ticket deleted successfully");
+            TempData.AddSuccessMessage($"Ticket {ticket.Title} deleted successfully");
 
             return RedirectToAction(nameof(Index));
         }
