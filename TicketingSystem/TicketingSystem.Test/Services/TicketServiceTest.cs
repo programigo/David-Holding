@@ -125,6 +125,8 @@
             var ticketTwo = new Ticket
             {
                 Id = 2,
+                Title = "Testing",
+                Description = "Again testing",
                 PostTime = DateTime.Now.AddHours(2),
                 TicketState = TicketState.New,
                 TicketType = TicketType.AssistanceRequest
@@ -137,7 +139,7 @@
             var ticketService = new TicketService(db, userManager);
 
             //Act
-            var isEditedTicket = ticketService.Edit(1, TicketType.BugReport, TicketState.New);
+            var isEditedTicket = ticketService.Edit(1, "Some ticket title", "ticket description", TicketType.BugReport, TicketState.New);
 
             //Assert
             isEditedTicket.Should().Be(true);

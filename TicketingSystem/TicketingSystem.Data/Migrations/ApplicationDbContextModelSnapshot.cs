@@ -313,9 +313,8 @@ namespace TicketingSystem.Data.Migrations
             modelBuilder.Entity("TicketingSystem.Data.Models.Message", b =>
                 {
                     b.HasOne("TicketingSystem.Data.Models.User", "Author")
-                        .WithMany("Messages")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("TicketingSystem.Data.Models.Ticket", "Ticket")
                         .WithMany("Messages")
