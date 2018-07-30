@@ -1,13 +1,14 @@
-﻿namespace TicketingSystem.Test.Services
-{
-    using Data.Models;
-    using FluentAssertions;
-    using System;
-    using System.Linq;
-    using TicketingSystem.Services.Tickets.Implementations;
-    using TicketingSystem.Test.Mocks;
-    using Xunit;
+﻿using FluentAssertions;
+using System;
+using System.Linq;
+using TicketingSystem.Common.Enums;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Implementations;
+using TicketingSystem.Test.Mocks;
+using Xunit;
 
+namespace TicketingSystem.Test.Services
+{
     public class TicketServiceTest
     {
         [Fact]

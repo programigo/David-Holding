@@ -1,11 +1,11 @@
-﻿namespace TicketingSystem.Test.Services
-{
-    using FluentAssertions;
-    using Data.Models;
-    using TicketingSystem.Services.Admin.Implementations;
-    using Xunit;
-    using System.Linq;
+﻿using FluentAssertions;
+using System.Linq;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Implementations;
+using Xunit;
 
+namespace TicketingSystem.Test.Services
+{
     public class AdminProjectServiceTest
     {
         [Fact]

@@ -1,20 +1,23 @@
-﻿namespace TicketingSystem.Web.Areas.Tickets.Controllers
-{
-    using Data;
-    using Data.Models;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Services.Admin;
-    using Services.Tickets;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Web.Areas.Tickets.Models.Tickets;
-    using Web.Infrastructure.Extensions;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TicketingSystem.Common.Constants;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Services.Admin;
+using TicketingSystem.Services.Admin.Models;
+using TicketingSystem.Services.Tickets;
+using TicketingSystem.Web.Areas.Tickets.Models.Messages;
+using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
+using TicketingSystem.Web.Infrastructure.Extensions;
 
+namespace TicketingSystem.Web.Areas.Tickets.Controllers
+{
     [Area(WebConstants.TicketsArea)]
     [Authorize(Roles = WebConstants.AdministratorRole + ", " + WebConstants.SuportRole + ", " + WebConstants.ClientRole)]
     public class TicketsController : Controller
@@ -33,20 +36,24 @@
         }
 
         public IActionResult Index(int page = 1)
-        => View(new TicketListingViewModel
         {
-            Tickets = this.tickets.All(page),
-            TotalTickets = this.tickets.Total(),
-            CurrentPage = page
-        });
+            List<TicketViewModel> tickets = this.tickets.All(page)
+                .ProjectTo<TicketViewModel>().ToList();
+
+            return View(new TicketListingViewModel
+               {
+                   Tickets = tickets,
+                   TotalTickets = this.tickets.Total(),
+                   CurrentPage = page
+               });
+        }
+        
 
         public IActionResult Create()
-        {
-            return View(new SubmitTicketFormModel
+        => View(new SubmitTicketFormModel
             {
                 Projects = GetProjects()
             });
-        }
 
         [HttpPost]
         public IActionResult Create(SubmitTicketFormModel model)
@@ -57,7 +64,7 @@
                 return View(model);
             }
 
-            var senderId = this.userManager.GetUserId(User);
+            string senderId = this.userManager.GetUserId(User);
 
             this.tickets.Create(model.Title, model.Description, DateTime.UtcNow, model.TicketType, model.TicketState, senderId, model.ProjectId);
 
@@ -68,7 +75,10 @@
 
         public IActionResult AttachFiles(int id)
         {
-            return View(this.tickets.Details(id));
+            TicketViewModel ticket = this.tickets.Details(id)
+                .ProjectTo<TicketViewModel>().FirstOrDefault();
+
+            return View(ticket);
         }
 
         [HttpPost]
@@ -84,9 +94,9 @@
                     return RedirectToAction(nameof(AttachFiles), new { id });
                 }
 
-                var fileContents = file.ToByteArray();
+                byte[] fileContents = file.ToByteArray();
         
-                var success = this.tickets.SaveFiles(id, fileContents);
+                bool success = this.tickets.SaveFiles(id, fileContents);
         
                 if (!success)
                 {
@@ -101,7 +111,7 @@
 
         public IActionResult DownloadAttached(int id)
         {
-            var ticketFiles = this.tickets.GetAttachedFiles(id);
+            byte[] ticketFiles = this.tickets.GetAttachedFiles(id);
 
             if (ticketFiles == null)
             {
@@ -113,7 +123,8 @@
 
         public IActionResult Edit(int id)
         {
-            var ticket = this.tickets.Details(id);
+            TicketViewModel ticket = this.tickets.Details(id)
+                .ProjectTo<TicketViewModel>().FirstOrDefault();
 
             if (ticket == null)
             {
@@ -126,7 +137,7 @@
         [HttpPost]
         public IActionResult Edit(int id, SubmitTicketFormModel model)
         {
-            var updatedTicket = this.tickets.Edit(id, model.Title, model.Description, model.TicketType, model.TicketState);
+            bool updatedTicket = this.tickets.Edit(id, model.Title, model.Description, model.TicketType, model.TicketState);
 
             if (!updatedTicket)
             {
@@ -140,8 +151,12 @@
 
         public IActionResult Details(int id)
         {
-            var ticket = this.tickets.Details(id);
-            var messages = this.messages.All().Where(m => m.TicketId == id).ToList();
+            TicketViewModel ticket = this.tickets.Details(id)
+                .ProjectTo<TicketViewModel>().FirstOrDefault();
+
+            List<MessageViewModel> messages = this.messages.All().Where(m => m.TicketId == id)
+                .ProjectTo<MessageViewModel>().ToList();
+
             ticket.Messages = messages;
 
             return View(ticket);
@@ -149,7 +164,8 @@
 
         public IActionResult Delete(int id)
         {
-            var ticket = tickets.Details(id);
+            TicketViewModel ticket = this.tickets.Details(id)
+                .ProjectTo<TicketViewModel>().FirstOrDefault();
 
             this.tickets.Delete(id);
 
@@ -160,7 +176,7 @@
 
         private IEnumerable<SelectListItem> GetProjects()
         {
-            var projects = this.projects.DropdownAll();
+            IEnumerable<ProjectListingServiceModel> projects = this.projects.DropdownAll();
 
             var projectListItems = projects
                 .Select(p => new SelectListItem

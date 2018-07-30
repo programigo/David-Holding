@@ -1,9 +1,6 @@
 ﻿namespace TicketingSystem.Services.Admin.Models
 {
-    using Common.Mapping;
-    using Data.Models;
-
-    public class AdminUserPendingServiceModel : IMapFrom<User>
+    public class AdminUserPendingServiceModel
     {
         public string Id { get; set; }
 

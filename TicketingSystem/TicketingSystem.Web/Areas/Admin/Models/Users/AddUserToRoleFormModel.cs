@@ -1,7 +1,7 @@
-﻿namespace TicketingSystem.Web.Areas.Projects.Models.Users
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace TicketingSystem.Web.Areas.Projects.Models.Users
+{
     public class AddUserToRoleFormModel
     {
         [Required]

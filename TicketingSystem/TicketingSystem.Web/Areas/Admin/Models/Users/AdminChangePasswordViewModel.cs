@@ -1,7 +1,7 @@
-﻿namespace TicketingSystem.Web.Areas.Admin.Models.Users
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace TicketingSystem.Web.Areas.Admin.Models.Users
+{
     public class AdminUserChangePasswordViewModel
     {
         [Required]

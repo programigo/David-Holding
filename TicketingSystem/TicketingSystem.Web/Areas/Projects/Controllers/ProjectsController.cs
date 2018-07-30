@@ -1,10 +1,13 @@
-﻿namespace TicketingSystem.Web.Areas.Projects.Controllers
-{
-    using Areas.Projects.Models.Projects;
-    using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Mvc;
-    using Services.Admin;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using TicketingSystem.Services.Admin;
+using TicketingSystem.Web.Areas.Projects.Models.Projects;
+using TicketingSystem.Web.Infrastructure.Extensions;
 
+namespace TicketingSystem.Web.Areas.Projects.Controllers
+{
     [Area("Projects")]
     public class ProjectsController : Controller
     {
@@ -16,13 +19,18 @@
         }
 
         public IActionResult Index(int page = 1)
-        => View(new ProjectListingViewModel
         {
-            Projects = this.projects.All(page),
-            TotalProjects = this.projects.Total(),
-            CurrentPage = page
-        });
+            List<ProjectViewModel> projects = this.projects.All(page)
+                .ProjectTo<ProjectViewModel>().ToList();
 
+            return View(new ProjectListingViewModel
+            {
+                Projects = projects,
+                TotalProjects = this.projects.Total(),
+                CurrentPage = page
+            });
+        }
+        
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -42,12 +50,18 @@
 
         public IActionResult Details(int id)
         {
-            return View(this.projects.Details(id));
+            ProjectViewModel project = this.projects.Details(id)
+                .ProjectTo<ProjectViewModel>()
+                .FirstOrDefault();
+
+            return View(project);
         }
 
         public IActionResult Edit(int id)
         {
-            var project = this.projects.Details(id);
+            ProjectViewModel project = this.projects.Details(id)
+                .ProjectTo<ProjectViewModel>()
+                .FirstOrDefault();
         
             if (project == null)
             {
@@ -60,7 +74,7 @@
         [HttpPost]
         public IActionResult Edit(int id, AddProjectFormModel model)
         {
-            var updatedProject = this.projects.Edit(id, model.Name, model.Description);
+            bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
 
             if (!updatedProject)
             {

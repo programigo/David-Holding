@@ -1,11 +1,12 @@
-﻿namespace TicketingSystem.Test.Services
-{
-    using Data.Models;
-    using FluentAssertions;
-    using System;
-    using TicketingSystem.Services.Tickets.Implementations;
-    using Xunit;
+﻿using FluentAssertions;
+using System;
+using TicketingSystem.Common.Enums;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Implementations;
+using Xunit;
 
+namespace TicketingSystem.Test.Services
+{
     public class MessageServiceTest
     {
         [Fact]

@@ -1,11 +1,12 @@
-﻿namespace TicketingSystem.Test.Services
-{
-    using FluentAssertions;
-    using Data.Models;
-    using TicketingSystem.Services.Admin.Implementations;
-    using Xunit;
-    using System.Linq;
+﻿using FluentAssertions;
+using System.Linq;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Implementations;
+using TicketingSystem.Test.Mocks;
+using Xunit;
 
+namespace TicketingSystem.Test.Services
+{
     public class AdminUserServiceTest
     {
         public AdminUserServiceTest()
@@ -19,13 +20,17 @@
             //Arrange
             var db = Database.GetDatabase();
 
+            var userManager = UserManagerMock.New.Object;
+
+            var roleManager = RoleManagerMock.New.Object;
+
             var user = new User { Id = "1a45gty69", UserName = "Krasi", Name = "Krasimir Angelov", Email = "kisamekz@abv.bg" };
 
             db.Add(user);
 
             db.SaveChanges();
 
-            var adminUserService = new AdminUserService(db);
+            var adminUserService = new AdminUserService(db, userManager, roleManager);
 
             //Act
             adminUserService.Remove("1a45gty69");
@@ -40,6 +45,10 @@
             //Arrange
             var db = Database.GetDatabase();
 
+            var userManager = UserManagerMock.New.Object;
+
+            var roleManager = RoleManagerMock.New.Object;
+
             var userOne = new User { Id = "1a45gty69", UserName = "Krasi", Name = "Krasimir Angelov", Email = "kisamekz@abv.bg" };
             var userTwo = new User { Id = "5thrdf68", UserName = "Miro", Name = "Miro Iliev", Email = "miro@miro.bg" };
 
@@ -47,7 +56,7 @@
 
             db.SaveChanges();
 
-            var adminUserService = new AdminUserService(db);
+            var adminUserService = new AdminUserService(db, userManager, roleManager);
 
             //Act
             var searchedUser = adminUserService.GetUserByName("Krasi");
@@ -62,13 +71,17 @@
             //Arrange
             var db = Database.GetDatabase();
 
+            var userManager = UserManagerMock.New.Object;
+
+            var roleManager = RoleManagerMock.New.Object;
+
             var user = new User { Id = "123", UserName = "Ivan", Name = "Ivan Petrov", Email = "ivan@gmail.com" };
 
             db.Add(user);
 
             db.SaveChanges();
 
-            var adminUserService = new AdminUserService(db);
+            var adminUserService = new AdminUserService(db, userManager, roleManager);
 
             //Act
             var editedUser = adminUserService.ChangeData("123", "Gosho", "gogo@abv.bg");
@@ -83,13 +96,17 @@
             //Arrange
             var db = Database.GetDatabase();
 
+            var userManager = UserManagerMock.New.Object;
+
+            var roleManager = RoleManagerMock.New.Object;
+
             var user = new User { Id = "158", UserName = "Ivan", Name = "Ivan Petrov", Email = "ivan@gmail.com" };
 
             db.Add(user);
 
             db.SaveChanges();
 
-            var adminUserService = new AdminUserService(db);
+            var adminUserService = new AdminUserService(db, userManager, roleManager);
 
             //Act
             bool isApproved = adminUserService.IsApprovedUser("Gosho");

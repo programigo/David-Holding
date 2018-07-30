@@ -1,7 +1,7 @@
-﻿namespace TicketingSystem.Web.Infrastructure.Extensions
-{
-    using System.Security.Claims;
+﻿using System.Security.Claims;
 
+namespace TicketingSystem.Web.Infrastructure.Extensions
+{
     public static class UserIdentityExtensions
     {
         public static string GetUserId(this ClaimsPrincipal user)

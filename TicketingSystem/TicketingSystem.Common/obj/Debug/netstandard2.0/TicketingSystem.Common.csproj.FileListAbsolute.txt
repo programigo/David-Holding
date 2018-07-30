@@ -7,3 +7,12 @@ D:\David-Holding\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0
 D:\David-Holding\TicketingSystem\TicketingSystem.Common\bin\Debug\netstandard2.0\TicketingSystem.Common.pdb
 D:\David-Holding\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.dll
 D:\David-Holding\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.pdb
+D:\TicketingSystem\TicketingSystem.Common\bin\Debug\netstandard2.0\TicketingSystem.Common.deps.json
+D:\TicketingSystem\TicketingSystem.Common\bin\Debug\netstandard2.0\TicketingSystem.Common.dll
+D:\TicketingSystem\TicketingSystem.Common\bin\Debug\netstandard2.0\TicketingSystem.Common.pdb
+D:\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.csprojAssemblyReference.cache
+D:\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.csproj.CoreCompileInputs.cache
+D:\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.AssemblyInfoInputs.cache
+D:\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.AssemblyInfo.cs
+D:\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.dll
+D:\TicketingSystem\TicketingSystem.Common\obj\Debug\netstandard2.0\TicketingSystem.Common.pdb

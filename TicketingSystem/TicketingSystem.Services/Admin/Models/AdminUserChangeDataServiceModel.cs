@@ -1,9 +1,6 @@
 ﻿namespace TicketingSystem.Services.Admin.Models
 {
-    using Common.Mapping;
-    using Data.Models;
-
-    public class AdminUserChangeDataServiceModel : IMapFrom<User>
+    public class AdminUserChangeDataServiceModel
     {
         public string Id { get; set; }
 

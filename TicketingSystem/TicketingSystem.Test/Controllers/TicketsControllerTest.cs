@@ -7,6 +7,9 @@
     using Moq;
     using System;
     using Test.Mocks;
+    using TicketingSystem.Common.Constants;
+    using TicketingSystem.Common.Enums;
+    using TicketingSystem.Implementations;
     using TicketingSystem.Services.Admin;
     using TicketingSystem.Services.Tickets;
     using Web;
@@ -30,7 +33,7 @@
 
             string successMessage = null;
 
-            var userManager = UserManagerMock.New.Object;
+            var userManager = new Mock<UserService>();
 
             var ticketService = new Mock<ITicketService>();
 
@@ -68,7 +71,7 @@
             tempData.SetupSet(t => t[WebConstants.TempDataSuccessMessageKey] = It.IsAny<string>())
                 .Callback((string key, object message) => successMessage = message as string);
 
-            var controller = new TicketsController(userManager, adminProjectService.Object, ticketService.Object, messageService.Object);
+            var controller = new TicketsController(userManager.Object, adminProjectService.Object, ticketService.Object, messageService.Object);
             controller.TempData = tempData.Object;
 
             //Act
@@ -100,7 +103,7 @@
         public void EditShouldReturnNotFoundIfTicketDoesNotExist()
         {
             //Arrange
-            var userManager = UserManagerMock.New;
+            var userManager = new Mock<UserService>();
 
             var ticketService = new Mock<ITicketService>();
 

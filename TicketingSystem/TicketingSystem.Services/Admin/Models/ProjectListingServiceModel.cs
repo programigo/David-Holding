@@ -1,9 +1,9 @@
-﻿namespace TicketingSystem.Services.Admin.Models
-{
-    using Common.Mapping;
-    using Data.Models;
+﻿using TicketingSystem.Common.Mapping;
+using TicketingSystem.Data.Models;
 
-    public class ProjectListingServiceModel : IMapFrom<Project>
+namespace TicketingSystem.Services.Admin.Models
+{
+    public class ProjectListingServiceModel
     {
         public int Id { get; set; }
 

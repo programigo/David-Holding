@@ -1,8 +1,10 @@
-﻿namespace TicketingSystem.Data.Models
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using TicketingSystem.Common.Constants;
+using TicketingSystem.Common.Enums;
 
+namespace TicketingSystem.Data.Models
+{
     public class Message
     {
         public int Id { get; set; }

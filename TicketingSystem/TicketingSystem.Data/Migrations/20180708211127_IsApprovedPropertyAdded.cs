@@ -1,7 +1,7 @@
-﻿namespace TicketingSystem.Data.Migrations
-{
-    using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+namespace TicketingSystem.Data.Migrations
+{
     public partial class IsApprovedPropertyAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

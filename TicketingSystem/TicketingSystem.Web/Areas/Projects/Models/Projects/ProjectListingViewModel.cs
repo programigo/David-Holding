@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using TicketingSystem.Services.Admin.Models;
 
 namespace TicketingSystem.Web.Areas.Projects.Models.Projects
 {
     public class ProjectListingViewModel
     {
-        public IEnumerable<ProjectListingServiceModel> Projects { get; set; }
+        public IEnumerable<ProjectViewModel> Projects { get; set; }
 
         public int TotalProjects { get; set; }
 

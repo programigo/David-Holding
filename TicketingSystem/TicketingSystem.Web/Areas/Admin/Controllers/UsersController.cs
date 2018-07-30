@@ -1,19 +1,19 @@
-﻿namespace TicketingSystem.Web.Areas.Projects.Controllers
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Services.Admin;
+using TicketingSystem.Web.Areas.Admin.Models.Users;
+using TicketingSystem.Web.Areas.Projects.Models.Users;
+using TicketingSystem.Web.Infrastructure.Extensions;
+using TicketingSystem.Web.Models.AccountViewModels;
+
+namespace TicketingSystem.Web.Areas.Projects.Controllers
 {
-    using Admin.Models.Users;
-    using Data.Models;
-    using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Services.Admin;
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using TicketingSystem.Web.Models.AccountViewModels;
-    using Web.Areas.Projects.Models.Users;
-
-
     public class UsersController : BaseAdminController
     {
         private readonly IAdminUserService users;
@@ -29,19 +29,10 @@
 
         public IActionResult Index()
         {
-            var users = this.users.All().Where(
-                u => u.IsApproved == true && 
-                u.Username != WebConstants.AdministratorRole && 
-                u.Id != User.GetUserId());
+            List<AdminUserListingViewModel> users = this.users.GetAllUsers()
+                .ProjectTo<AdminUserListingViewModel>().ToList();
 
-            var roles = this.roleManager
-                .Roles
-                .Select(r => new SelectListItem
-                {
-                    Text = r.Name,
-                    Value = r.Name
-                })
-                .ToList();
+            var roles = this.roleManager.GetRoles();
 
             return View(new UserListingViewModel
             {
@@ -52,10 +43,8 @@
 
         public IActionResult Pending()
         {
-            var users = this.users.All().Where(
-                u => u.IsApproved == false && 
-                u.Username != WebConstants.AdministratorRole && 
-                u.Id != User.GetUserId());
+            List<AdminUserListingViewModel> users = this.users.GetPendingUsers()
+                .ProjectTo<AdminUserListingViewModel>().ToList();
 
             return View(new UserPendingViewModel
             {
@@ -66,11 +55,11 @@
         [HttpPost]
         public async Task<IActionResult> AddToRole(AddUserToRoleFormModel model)
         {
-            var roleExists = await this.roleManager.RoleExistsAsync(model.Role);
-            var user = await this.userManager.FindByIdAsync(model.UserId);
-            var userExists = user != null;
+            bool roleExists = await this.roleManager.RoleExistsAsync(model.Role);
+            User user = await this.userManager.FindByIdAsync(model.UserId);
+            bool userExists = user != null;
 
-            var isAlreadyInRole = this.users.IsAlreadyInRole(user.Id);
+            bool isAlreadyInRole = this.users.IsAlreadyInRole(user.Id);
 
             if (!roleExists || !userExists)
             {
@@ -101,11 +90,12 @@
         
         public async Task<IActionResult> Approve(string id)
         {
-            var user = await this.userManager.FindByIdAsync(id);
+            User user = await this.userManager.FindByIdAsync(id);
 
             this.users.Approve(id);
 
             TempData.AddSuccessMessage($"User {user.UserName} successfully approved.");
+
             return RedirectToAction(nameof(Pending));
         }
 
@@ -119,15 +109,17 @@
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
-                var user = new User
+                User user = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
                     Name = model.Name,
                     IsApproved = true
                 };
+
                 await userManager.CreateAsync(user, model.Password);
 
                 TempData.AddSuccessMessage($"User {user.UserName} successfully created");
@@ -141,7 +133,7 @@
         
         public async Task<IActionResult> Remove(string id)
         {
-            var user = await this.userManager.FindByIdAsync(id);
+            User user = await this.userManager.FindByIdAsync(id);
 
             this.users.Remove(id);
 
@@ -152,7 +144,8 @@
 
         public IActionResult ChangeUserData(string id)
         {
-            var user = this.users.Details(id);
+            UserChangeDataViewModel user = this.users.Details(id)
+                .ProjectTo<UserChangeDataViewModel>().FirstOrDefault();
 
             if (user == null)
             {
@@ -165,29 +158,31 @@
         [HttpPost]
         public IActionResult ChangeUserData(string id, AdminChangeDataViewModel model)
         {
-            var changedUser = this.users.ChangeData(id, model.Name, model.Email);
+            bool changedUser = this.users.ChangeData(id, model.Name, model.Email);
 
             if (!changedUser)
             {
                 return NotFound();
             }
 
-            TempData.AddSuccessMessage($"User data for {model.Username} changed successfuly.");
+            TempData.AddSuccessMessage($"User data for {model.Name} changed successfuly.");
 
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> ChangeUserPassword(string id)
         {
-            var user = this.users.GetUser(id);
+            User user = this.users.GetUser(id)
+                .ProjectTo<User>().FirstOrDefault();
+
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            var hasPassword = await userManager.HasPasswordAsync(user);
+            bool hasPassword = await userManager.HasPasswordAsync(user);
 
-            var model = new AdminUserChangePasswordViewModel();
+            AdminUserChangePasswordViewModel model = new AdminUserChangePasswordViewModel();
 
             return View(model);
         }
@@ -195,9 +190,10 @@
         [HttpPost]
         public async Task<ActionResult> ChangeUserPassword(string id, AdminUserChangePasswordViewModel model)
         {
-            var user = this.users.GetUser(id);
+            User user = this.users.GetUser(id)
+                .ProjectTo<User>().FirstOrDefault();
 
-            var result = await userManager.RemovePasswordAsync(user);
+            IdentityResult result = await userManager.RemovePasswordAsync(user);
 
             if (result.Succeeded)
             {
@@ -208,7 +204,5 @@
 
             return RedirectToAction(nameof(Index));
         }
-
-        public string StatusMessage { get; private set; }
     }
 }

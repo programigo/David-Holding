@@ -1304,13 +1304,28 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1",
+          "TicketingSystem.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/TicketingSystem.Data.dll": {}
         },
         "runtime": {
           "bin/placeholder/TicketingSystem.Data.dll": {}
+        }
+      },
+      "TicketingSystem.DatabaseModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "TicketingSystem.Common": "1.0.0",
+          "TicketingSystem.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TicketingSystem.DatabaseModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TicketingSystem.DatabaseModels.dll": {}
         }
       }
     }
@@ -4584,6 +4599,11 @@
       "type": "project",
       "path": "../TicketingSystem.Data/TicketingSystem.Data.csproj",
       "msbuildProject": "../TicketingSystem.Data/TicketingSystem.Data.csproj"
+    },
+    "TicketingSystem.DatabaseModels/1.0.0": {
+      "type": "project",
+      "path": "../TicketingSystem.DatabaseModels/TicketingSystem.DatabaseModels.csproj",
+      "msbuildProject": "../TicketingSystem.DatabaseModels/TicketingSystem.DatabaseModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4592,7 +4612,7 @@
       "Microsoft.EntityFrameworkCore >= 2.0.1",
       "NETStandard.Library >= 2.0.3",
       "TicketingSystem.Common >= 1.0.0",
-      "TicketingSystem.Data >= 1.0.0"
+      "TicketingSystem.DatabaseModels >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4602,11 +4622,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Services\\TicketingSystem.Services.csproj",
+      "projectUniqueName": "D:\\TicketingSystem\\TicketingSystem.Services\\TicketingSystem.Services.csproj",
       "projectName": "TicketingSystem.Services",
-      "projectPath": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Services\\TicketingSystem.Services.csproj",
+      "projectPath": "D:\\TicketingSystem\\TicketingSystem.Services\\TicketingSystem.Services.csproj",
       "packagesPath": "C:\\Users\\programigo\\.nuget\\packages\\",
-      "outputPath": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Services\\obj\\",
+      "outputPath": "D:\\TicketingSystem\\TicketingSystem.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4625,11 +4645,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj": {
-              "projectPath": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj"
+            "D:\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj": {
+              "projectPath": "D:\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj"
             },
-            "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Data\\TicketingSystem.Data.csproj": {
-              "projectPath": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Data\\TicketingSystem.Data.csproj"
+            "D:\\TicketingSystem\\TicketingSystem.DatabaseModels\\TicketingSystem.DatabaseModels.csproj": {
+              "projectPath": "D:\\TicketingSystem\\TicketingSystem.DatabaseModels\\TicketingSystem.DatabaseModels.csproj"
             }
           }
         }

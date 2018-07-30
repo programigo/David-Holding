@@ -1,17 +1,19 @@
-﻿namespace TicketingSystem.Web.Controllers
-{
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using System;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-    using TicketingSystem.Data.Models;
-    using TicketingSystem.Services.Admin;
-    using TicketingSystem.Web.Models.AccountViewModels;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Services.Admin;
+using TicketingSystem.Web.Models.AccountViewModels;
 
+namespace TicketingSystem.Web.Controllers
+{
     [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
@@ -57,9 +59,9 @@
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var isApprovedUser = _users.IsApprovedUser(model.Username);
+                bool isApprovedUser = _users.IsApprovedUser(model.Username);
 
-                var user = _users.GetUserByName(model.Username);
+                User user = _users.GetUserByName(model.Username).ProjectTo<User>().FirstOrDefault();
 
                 if (user == null)
                 {
@@ -102,7 +104,7 @@
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
 
             if (user == null)
             {
@@ -125,7 +127,7 @@
                 return View(model);
             }
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -158,7 +160,7 @@
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -179,7 +181,7 @@
                 return View(model);
             }
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");

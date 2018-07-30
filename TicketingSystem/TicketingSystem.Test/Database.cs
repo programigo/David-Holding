@@ -1,9 +1,9 @@
-﻿namespace TicketingSystem.Test
-{
-    using Data;
-    using Microsoft.EntityFrameworkCore;
-    using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using TicketingSystem.Data;
 
+namespace TicketingSystem.Test
+{
     public static class Database
     {
         public static TicketingSystemDbContext GetDatabase()

@@ -1,9 +1,9 @@
-﻿namespace TicketingSystem.Data
-{
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
-    using TicketingSystem.Data.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using TicketingSystem.Data.Models;
 
+namespace TicketingSystem.Data
+{
     public class TicketingSystemDbContext : IdentityDbContext<User>
     {
         public TicketingSystemDbContext(DbContextOptions<TicketingSystemDbContext> options)

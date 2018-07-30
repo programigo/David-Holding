@@ -1,12 +1,12 @@
-﻿namespace TicketingSystem.Web.Areas.Tickets.Models.Tickets
-{
-    using Data;
-    using Data.Models;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using TicketingSystem.Common.Constants;
+using TicketingSystem.Common.Enums;
 
+namespace TicketingSystem.Web.Areas.Tickets.Models.Tickets
+{
     public class SubmitTicketFormModel
     {
         public int Id { get; set; }

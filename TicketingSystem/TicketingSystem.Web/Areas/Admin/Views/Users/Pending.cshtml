@@ -20,7 +20,7 @@
             </thead>
             <tbody>
 
-                @foreach (var user in Model.Users)
+                @foreach (var user in Model.Users.Where(u => u.Id != User.GetUserId()))
                 {
                     <tr>
                         <th>@user.Username</th>

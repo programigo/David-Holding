@@ -1,10 +1,10 @@
-﻿namespace TicketingSystem.Web.Infrastructure.Extensions
-{
-    using Microsoft.Extensions.DependencyInjection;
-    using System.Linq;
-    using System.Reflection;
-    using TicketingSystem.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Reflection;
+using TicketingSystem.Services;
 
+namespace TicketingSystem.Web.Infrastructure.Extensions
+{
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddDomainServices(this IServiceCollection services)

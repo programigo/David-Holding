@@ -1,10 +1,9 @@
-﻿namespace TicketingSystem.Web.Areas.Admin.Models.Users
-{
-    using Services.Admin.Models;
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace TicketingSystem.Web.Areas.Admin.Models.Users
+{
     public class UserPendingViewModel
     {
-        public IEnumerable<AdminUserListingServiceModel> Users { get; set; }
+        public IEnumerable<AdminUserListingViewModel> Users { get; set; }
     }
 }

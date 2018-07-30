@@ -1,13 +1,13 @@
-﻿namespace TicketingSystem.Web.Infrastructure.Extensions
-{
-    using Microsoft.AspNetCore.Http;
-    using System.IO;
+﻿using Microsoft.AspNetCore.Http;
+using System.IO;
 
+namespace TicketingSystem.Web.Infrastructure.Extensions
+{
     public static class FormFileExtensions
     {
         public static byte[] ToByteArray(this IFormFile formFile)
         {
-            using (var memoryStream = new MemoryStream())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 formFile.CopyTo(memoryStream);
 

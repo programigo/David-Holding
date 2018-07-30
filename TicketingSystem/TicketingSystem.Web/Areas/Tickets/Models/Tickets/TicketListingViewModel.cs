@@ -1,12 +1,11 @@
-﻿namespace TicketingSystem.Web.Areas.Tickets.Models.Tickets
-{
-    using Services.Tickets.Models;
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace TicketingSystem.Web.Areas.Tickets.Models.Tickets
+{
     public class TicketListingViewModel
     {
-        public IEnumerable<TicketListingServiceModel> Tickets { get; set; }
+        public IEnumerable<TicketViewModel> Tickets { get; set; }
 
         public int TotalTickets { get; set; }
 

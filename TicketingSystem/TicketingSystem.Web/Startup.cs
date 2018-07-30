@@ -1,17 +1,20 @@
-﻿namespace TicketingSystem.Web
-{
-    using AutoMapper;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using TicketingSystem.Data;
-    using TicketingSystem.Data.Models;
-    using TicketingSystem.Web.Infrastructure.Extensions;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using TicketingSystem.Data;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Implementations;
+using TicketingSystem.Services.Admin;
+using TicketingSystem.Services.Tickets;
+using TicketingSystem.Web.Infrastructure.Extensions;
 
+namespace TicketingSystem.Web
+{
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -44,6 +47,11 @@
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
             });
+
+            services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IAdminUserService, AdminUserService>();
+            services.AddScoped<IAdminProjectService, AdminProjectService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

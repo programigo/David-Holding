@@ -1,8 +1,8 @@
-﻿namespace TicketingSystem.Web.Models.AccountViewModels
-{
-    using System.ComponentModel.DataAnnotations;
-    using TicketingSystem.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using TicketingSystem.Common.Constants;
 
+namespace TicketingSystem.Web.Models.AccountViewModels
+{
     public class RegisterViewModel
     {
         [Required]

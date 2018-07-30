@@ -1,8 +1,8 @@
-﻿namespace TicketingSystem.Data.Migrations
-{
-    using Microsoft.EntityFrameworkCore.Metadata;
-    using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
+namespace TicketingSystem.Data.Migrations
+{
     public partial class AttachedFileColumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

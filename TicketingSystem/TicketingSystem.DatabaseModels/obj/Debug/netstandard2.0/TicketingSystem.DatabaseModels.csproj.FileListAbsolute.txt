@@ -1,0 +1,14 @@
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.DatabaseModels.deps.json
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.DatabaseModels.dll
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.DatabaseModels.pdb
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.Common.dll
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.Data.dll
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.Common.pdb
+D:\TicketingSystem\TicketingSystem.DatabaseModels\bin\Debug\netstandard2.0\TicketingSystem.Data.pdb
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.csprojAssemblyReference.cache
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.csproj.CoreCompileInputs.cache
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.AssemblyInfoInputs.cache
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.AssemblyInfo.cs
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.csproj.CopyComplete
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.dll
+D:\TicketingSystem\TicketingSystem.DatabaseModels\obj\Debug\netstandard2.0\TicketingSystem.DatabaseModels.pdb

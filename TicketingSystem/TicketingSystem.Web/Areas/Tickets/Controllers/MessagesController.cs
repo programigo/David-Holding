@@ -1,18 +1,21 @@
-﻿namespace TicketingSystem.Web.Areas.Tickets.Controllers
-{
-    using Data;
-    using Data.Models;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Services.Tickets;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Web.Areas.Tickets.Models.Messages;
-    using Web.Infrastructure.Extensions;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TicketingSystem.Common.Constants;
+using TicketingSystem.Common.Enums;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Services.Tickets;
+using TicketingSystem.Web.Areas.Tickets.Models.Messages;
+using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
+using TicketingSystem.Web.Infrastructure.Extensions;
 
+namespace TicketingSystem.Web.Areas.Tickets.Controllers
+{
     [Area("Tickets")]
     public class MessagesController : Controller
     {
@@ -43,7 +46,7 @@
                 return View(model);
             }
 
-            var authorId = this.userManager.GetUserId(User);
+            string authorId = this.userManager.GetUserId(User);
 
             this.messages.Create(model.Content, DateTime.UtcNow, model.State, model.TicketId, authorId);
         
@@ -54,7 +57,10 @@
 
         public IActionResult AttachFiles(int id)
         {
-            return View(this.messages.Details(id));
+            MessageViewModel message = this.messages.Details(id)
+                .ProjectTo<MessageViewModel>().FirstOrDefault();
+
+            return View(message);
         }
         
         [HttpPost]
@@ -70,9 +76,9 @@
                     return RedirectToAction(nameof(AttachFiles), new { id });
                 }
         
-                var fileContents = file.ToByteArray();
+                byte[] fileContents = file.ToByteArray();
         
-                var success = this.messages.SaveFiles(id, fileContents);
+                bool success = this.messages.SaveFiles(id, fileContents);
         
                 if (!success)
                 {
@@ -87,7 +93,7 @@
         
         public IActionResult DownloadAttached(int id)
         {
-            var messageFiles = this.messages.GetAttachedFiles(id);
+            byte[] messageFiles = this.messages.GetAttachedFiles(id);
         
             if (messageFiles == null)
             {
@@ -99,11 +105,12 @@
 
         private IEnumerable<SelectListItem> GetTickets()
         {
-            var tickets = this.tickets.DropdownAll();
+            List<TicketViewModel> tickets = this.tickets.DropdownAll()
+                .ProjectTo<TicketViewModel>().ToList();
 
             List<SelectListItem> ticketListItems = new List<SelectListItem>();
 
-            var isAuthorized = User.IsInRole("Administrator") || User.IsInRole("Support");
+            bool isAuthorized = User.IsInRole("Administrator") || User.IsInRole("Support");
 
             if (!isAuthorized)
             {

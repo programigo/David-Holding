@@ -1,9 +1,9 @@
-﻿namespace TicketingSystem.Test.Mocks
-{
-    using Data.Models;
-    using Microsoft.AspNetCore.Identity;
-    using Moq;
+﻿using Microsoft.AspNetCore.Identity;
+using Moq;
+using TicketingSystem.Data.Models;
 
+namespace TicketingSystem.Test.Mocks
+{
     public class UserManagerMock
     {
         public static Mock<UserManager<User>> New

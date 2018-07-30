@@ -1,8 +1,8 @@
-﻿namespace TicketingSystem.Web
-{
-    using Microsoft.AspNetCore;
-    using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 
+namespace TicketingSystem.Web
+{
     public class Program
     {
         public static void Main(string[] args)

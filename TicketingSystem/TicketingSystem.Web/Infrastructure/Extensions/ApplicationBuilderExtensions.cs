@@ -1,29 +1,30 @@
-﻿namespace TicketingSystem.Web.Infrastructure.Extensions
-{
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
-    using System.Threading.Tasks;
-    using TicketingSystem.Data;
-    using TicketingSystem.Data.Models;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
+using TicketingSystem.Common.Constants;
+using TicketingSystem.Data;
+using TicketingSystem.Data.Models;
 
+namespace TicketingSystem.Web.Infrastructure.Extensions
+{
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder UseDatabaseMigration(this IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (IServiceScope serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 serviceScope.ServiceProvider.GetService<TicketingSystemDbContext>().Database.Migrate();
 
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                UserManager<User> userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                RoleManager<IdentityRole> roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 
                 Task.Run(async () =>
                 {
-                    var adminName = WebConstants.AdministratorRole;
+                    string adminName = WebConstants.AdministratorRole;
                 
-                    var roles = new[]
+                    string[] roles = new[]
                     {
                         adminName,
                         WebConstants.ClientRole,
@@ -32,7 +33,7 @@
                 
                     foreach (var role in roles)
                     {
-                        var roleExists = await roleManager.RoleExistsAsync(role);
+                        bool roleExists = await roleManager.RoleExistsAsync(role);
                 
                         if (!roleExists)
                         {
@@ -43,9 +44,9 @@
                         }
                     }
                 
-                    var adminEmail = "admin@mysite.com";
+                    string adminEmail = "admin@mysite.com";
                 
-                    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+                    User adminUser = await userManager.FindByEmailAsync(adminEmail);
                 
                     if (adminUser == null)
                     {

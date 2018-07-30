@@ -1,8 +1,8 @@
-﻿namespace TicketingSystem.Test
-{
-    using AutoMapper;
-    using Web.Infrastructure.Mapping;
+﻿using AutoMapper;
+using TicketingSystem.Web.Infrastructure.Mapping;
 
+namespace TicketingSystem.Test
+{
     public class Tests
     {
         private static bool testInitialized = false;

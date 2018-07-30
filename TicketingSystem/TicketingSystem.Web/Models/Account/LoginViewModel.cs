@@ -1,7 +1,7 @@
-﻿namespace TicketingSystem.Web.Models.AccountViewModels
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace TicketingSystem.Web.Models.AccountViewModels
+{
     public class LoginViewModel
     {
         [Required]

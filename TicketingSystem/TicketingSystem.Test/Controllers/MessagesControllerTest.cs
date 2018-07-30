@@ -1,18 +1,18 @@
-﻿namespace TicketingSystem.Test.Controllers
-{
-    using Data.Models;
-    using FluentAssertions;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ViewFeatures;
-    using Moq;
-    using System;
-    using Test.Mocks;
-    using TicketingSystem.Services.Tickets;
-    using Web;
-    using Web.Areas.Tickets.Controllers;
-    using Web.Areas.Tickets.Models.Messages;
-    using Xunit;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Moq;
+using System;
+using TicketingSystem.Common.Constants;
+using TicketingSystem.Common.Enums;
+using TicketingSystem.Implementations;
+using TicketingSystem.Services.Tickets;
+using TicketingSystem.Web.Areas.Tickets.Controllers;
+using TicketingSystem.Web.Areas.Tickets.Models.Messages;
+using Xunit;
 
+namespace TicketingSystem.Test.Controllers
+{
     public class MessagesControllerTest
     {
         [Fact]
@@ -27,7 +27,7 @@
 
             string successMessage = null;
 
-            var userManager = UserManagerMock.New.Object;
+            var userManager = new Mock<UserService>();
 
             var ticketService = new Mock<ITicketService>();
 
@@ -58,7 +58,7 @@
             tempData.SetupSet(t => t[WebConstants.TempDataSuccessMessageKey] = It.IsAny<string>())
                 .Callback((string key, object message) => successMessage = message as string);
 
-            var controller = new MessagesController(messageService.Object, ticketService.Object, userManager);
+            var controller = new MessagesController(messageService.Object, ticketService.Object, userManager.Object);
             controller.TempData = tempData.Object;
 
             //Act

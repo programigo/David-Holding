@@ -1,11 +1,10 @@
-﻿namespace TicketingSystem.Services.Tickets.Models
-{
-    using AutoMapper;
-    using Common.Mapping;
-    using Data.Models;
-    using System;
+﻿using System;
+using TicketingSystem.Common.Enums;
+using TicketingSystem.Data.Models;
 
-    public class MessageListingServiceModel : IMapFrom<Message>, IHaveCustomMapping
+namespace TicketingSystem.Services.Tickets.Models
+{
+    public class MessageListingServiceModel
     {
         public int Id { get; set; }
 
@@ -24,12 +23,5 @@
         public string Content { get; set; }
 
         public byte[] AttachedFiles { get; set; }
-
-        public void ConfigureMapping(Profile autoMapperProfile)
-        => autoMapperProfile
-            .CreateMap<Message, MessageListingServiceModel>()
-            .ForMember(m => m.Author, cfg => cfg.MapFrom(m => m.Author.Name))
-            .ForMember(m => m.Ticket, cfg => cfg.MapFrom(m => m.Ticket))
-            .ForMember(m => m.AttachedFiles, cfg => cfg.MapFrom(m => m.AttachedFiles));
     }
 }

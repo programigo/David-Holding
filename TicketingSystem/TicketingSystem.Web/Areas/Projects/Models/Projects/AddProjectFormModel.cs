@@ -1,8 +1,8 @@
-﻿namespace TicketingSystem.Web.Areas.Projects.Models.Projects
-{
-    using Data;
-    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using TicketingSystem.Common.Constants;
 
+namespace TicketingSystem.Web.Areas.Projects.Models.Projects
+{
     public class AddProjectFormModel
     {
         [Required]

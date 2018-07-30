@@ -8,8 +8,6 @@
 
 <div class="row ticket-listings">
     @await Html.PartialAsync("_TicketsListingPartial", Model.Tickets)
-
-
 </div>
 
 @if (Model.TotalTickets > Model.Tickets.Count())

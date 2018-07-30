@@ -1,8 +1,9 @@
-﻿namespace TicketingSystem.Data.Models
-{
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using TicketingSystem.Common.Constants;
 
+namespace TicketingSystem.Data.Models
+{
     public class Project
     {
         public int Id { get; set; }

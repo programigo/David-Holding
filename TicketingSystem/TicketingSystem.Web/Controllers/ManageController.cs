@@ -1,18 +1,18 @@
-﻿namespace TicketingSystem.Web.Controllers
-{
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using System;
-    using System.Linq;
-    using System.Text;
-    using System.Text.Encodings.Web;
-    using System.Threading.Tasks;
-    using TicketingSystem.Data.Models;
-    using TicketingSystem.Web.Models.ManageViewModels;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using TicketingSystem.Data.Models;
+using TicketingSystem.Web.Models.ManageViewModels;
 
+namespace TicketingSystem.Web.Controllers
+{
     [Authorize]
     [Route("[controller]/[action]")]
     public class ManageController : Controller
