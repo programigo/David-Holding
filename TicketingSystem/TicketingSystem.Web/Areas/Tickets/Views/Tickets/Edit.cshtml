@@ -23,13 +23,13 @@
           
             <div class="form-group">
                 <label asp-for="TicketState"></label>
-                <select asp-for="TicketState" asp-items="Html.GetEnumSelectList<TicketState>()" class="form-control"></select>
+                <select asp-for="TicketState" asp-items="Html.GetEnumSelectList<DATA_ENUMS.TicketState>()" class="form-control"></select>
                 <span asp-validation-for="TicketState" class="text-danger"></span>
             </div>
             
             <div class="form-group">
                 <label asp-for="TicketType"></label>
-                <select asp-for="TicketType" asp-items="Html.GetEnumSelectList<TicketType>()" class="form-control"></select>
+                <select asp-for="TicketType" asp-items="Html.GetEnumSelectList<DATA_ENUMS.TicketType>()" class="form-control"></select>
                 <span asp-validation-for="TicketType" class="text-danger"></span>
             </div>
            

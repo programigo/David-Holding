@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Services.Admin;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Projects.Models.Projects;
 using TicketingSystem.Web.Infrastructure.Extensions;
 

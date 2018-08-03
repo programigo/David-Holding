@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Common.Enums;
 using TicketingSystem.Data;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Tickets;
-using TicketingSystem.Services.Tickets.Models;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using DATA_ENUMS = TicketingSystem.Data.Enums;
+using TicketingSystem.Services;
 
 namespace TicketingSystem.Implementations
 {
@@ -28,8 +26,6 @@ namespace TicketingSystem.Implementations
                 AuthorId = m.AuthorId,
                 Author = m.Author.UserName,
                 TicketId = m.TicketId,
-                Ticket = m.Ticket,
-                State = m.State,
                 Content = m.Content,
                 AttachedFiles = m.AttachedFiles
             })
@@ -37,11 +33,11 @@ namespace TicketingSystem.Implementations
 
         public void Create(string content, DateTime postTime, MessageState state, int ticketId, string authorId)
         {
-            Message message = new Message
+            DATA_MODELS.Message message = new DATA_MODELS.Message
             {
                 Content = content,
                 PostDate = postTime,
-                State = state,
+                State = (DATA_ENUMS.MessageState)Enum.Parse(typeof(DATA_ENUMS.MessageState), state.ToString()),
                 TicketId = ticketId,
                 AuthorId = authorId
             };
@@ -62,8 +58,6 @@ namespace TicketingSystem.Implementations
                 AuthorId = m.AuthorId,
                 Author = m.Author.UserName,
                 TicketId = m.TicketId,
-                Ticket = m.Ticket,
-                State = m.State,
                 Content = m.Content,
                 AttachedFiles = m.AttachedFiles
             })
@@ -83,7 +77,7 @@ namespace TicketingSystem.Implementations
 
         public bool SaveFiles(int messageId, byte[] attachedFiles)
         {
-            Message message = this.db.Find<Message>(messageId);
+            DATA_MODELS.Message message = this.db.Find<DATA_MODELS.Message>(messageId);
 
             if (message == null)
             {

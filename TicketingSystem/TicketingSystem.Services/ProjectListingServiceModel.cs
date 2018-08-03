@@ -1,7 +1,4 @@
-﻿using TicketingSystem.Common.Mapping;
-using TicketingSystem.Data.Models;
-
-namespace TicketingSystem.Services.Admin.Models
+﻿namespace TicketingSystem.Services
 {
     public class ProjectListingServiceModel
     {

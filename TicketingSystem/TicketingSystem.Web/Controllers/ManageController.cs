@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using TicketingSystem.Data.Models;
+using DATA_MODELS = TicketingSystem.Data.Models;
 using TicketingSystem.Web.Models.ManageViewModels;
 
 namespace TicketingSystem.Web.Controllers
@@ -17,8 +17,8 @@ namespace TicketingSystem.Web.Controllers
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<DATA_MODELS.User> _userManager;
+        private readonly SignInManager<DATA_MODELS.User> _signInManager;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
 
@@ -26,8 +26,8 @@ namespace TicketingSystem.Web.Controllers
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
 
         public ManageController(
-          UserManager<User> userManager,
-          SignInManager<User> signInManager,
+          UserManager<DATA_MODELS.User> userManager,
+          SignInManager<DATA_MODELS.User> signInManager,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
@@ -512,7 +512,7 @@ namespace TicketingSystem.Web.Controllers
                 unformattedKey);
         }
 
-        private async Task LoadSharedKeyAndQrCodeUriAsync(User user, EnableAuthenticatorViewModel model)
+        private async Task LoadSharedKeyAndQrCodeUriAsync(DATA_MODELS.User user, EnableAuthenticatorViewModel model)
         {
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
             if (string.IsNullOrEmpty(unformattedKey))

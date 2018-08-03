@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Services.Admin.Models;
 
-namespace TicketingSystem.Services.Admin
+namespace TicketingSystem.Services
 {
     public interface IAdminProjectService
     {

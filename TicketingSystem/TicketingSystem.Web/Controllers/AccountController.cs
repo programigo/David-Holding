@@ -8,8 +8,8 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Admin;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Models.AccountViewModels;
 
 namespace TicketingSystem.Web.Controllers
@@ -18,14 +18,14 @@ namespace TicketingSystem.Web.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<DATA_MODELS.User> _userManager;
+        private readonly SignInManager<DATA_MODELS.User> _signInManager;
         private readonly ILogger _logger;
         private readonly IAdminUserService _users;
 
         public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
+            UserManager<DATA_MODELS.User> userManager,
+            SignInManager<DATA_MODELS.User> signInManager,
             ILogger<AccountController> logger,
             IAdminUserService users)
         {
@@ -61,7 +61,19 @@ namespace TicketingSystem.Web.Controllers
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 bool isApprovedUser = _users.IsApprovedUser(model.Username);
 
-                User user = _users.GetUserByName(model.Username).ProjectTo<User>().FirstOrDefault();
+                //DATA_MODELS.User user = _users.GetUserByName(model.Username).ProjectTo<DATA_MODELS.User>().FirstOrDefault();
+
+                DATA_MODELS.User user = _users
+                    .GetUserByName(model.Username)
+                    .Select(u => new DATA_MODELS.User
+                    {
+                        Id = u.Id,
+                        UserName = u.UserName,
+                        Name = u.Name,
+                        Email = u.Email,
+                        IsApproved = u.IsApproved
+                    })
+                .FirstOrDefault();
 
                 if (user == null)
                 {
@@ -104,7 +116,7 @@ namespace TicketingSystem.Web.Controllers
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
 
             if (user == null)
             {
@@ -127,7 +139,7 @@ namespace TicketingSystem.Web.Controllers
                 return View(model);
             }
 
-            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -160,7 +172,7 @@ namespace TicketingSystem.Web.Controllers
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -181,7 +193,7 @@ namespace TicketingSystem.Web.Controllers
                 return View(model);
             }
 
-            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -232,7 +244,7 @@ namespace TicketingSystem.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User
+                var user = new DATA_MODELS.User
                 {
                     UserName = model.Username,
                     Email = model.Email,
@@ -255,7 +267,7 @@ namespace TicketingSystem.Web.Controllers
                 {
                     AddErrors(result);
                     return RedirectToAction(nameof(AccountController.Login), "Account");
-                } 
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -331,7 +343,7 @@ namespace TicketingSystem.Web.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new DATA_MODELS.User { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

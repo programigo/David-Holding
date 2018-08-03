@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Common.Enums;
-using TicketingSystem.Services.Tickets.Models;
 
-namespace TicketingSystem.Services.Tickets
+namespace TicketingSystem.Services
 {
     public interface ITicketService
     {

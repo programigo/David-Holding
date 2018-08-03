@@ -1,4 +1,4 @@
-﻿namespace TicketingSystem.Common.Enums
+﻿namespace TicketingSystem.Data.Enums
 {
     public enum MessageState
     {

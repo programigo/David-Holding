@@ -1,4 +1,4 @@
-﻿namespace TicketingSystem.Common.Enums
+﻿namespace TicketingSystem.Services
 {
     public enum TicketType
     {

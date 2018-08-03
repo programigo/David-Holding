@@ -1,4 +1,4 @@
-﻿namespace TicketingSystem.Services.Admin.Models
+﻿namespace TicketingSystem.Services
 {
     public class AdminUserChangeDataServiceModel
     {

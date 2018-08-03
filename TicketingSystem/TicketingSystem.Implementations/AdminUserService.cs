@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using TicketingSystem.Common.Constants;
-using TicketingSystem.Data;
-using TicketingSystem.Data.Models;
-using TicketingSystem.DatabaseModels;
-using TicketingSystem.Services.Admin;
-using TicketingSystem.Services.Admin.Models;
+using DATA = TicketingSystem.Data;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using TicketingSystem.Services;
+using System;
 
 namespace TicketingSystem.Implementations
 {
     public class AdminUserService : IAdminUserService
     {
-        private readonly TicketingSystemDbContext db;
-        private readonly UserManager<User> userManager;
+        private readonly DATA.TicketingSystemDbContext db;
+        private readonly UserManager<DATA_MODELS.User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdminUserService(TicketingSystemDbContext db, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminUserService(DATA.TicketingSystemDbContext db, UserManager<DATA_MODELS.User> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.db = db;
             this.userManager = userManager;
@@ -37,7 +36,7 @@ namespace TicketingSystem.Implementations
 
         public void Approve(string id)
         {
-            User user = this.db.Users.Find(id);
+            DATA_MODELS.User user = this.db.Users.Find(id);
 
             if (user == null)
             {
@@ -51,7 +50,7 @@ namespace TicketingSystem.Implementations
 
         public bool ChangeData(string id, string name, string email)
         {
-            User user = this.db.Users.FirstOrDefault(u => u.Id == id);
+            DATA_MODELS.User user = this.db.Users.FirstOrDefault(u => u.Id == id);
 
             if (user == null)
             {
@@ -79,35 +78,76 @@ namespace TicketingSystem.Implementations
             })
             .AsQueryable();
 
-        public IQueryable<UserModel> GetUser(string id)
+        public IQueryable<User> GetUser(string id)
         => this.db
             .Users
             .Where(u => u.Id == id)
-            .Select(u => new UserModel
+            .Select(u => new User
             {
                 Id = u.Id,
                 UserName = u.UserName,
                 Name = u.Name,
                 Email = u.Email,
-                Tickets = u.Tickets,
                 IsApproved = u.IsApproved
             })
             .AsQueryable();
-        
-        public IQueryable<UserModel> GetUserByName(string username)
+
+        public IQueryable<User> GetUserByName(string username)
         => this.db
             .Users
             .Where(u => u.UserName == username)
-            .Select(u => new UserModel
+            .Select(u => new User
             {
                 Id = u.Id,
                 UserName = u.UserName,
                 Name = u.Name,
                 Email = u.Email,
-                Tickets = u.Tickets,
                 IsApproved = u.IsApproved
             })
             .AsQueryable();
+
+        private List<Ticket> GetUserTickets(string id)
+        => this.db
+            .Tickets
+            .Where(t => t.SenderId == id)
+            .Select(t => new Ticket
+            {
+                Id = t.Id,
+                PostTime = t.PostTime,
+                ProjectId = t.ProjectId,
+                SenderId = t.SenderId,
+                TicketType = (TicketType)Enum.Parse(typeof(TicketType), t.TicketType.ToString()),
+                TicketState = (TicketState)Enum.Parse(typeof(TicketState), t.TicketState.ToString()),
+                Title = t.Title,
+                Description = t.Description,
+                AttachedFiles = t.AttachedFiles
+            })
+            .ToList();
+
+        private User GetSender(string id)
+        => this.db
+                .Users
+                .Where(u => u.Id == id)
+                .Select(u => new User
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Name = u.Name,
+                    Email = u.Email,
+                    IsApproved = u.IsApproved
+                })
+                .FirstOrDefault();
+
+        private Project GetProject(int id)
+        => this.db
+                .Projects
+                .Where(p => p.Id == id)
+                .Select(p => new Project
+                {
+                    Name = p.Name,
+                    Description = p.Description
+                })
+                .FirstOrDefault();
 
         public IQueryable<AdminUserListingServiceModel> GetAllUsers()
           => this.All()
@@ -142,7 +182,7 @@ namespace TicketingSystem.Implementations
 
         public bool IsApprovedUser(string username)
         {
-            User user = this.db.Users.FirstOrDefault(u => u.UserName == username);
+            DATA_MODELS.User user = this.db.Users.FirstOrDefault(u => u.UserName == username);
 
             if (user == null)
             {
@@ -154,7 +194,7 @@ namespace TicketingSystem.Implementations
 
         public void Remove(string id)
         {
-            User user = this.db.Users.Find(id);
+            DATA_MODELS.User user = this.db.Users.Find(id);
 
             if (user == null)
             {

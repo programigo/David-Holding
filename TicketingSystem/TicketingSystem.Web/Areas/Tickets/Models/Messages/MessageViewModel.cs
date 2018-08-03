@@ -1,5 +1,5 @@
 ﻿using System;
-using TicketingSystem.Common.Enums;
+using TicketingSystem.Data.Enums;
 using TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web.Areas.Tickets.Models.Messages

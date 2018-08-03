@@ -5,11 +5,6 @@ D:\David-Holding\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2
 D:\David-Holding\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2.0\TicketingSystem.Services.AssemblyInfoInputs.cache
 D:\David-Holding\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2.0\TicketingSystem.Services.AssemblyInfo.cs
 D:\David-Holding\TicketingSystem\TicketingSystem.Services\bin\Debug\netstandard2.0\TicketingSystem.Services.pdb
-D:\David-Holding\TicketingSystem\TicketingSystem.Services\bin\Debug\netstandard2.0\TicketingSystem.Common.dll
-D:\David-Holding\TicketingSystem\TicketingSystem.Services\bin\Debug\netstandard2.0\TicketingSystem.Data.dll
-D:\David-Holding\TicketingSystem\TicketingSystem.Services\bin\Debug\netstandard2.0\TicketingSystem.Common.pdb
-D:\David-Holding\TicketingSystem\TicketingSystem.Services\bin\Debug\netstandard2.0\TicketingSystem.Data.pdb
-D:\David-Holding\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2.0\TicketingSystem.Services.csproj.CopyComplete
 D:\David-Holding\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2.0\TicketingSystem.Services.dll
 D:\David-Holding\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2.0\TicketingSystem.Services.pdb
 D:\TicketingSystem\TicketingSystem.Services\obj\Debug\netstandard2.0\TicketingSystem.Services.csprojAssemblyReference.cache

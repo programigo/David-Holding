@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Admin;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Admin.Models.Users;
 using TicketingSystem.Web.Areas.Projects.Models.Users;
 using TicketingSystem.Web.Infrastructure.Extensions;
@@ -17,10 +17,10 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
     public class UsersController : BaseAdminController
     {
         private readonly IAdminUserService users;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<DATA_MODELS.User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public UsersController(IAdminUserService users, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(IAdminUserService users, UserManager<DATA_MODELS.User> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.users = users;
             this.userManager = userManager;
@@ -56,7 +56,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         public async Task<IActionResult> AddToRole(AddUserToRoleFormModel model)
         {
             bool roleExists = await this.roleManager.RoleExistsAsync(model.Role);
-            User user = await this.userManager.FindByIdAsync(model.UserId);
+            DATA_MODELS.User user = await this.userManager.FindByIdAsync(model.UserId);
             bool userExists = user != null;
 
             bool isAlreadyInRole = this.users.IsAlreadyInRole(user.Id);
@@ -90,7 +90,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         
         public async Task<IActionResult> Approve(string id)
         {
-            User user = await this.userManager.FindByIdAsync(id);
+            DATA_MODELS.User user = await this.userManager.FindByIdAsync(id);
 
             this.users.Approve(id);
 
@@ -112,7 +112,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = new User
+                DATA_MODELS.User user = new DATA_MODELS.User
                 {
                     UserName = model.Username,
                     Email = model.Email,
@@ -133,7 +133,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         
         public async Task<IActionResult> Remove(string id)
         {
-            User user = await this.userManager.FindByIdAsync(id);
+            DATA_MODELS.User user = await this.userManager.FindByIdAsync(id);
 
             this.users.Remove(id);
 
@@ -172,8 +172,16 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
 
         public async Task<IActionResult> ChangeUserPassword(string id)
         {
-            User user = this.users.GetUser(id)
-                .ProjectTo<User>().FirstOrDefault();
+            DATA_MODELS.User user = this.users.GetUser(id)
+                .Select(u => new DATA_MODELS.User
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Name = u.Name,
+                    Email = u.Email,
+                    IsApproved = u.IsApproved
+                })
+                .FirstOrDefault();
 
             if (user == null)
             {
@@ -190,8 +198,16 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangeUserPassword(string id, AdminUserChangePasswordViewModel model)
         {
-            User user = this.users.GetUser(id)
-                .ProjectTo<User>().FirstOrDefault();
+            DATA_MODELS.User user = this.users.GetUser(id)
+               .Select(u => new DATA_MODELS.User
+               {
+                   Id = u.Id,
+                   UserName = u.UserName,
+                   Name = u.Name,
+                   Email = u.Email,
+                   IsApproved = u.IsApproved
+               })
+               .FirstOrDefault();
 
             IdentityResult result = await userManager.RemovePasswordAsync(user);
 

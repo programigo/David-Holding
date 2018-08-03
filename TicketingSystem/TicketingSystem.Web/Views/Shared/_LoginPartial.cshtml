@@ -1,8 +1,8 @@
 @using Microsoft.AspNetCore.Identity
 @using TicketingSystem.Web.Models
 
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+@inject SignInManager<DATA_MODELS.User> SignInManager
+@inject UserManager<DATA_MODELS.User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

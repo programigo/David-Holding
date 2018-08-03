@@ -7,7 +7,6 @@ namespace TicketingSystem.Web.Models.ManageViewModels
     {
         public string Username { get; set; }
 
-        [Required]
         [MinLength(DataConstants.UserNameMinLength)]
         [MaxLength(DataConstants.UserNameMaxLength)]
         public string Name { get; set; }

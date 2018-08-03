@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Data;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Admin;
-using TicketingSystem.Services.Admin.Models;
+using DATA = TicketingSystem.Data;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using TicketingSystem.Services;
 
 namespace TicketingSystem.Implementations
 {
     public class AdminProjectService : IAdminProjectService
     {
-        private readonly TicketingSystemDbContext db;
+        private readonly DATA.TicketingSystemDbContext db;
 
-        public AdminProjectService(TicketingSystemDbContext db)
+        public AdminProjectService(DATA.TicketingSystemDbContext db)
         {
             this.db = db;
         }
@@ -31,7 +30,7 @@ namespace TicketingSystem.Implementations
 
         public void Create(string name, string description)
         {
-            Project project = new Project
+            DATA_MODELS.Project project = new DATA_MODELS.Project
             {
                 Name = name,
                 Description = description
@@ -43,7 +42,7 @@ namespace TicketingSystem.Implementations
 
         public void Delete(int id)
         {
-            Project project = this.db.Projects.Find(id);
+            DATA_MODELS.Project project = this.db.Projects.Find(id);
 
             if (project == null)
             {
@@ -80,7 +79,7 @@ namespace TicketingSystem.Implementations
 
         public bool Edit(int id, string name, string description)
         {
-            Project project = this.db.Projects.FirstOrDefault(p => p.Id == id);
+            DATA_MODELS.Project project = this.db.Projects.FirstOrDefault(p => p.Id == id);
 
             if (project == null)
             {

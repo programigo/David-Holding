@@ -2940,11 +2940,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj",
+      "projectUniqueName": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj",
       "projectName": "TicketingSystem.Common",
-      "projectPath": "D:\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj",
+      "projectPath": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Common\\TicketingSystem.Common.csproj",
       "packagesPath": "C:\\Users\\programigo\\.nuget\\packages\\",
-      "outputPath": "D:\\TicketingSystem\\TicketingSystem.Common\\obj\\",
+      "outputPath": "D:\\David-Holding\\TicketingSystem\\TicketingSystem.Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.DatabaseModels;
-using TicketingSystem.Services.Admin.Models;
 
-namespace TicketingSystem.Services.Admin
+namespace TicketingSystem.Services
 {
     public interface IAdminUserService
     {
@@ -15,9 +13,9 @@ namespace TicketingSystem.Services.Admin
 
         IQueryable<AdminUserChangeDataServiceModel> Details(string id);
 
-        IQueryable<UserModel> GetUser(string id);
+        IQueryable<User> GetUser(string id);
         
-        IQueryable<UserModel> GetUserByName(string username);
+        IQueryable<User> GetUserByName(string username);
 
         void Approve(string id);
 

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using TicketingSystem.Common.Enums;
-using TicketingSystem.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace TicketingSystem.Services.Tickets.Models
+namespace TicketingSystem.Services
 {
-    public class TicketListingServiceModel
+    public class Ticket
     {
         public int Id { get; set; }
 
@@ -15,20 +14,26 @@ namespace TicketingSystem.Services.Tickets.Models
 
         public Project Project { get; set; }
 
-        public string Sender { get; set; }
-
         public string SenderId { get; set; }
+
+        public User Sender { get; set; }
 
         public TicketType TicketType { get; set; }
 
         public TicketState TicketState { get; set; }
-      
+
+        [Required]
+        [MinLength(ServicesDataConstants.TicketTitleMinLength)]
+        [MaxLength(ServicesDataConstants.TicketTitleMaxLength)]
         public string Title { get; set; }
 
+        [Required]
+        [MinLength(ServicesDataConstants.TicketDescriptionMinLength)]
         public string Description { get; set; }
 
+        [MaxLength(ServicesDataConstants.AttachedFileLength)]
         public byte[] AttachedFiles { get; set; }
 
-        public List<MessageListingServiceModel> Messages { get; set; } = new List<MessageListingServiceModel>();
+        public List<Message> Messages { get; set; } = new List<Message>();
     }
 }

@@ -40,3 +40,5 @@ D:\TicketingSystem\TicketingSystem.Web\bin\Debug\netcoreapp2.0\TicketingSystem.I
 D:\TicketingSystem\TicketingSystem.Web\bin\Debug\netcoreapp2.0\TicketingSystem.Implementations.pdb
 D:\TicketingSystem\TicketingSystem.Web\bin\Debug\netcoreapp2.0\TicketingSystem.DatabaseModels.dll
 D:\TicketingSystem\TicketingSystem.Web\bin\Debug\netcoreapp2.0\TicketingSystem.DatabaseModels.pdb
+D:\David-Holding\TicketingSystem\TicketingSystem.Web\bin\Debug\netcoreapp2.0\TicketingSystem.Implementations.dll
+D:\David-Holding\TicketingSystem\TicketingSystem.Web\bin\Debug\netcoreapp2.0\TicketingSystem.Implementations.pdb

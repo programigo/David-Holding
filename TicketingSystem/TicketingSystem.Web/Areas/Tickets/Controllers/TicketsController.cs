@@ -1,5 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TicketingSystem.Common.Constants;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Admin;
-using TicketingSystem.Services.Admin.Models;
-using TicketingSystem.Services.Tickets;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
 using TicketingSystem.Web.Infrastructure.Extensions;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using DATA_ENUMS = TicketingSystem.Data.Enums;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers
 {
@@ -22,12 +20,12 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
     [Authorize(Roles = WebConstants.AdministratorRole + ", " + WebConstants.SuportRole + ", " + WebConstants.ClientRole)]
     public class TicketsController : Controller
     {
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<DATA_MODELS.User> userManager;
         private readonly IAdminProjectService projects;
         private readonly ITicketService tickets;
         private readonly IMessageService messages;
 
-        public TicketsController(UserManager<User> userManager, IAdminProjectService projects, ITicketService tickets, IMessageService messages)
+        public TicketsController(UserManager<DATA_MODELS.User> userManager, IAdminProjectService projects, ITicketService tickets, IMessageService messages)
         {
             this.userManager = userManager;
             this.projects = projects;
@@ -38,7 +36,20 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         public IActionResult Index(int page = 1)
         {
             List<TicketViewModel> tickets = this.tickets.All(page)
-                .ProjectTo<TicketViewModel>().ToList();
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    PostTime = t.PostTime,
+                    ProjectId = t.ProjectId,
+                    Project = t.Project,
+                    Sender = t.Sender,
+                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .ToList();
 
             return View(new TicketListingViewModel
                {
@@ -66,7 +77,11 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
 
             string senderId = this.userManager.GetUserId(User);
 
-            this.tickets.Create(model.Title, model.Description, DateTime.UtcNow, model.TicketType, model.TicketState, senderId, model.ProjectId);
+            TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
+
+            TicketState ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
+
+            this.tickets.Create(model.Title, model.Description, DateTime.UtcNow, ticketType, ticketState, senderId, model.ProjectId);
 
             TempData.AddSuccessMessage($"Ticket {model.Title} successfully sended.");
 
@@ -76,7 +91,19 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         public IActionResult AttachFiles(int id)
         {
             TicketViewModel ticket = this.tickets.Details(id)
-                .ProjectTo<TicketViewModel>().FirstOrDefault();
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    PostTime = t.PostTime,
+                    Project = t.Project,
+                    Sender = t.Sender,
+                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .FirstOrDefault();
 
             return View(ticket);
         }
@@ -124,7 +151,19 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         public IActionResult Edit(int id)
         {
             TicketViewModel ticket = this.tickets.Details(id)
-                .ProjectTo<TicketViewModel>().FirstOrDefault();
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    PostTime = t.PostTime,
+                    Project = t.Project,
+                    Sender = t.Sender,
+                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .FirstOrDefault();
 
             if (ticket == null)
             {
@@ -137,7 +176,11 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         [HttpPost]
         public IActionResult Edit(int id, SubmitTicketFormModel model)
         {
-            bool updatedTicket = this.tickets.Edit(id, model.Title, model.Description, model.TicketType, model.TicketState);
+            TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
+
+            TicketState ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
+
+            bool updatedTicket = this.tickets.Edit(id, model.Title, model.Description, ticketType, ticketState);
 
             if (!updatedTicket)
             {
@@ -152,10 +195,31 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         public IActionResult Details(int id)
         {
             TicketViewModel ticket = this.tickets.Details(id)
-                .ProjectTo<TicketViewModel>().FirstOrDefault();
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    PostTime = t.PostTime,
+                    Project = t.Project,
+                    Sender = t.Sender,
+                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .FirstOrDefault();
 
-            List<MessageViewModel> messages = this.messages.All().Where(m => m.TicketId == id)
-                .ProjectTo<MessageViewModel>().ToList();
+            List<MessageViewModel> messages = this.messages.All()
+                .Where(m => m.TicketId == id)
+                .Select(m => new MessageViewModel
+                {
+                    Id = m.Id,
+                    PostDate = m.PostDate,
+                    Author = m.Author,
+                    Content = m.Content,
+                    AttachedFiles = m.AttachedFiles
+                })
+                .ToList();
 
             ticket.Messages = messages;
 
@@ -165,7 +229,19 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         public IActionResult Delete(int id)
         {
             TicketViewModel ticket = this.tickets.Details(id)
-                .ProjectTo<TicketViewModel>().FirstOrDefault();
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    PostTime = t.PostTime,
+                    Project = t.Project,
+                    Sender = t.Sender,
+                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .FirstOrDefault();
 
             this.tickets.Delete(id);
 

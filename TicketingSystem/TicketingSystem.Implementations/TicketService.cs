@@ -1,21 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Common.Enums;
-using TicketingSystem.Data;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Tickets;
-using TicketingSystem.Services.Tickets.Models;
+using TicketingSystem.Services;
+using DATA = TicketingSystem.Data;
+using DATA_MODELS = TicketingSystem.Data.Models;
+using DATA_ENUMS = TicketingSystem.Data.Enums;
 
 namespace TicketingSystem.Implementations
 {
     public class TicketService : ITicketService
     {
-        private readonly TicketingSystemDbContext db;
-        private readonly UserManager<User> userManager;
+        private readonly DATA.TicketingSystemDbContext db;
+        private readonly UserManager<DATA_MODELS.User> userManager;
 
-        public TicketService(TicketingSystemDbContext db, UserManager<User> userManager)
+        public TicketService(DATA.TicketingSystemDbContext db, UserManager<DATA_MODELS.User> userManager)
         {
             this.db = db;
             this.userManager = userManager;
@@ -31,38 +29,28 @@ namespace TicketingSystem.Implementations
                 Id = t.Id,
                 PostTime = t.PostTime,
                 ProjectId = t.ProjectId,
-                Project = t.Project,
+                Project = t.Project.Name,
                 SenderId = t.SenderId,
                 Sender = t.Sender.UserName,
-                TicketType = t.TicketType,
-                TicketState = t.TicketState,
+                TicketType = (TicketType)Enum.Parse(typeof(TicketType), t.TicketType.ToString()),
+                TicketState = (TicketState)Enum.Parse(typeof(TicketState), t.TicketState.ToString()),
                 Title = t.Title,
                 Description = t.Description,
-                AttachedFiles = t.AttachedFiles,
-                Messages = t.Messages.Select(m => new MessageListingServiceModel
-                {
-                    Id = m.Id,
-                    PostDate = m.PostDate,
-                    AuthorId = m.AuthorId,
-                    Author = m.Author.UserName,
-                    TicketId = m.TicketId,
-                    Ticket = m.Ticket,
-                    State = m.State,
-                    Content = m.Content,
-                    AttachedFiles = m.AttachedFiles
-                }).ToList()
+                AttachedFiles = t.AttachedFiles
             })
             .AsQueryable();
+
         
+
         public void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState ticketState, string senderId, int projectId)
         {
-            Ticket ticket = new Ticket
+            DATA_MODELS.Ticket ticket = new DATA_MODELS.Ticket
             {
                 Title = title,
                 Description = description,
                 PostTime = postTime,
-                TicketType = ticketType,
-                TicketState = ticketState,
+                TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), ticketType.ToString()),
+                TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), ticketState.ToString()),
                 SenderId = senderId,
                 ProjectId = projectId
             };
@@ -74,7 +62,7 @@ namespace TicketingSystem.Implementations
 
         public void Delete(int id)
         {
-            Ticket ticket = this.db.Tickets.Find(id);
+            DATA_MODELS.Ticket ticket = this.db.Tickets.Find(id);
 
             if (ticket == null)
             {
@@ -95,11 +83,11 @@ namespace TicketingSystem.Implementations
                 Id = t.Id,
                 PostTime = t.PostTime,
                 ProjectId = t.ProjectId,
-                Project = t.Project,
+                Project = t.Project.Name,
                 SenderId = t.SenderId,
                 Sender = t.Sender.UserName,
-                TicketType = t.TicketType,
-                TicketState = t.TicketState,
+                TicketType = (TicketType)Enum.Parse(typeof(TicketType), t.TicketType.ToString()),
+                TicketState = (TicketState)Enum.Parse(typeof(TicketState), t.TicketState.ToString()),
                 Title = t.Title,
                 Description = t.Description,
                 AttachedFiles = t.AttachedFiles,
@@ -110,8 +98,7 @@ namespace TicketingSystem.Implementations
                     AuthorId = m.AuthorId,
                     Author = m.Author.UserName,
                     TicketId = m.TicketId,
-                    Ticket = m.Ticket,
-                    State = m.State,
+                    State = (MessageState)Enum.Parse(typeof(MessageState), m.State.ToString()),
                     Content = m.Content,
                     AttachedFiles = m.AttachedFiles
                 }).ToList()
@@ -126,32 +113,20 @@ namespace TicketingSystem.Implementations
                 Id = t.Id,
                 PostTime = t.PostTime,
                 ProjectId = t.ProjectId,
-                Project = t.Project,
+                Project = t.Project.Name,
                 SenderId = t.SenderId,
                 Sender = t.Sender.UserName,
-                TicketType = t.TicketType,
-                TicketState = t.TicketState,
+                TicketType = (TicketType)Enum.Parse(typeof(TicketType), t.TicketType.ToString()),
+                TicketState = (TicketState)Enum.Parse(typeof(TicketState), t.TicketState.ToString()),
                 Title = t.Title,
                 Description = t.Description,
-                AttachedFiles = t.AttachedFiles,
-                Messages = t.Messages.Select(m => new MessageListingServiceModel
-                {
-                    Id = m.Id,
-                    PostDate = m.PostDate,
-                    AuthorId = m.AuthorId,
-                    Author = m.Author.UserName,
-                    TicketId = m.TicketId,
-                    Ticket = m.Ticket,
-                    State = m.State,
-                    Content = m.Content,
-                    AttachedFiles = m.AttachedFiles
-                }).ToList()
+                AttachedFiles = t.AttachedFiles
             })
             .AsQueryable();
 
         public bool Edit(int id, string title, string description, TicketType ticketType, TicketState ticketState)
         {
-            Ticket ticket = this.db.Tickets.FirstOrDefault(t => t.Id == id);
+            DATA_MODELS.Ticket ticket = this.db.Tickets.FirstOrDefault(t => t.Id == id);
 
             if (ticket == null)
             {
@@ -160,8 +135,8 @@ namespace TicketingSystem.Implementations
 
             ticket.Title = title;
             ticket.Description = description;
-            ticket.TicketType = ticketType;
-            ticket.TicketState = ticketState;
+            ticket.TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), ticketType.ToString());
+            ticket.TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), ticketState.ToString());
 
             this.db.SaveChanges();
 
@@ -170,7 +145,7 @@ namespace TicketingSystem.Implementations
 
         public byte[] GetAttachedFiles(int ticketId)
         {
-            Ticket ticket = this.db.Find<Ticket>(ticketId);
+            DATA_MODELS.Ticket ticket = this.db.Find<DATA_MODELS.Ticket>(ticketId);
 
             if (ticket == null)
             {
@@ -182,7 +157,7 @@ namespace TicketingSystem.Implementations
 
         public bool SaveFiles(int ticketId, byte[] attachedFiles)
         {
-            Ticket ticket = this.db.Find<Ticket>(ticketId);
+            DATA_MODELS.Ticket ticket = this.db.Find<DATA_MODELS.Ticket>(ticketId);
 
             if (ticket == null)
             {
@@ -197,5 +172,29 @@ namespace TicketingSystem.Implementations
         }
 
         public int Total() => this.db.Tickets.Count();
+
+        public Project GetProject(int id)
+        => this.db
+                .Projects
+                .Where(p => p.Id == id)
+                .Select(p => new Project
+                {
+                    Name = p.Name,
+                    Description = p.Description
+                })
+                .FirstOrDefault();
+
+        private Ticket GetMessageTicket(int id)
+        => this.db
+                .Messages
+                .Where(m => m.Id == id)
+                .Select(m => m.Ticket)
+                .Select(t => new Ticket
+                {
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .FirstOrDefault();
     }
 }

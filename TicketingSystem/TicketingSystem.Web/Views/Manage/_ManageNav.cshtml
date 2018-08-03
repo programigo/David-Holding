@@ -1,5 +1,5 @@
 ﻿@using TicketingSystem.Web.Views.Manage
-@inject SignInManager<User> SignInManager
+@inject SignInManager<DATA_MODELS.User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

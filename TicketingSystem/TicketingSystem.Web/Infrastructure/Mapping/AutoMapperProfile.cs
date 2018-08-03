@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Data.Models;
-using TicketingSystem.DatabaseModels;
 
 namespace TicketingSystem.Web.Infrastructure.Mapping
 {
@@ -40,8 +38,6 @@ namespace TicketingSystem.Web.Infrastructure.Mapping
                 })
                 .ToList()
                 .ForEach(mapping => this.CreateMap(mapping.Source, mapping.Destination));
-
-            this.CreateMap<User, UserModel>();
 
             allTypes
                 .Where(t => t.IsClass

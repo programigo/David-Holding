@@ -1,5 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TicketingSystem.Common.Constants;
-using TicketingSystem.Common.Enums;
-using TicketingSystem.Data.Models;
-using TicketingSystem.Services.Tickets;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
 using TicketingSystem.Web.Infrastructure.Extensions;
+using DATA_ENUMS = TicketingSystem.Data.Enums;
+using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers
 {
@@ -21,9 +20,9 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
     {
         private readonly IMessageService messages;
         private readonly ITicketService tickets;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<DATA_MODELS.User> userManager;
 
-        public MessagesController(IMessageService messages, ITicketService tickets, UserManager<User> userManager)
+        public MessagesController(IMessageService messages, ITicketService tickets, UserManager<DATA_MODELS.User> userManager)
         {
             this.messages = messages;
             this.tickets = tickets;
@@ -48,7 +47,9 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
 
             string authorId = this.userManager.GetUserId(User);
 
-            this.messages.Create(model.Content, DateTime.UtcNow, model.State, model.TicketId, authorId);
+            MessageState messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
+
+            this.messages.Create(model.Content, DateTime.UtcNow, messageState, model.TicketId, authorId);
         
             TempData.AddSuccessMessage("Message created successfully.");
         
@@ -58,7 +59,14 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         public IActionResult AttachFiles(int id)
         {
             MessageViewModel message = this.messages.Details(id)
-                .ProjectTo<MessageViewModel>().FirstOrDefault();
+                .Select(m => new MessageViewModel
+                {
+                    Id = m.Id,
+                    PostDate = m.PostDate,
+                    Author = m.Author,
+                    Content = m.Content
+                })
+                .FirstOrDefault();
 
             return View(message);
         }
@@ -106,7 +114,19 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         private IEnumerable<SelectListItem> GetTickets()
         {
             List<TicketViewModel> tickets = this.tickets.DropdownAll()
-                .ProjectTo<TicketViewModel>().ToList();
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    PostTime = t.PostTime,
+                    Project = t.Project,
+                    Sender = t.Sender,
+                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    Title = t.Title,
+                    Description = t.Description,
+                    AttachedFiles = t.AttachedFiles
+                })
+                .ToList();
 
             List<SelectListItem> ticketListItems = new List<SelectListItem>();
 
@@ -115,7 +135,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             if (!isAuthorized)
             {
                 ticketListItems = tickets
-                .Where(t => t.SenderId == User.GetUserId() && t.TicketState != TicketState.Completed)
+                .Where(t => t.SenderId == User.GetUserId() && t.TicketState != DATA_ENUMS.TicketState.Completed)
                 .Select(t => new SelectListItem
                 {
                     Text = t.Title,
@@ -126,7 +146,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             else
             {
                 ticketListItems = tickets
-                .Where(t => t.TicketState != TicketState.Completed)
+                .Where(t => t.TicketState != DATA_ENUMS.TicketState.Completed)
                 .Select(t => new SelectListItem
                 {
                     Text = t.Title,

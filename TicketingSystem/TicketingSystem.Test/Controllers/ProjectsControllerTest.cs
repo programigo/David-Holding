@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using TicketingSystem.Common.Constants;
-using TicketingSystem.Services.Admin;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Projects.Controllers;
 using TicketingSystem.Web.Areas.Projects.Models.Projects;
 using Xunit;

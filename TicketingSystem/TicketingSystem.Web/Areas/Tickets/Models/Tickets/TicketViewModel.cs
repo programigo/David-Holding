@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TicketingSystem.Common.Enums;
-using TicketingSystem.Data.Models;
+using TicketingSystem.Data.Enums;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 
 namespace TicketingSystem.Web.Areas.Tickets.Models.Tickets
@@ -14,7 +13,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Models.Tickets
 
         public int ProjectId { get; set; }
 
-        public Project Project { get; set; }
+        public string Project { get; set; }
 
         public string Sender { get; set; }
 

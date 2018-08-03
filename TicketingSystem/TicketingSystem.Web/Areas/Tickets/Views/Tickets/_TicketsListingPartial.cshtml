@@ -17,7 +17,7 @@ else
                         <a asp-controller="Tickets" asp-action="Details" asp-route-id="@ticket.Id"><h3>@ticket.Title</h3></a>
 
                         <p>Published on @ticket.PostTime.ToShortDateString() by @ticket.Sender</p>
-                        <p>Project: <p><a asp-area="Projects" asp-controller="Projects" asp-action="Details" asp-route-id="@ticket.Project.Id">@ticket.Project.Name</a></p>
+                        <p>Project: <p><a asp-area="Projects" asp-controller="Projects" asp-action="Details" asp-route-id="@ticket.ProjectId">@ticket.Project</a></p>
                         <p>State: @ticket.TicketState</p>
                         <p>Type: @ticket.TicketType</p>
                         <hr />

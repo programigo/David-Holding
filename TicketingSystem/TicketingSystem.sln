@@ -11,11 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystem.Services", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystem.Common", "TicketingSystem.Common\TicketingSystem.Common.csproj", "{5784F010-D8FD-4460-868D-15089578B86E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystem.Test", "TicketingSystem.Test\TicketingSystem.Test.csproj", "{90353EA5-A510-49C3-907A-75B2A00233EA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystem.Implementations", "TicketingSystem.Implementations\TicketingSystem.Implementations.csproj", "{B909AED1-F600-4B56-9A15-2D414C7C0B2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.DatabaseModels", "TicketingSystem.DatabaseModels\TicketingSystem.DatabaseModels.csproj", "{3931AC35-7AC3-4F04-9F40-3C6C0F0BCC38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +35,10 @@ Global
 		{5784F010-D8FD-4460-868D-15089578B86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5784F010-D8FD-4460-868D-15089578B86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5784F010-D8FD-4460-868D-15089578B86E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90353EA5-A510-49C3-907A-75B2A00233EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90353EA5-A510-49C3-907A-75B2A00233EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90353EA5-A510-49C3-907A-75B2A00233EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90353EA5-A510-49C3-907A-75B2A00233EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B909AED1-F600-4B56-9A15-2D414C7C0B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B909AED1-F600-4B56-9A15-2D414C7C0B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B909AED1-F600-4B56-9A15-2D414C7C0B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B909AED1-F600-4B56-9A15-2D414C7C0B2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3931AC35-7AC3-4F04-9F40-3C6C0F0BCC38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3931AC35-7AC3-4F04-9F40-3C6C0F0BCC38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3931AC35-7AC3-4F04-9F40-3C6C0F0BCC38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3931AC35-7AC3-4F04-9F40-3C6C0F0BCC38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

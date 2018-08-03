@@ -1,10 +1,9 @@
 ﻿using System;
-using TicketingSystem.Common.Enums;
-using TicketingSystem.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace TicketingSystem.Services.Tickets.Models
+namespace TicketingSystem.Services
 {
-    public class MessageListingServiceModel
+    public class Message
     {
         public int Id { get; set; }
 
@@ -12,7 +11,7 @@ namespace TicketingSystem.Services.Tickets.Models
 
         public string AuthorId { get; set; }
 
-        public string Author { get; set; }
+        public User Author { get; set; }
 
         public int TicketId { get; set; }
 
@@ -20,8 +19,11 @@ namespace TicketingSystem.Services.Tickets.Models
 
         public MessageState State { get; set; }
 
+        [Required]
+        [MinLength(ServicesDataConstants.MessageContentMinLength)]
         public string Content { get; set; }
 
+        [MaxLength(ServicesDataConstants.AttachedFileLength)]
         public byte[] AttachedFiles { get; set; }
     }
 }

@@ -7,10 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicketingSystem.Data;
-using TicketingSystem.Data.Models;
+using DATA_MODELS = TicketingSystem.Data.Models;
 using TicketingSystem.Implementations;
-using TicketingSystem.Services.Admin;
-using TicketingSystem.Services.Tickets;
+using TicketingSystem.Services;
 using TicketingSystem.Web.Infrastructure.Extensions;
 
 namespace TicketingSystem.Web
@@ -29,7 +28,7 @@ namespace TicketingSystem.Web
             services.AddDbContext<TicketingSystemDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>(options => 
+            services.AddIdentity<DATA_MODELS.User, IdentityRole>(options => 
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;

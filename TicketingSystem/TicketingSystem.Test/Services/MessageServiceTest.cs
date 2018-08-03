@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using System;
-using TicketingSystem.Common.Enums;
+using TicketingSystem.Data.Enums;
 using TicketingSystem.Data.Models;
 using TicketingSystem.Implementations;
 using Xunit;

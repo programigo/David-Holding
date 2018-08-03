@@ -4117,23 +4117,10 @@
           "TicketingSystem.Data.dll": {}
         }
       },
-      "TicketingSystem.DatabaseModels/1.0.0": {
-        "dependencies": {
-          "TicketingSystem.Common": "1.0.0",
-          "TicketingSystem.Data": "1.0.0"
-        },
-        "runtime": {
-          "TicketingSystem.DatabaseModels.dll": {}
-        },
-        "compile": {
-          "TicketingSystem.DatabaseModels.dll": {}
-        }
-      },
       "TicketingSystem.Implementations/1.0.0": {
         "dependencies": {
           "AutoMapper": "6.2.1",
           "Microsoft.EntityFrameworkCore": "2.0.3",
-          "TicketingSystem.Common": "1.0.0",
           "TicketingSystem.Data": "1.0.0",
           "TicketingSystem.Services": "1.0.0"
         },
@@ -4147,9 +4134,8 @@
       "TicketingSystem.Services/1.0.0": {
         "dependencies": {
           "AutoMapper": "6.2.1",
-          "Microsoft.EntityFrameworkCore": "2.0.3",
-          "TicketingSystem.Common": "1.0.0",
-          "TicketingSystem.DatabaseModels": "1.0.0"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.3",
+          "Microsoft.EntityFrameworkCore": "2.0.3"
         },
         "runtime": {
           "TicketingSystem.Services.dll": {}
@@ -6490,11 +6476,6 @@
       "sha512": ""
     },
     "TicketingSystem.Data/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "TicketingSystem.DatabaseModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

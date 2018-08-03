@@ -19,3 +19,6 @@ D:\TicketingSystem\TicketingSystem.Data\obj\Debug\netstandard2.0\TicketingSystem
 D:\TicketingSystem\TicketingSystem.Data\bin\Debug\netstandard2.0\TicketingSystem.Common.dll
 D:\TicketingSystem\TicketingSystem.Data\bin\Debug\netstandard2.0\TicketingSystem.Common.pdb
 D:\TicketingSystem\TicketingSystem.Data\obj\Debug\netstandard2.0\TicketingSystem.Data.csproj.CopyComplete
+D:\David-Holding\TicketingSystem\TicketingSystem.Data\bin\Debug\netstandard2.0\TicketingSystem.Common.dll
+D:\David-Holding\TicketingSystem\TicketingSystem.Data\bin\Debug\netstandard2.0\TicketingSystem.Common.pdb
+D:\David-Holding\TicketingSystem\TicketingSystem.Data\obj\Debug\netstandard2.0\TicketingSystem.Data.csproj.CopyComplete

@@ -1,6 +1,6 @@
-﻿namespace TicketingSystem.Services.Admin.Models
+﻿namespace TicketingSystem.Services
 {
-    public class AdminUserPendingServiceModel
+    public class AdminUserListingServiceModel
     {
         public string Id { get; set; }
 
