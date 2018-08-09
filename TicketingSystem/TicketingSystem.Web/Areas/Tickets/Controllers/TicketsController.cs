@@ -12,7 +12,7 @@ using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
 using TicketingSystem.Web.Infrastructure.Extensions;
 using DATA_MODELS = TicketingSystem.Data.Models;
-using DATA_ENUMS = TicketingSystem.Data.Enums;
+using WEB_ENUMS = TicketingSystem.Web.Common.Enums;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers
 {
@@ -43,8 +43,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     ProjectId = t.ProjectId,
                     Project = t.Project,
                     Sender = t.Sender,
-                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
                     Description = t.Description,
                     AttachedFiles = t.AttachedFiles
@@ -97,8 +97,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     PostTime = t.PostTime,
                     Project = t.Project,
                     Sender = t.Sender,
-                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
                     Description = t.Description,
                     AttachedFiles = t.AttachedFiles
@@ -157,8 +157,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     PostTime = t.PostTime,
                     Project = t.Project,
                     Sender = t.Sender,
-                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
                     Description = t.Description,
                     AttachedFiles = t.AttachedFiles
@@ -201,8 +201,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     PostTime = t.PostTime,
                     Project = t.Project,
                     Sender = t.Sender,
-                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
                     Description = t.Description,
                     AttachedFiles = t.AttachedFiles
@@ -235,8 +235,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     PostTime = t.PostTime,
                     Project = t.Project,
                     Sender = t.Sender,
-                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
                     Description = t.Description,
                     AttachedFiles = t.AttachedFiles

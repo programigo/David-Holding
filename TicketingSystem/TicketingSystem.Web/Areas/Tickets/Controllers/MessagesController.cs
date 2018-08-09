@@ -10,7 +10,7 @@ using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
 using TicketingSystem.Web.Infrastructure.Extensions;
-using DATA_ENUMS = TicketingSystem.Data.Enums;
+using WEB_ENUMS = TicketingSystem.Web.Common.Enums;
 using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers
@@ -120,8 +120,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     PostTime = t.PostTime,
                     Project = t.Project,
                     Sender = t.Sender,
-                    TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), t.TicketState.ToString()),
+                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
+                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
                     Description = t.Description,
                     AttachedFiles = t.AttachedFiles
@@ -135,7 +135,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             if (!isAuthorized)
             {
                 ticketListItems = tickets
-                .Where(t => t.SenderId == User.GetUserId() && t.TicketState != DATA_ENUMS.TicketState.Completed)
+                .Where(t => t.SenderId == User.GetUserId() && t.TicketState != WEB_ENUMS.TicketState.Completed)
                 .Select(t => new SelectListItem
                 {
                     Text = t.Title,
@@ -146,7 +146,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             else
             {
                 ticketListItems = tickets
-                .Where(t => t.TicketState != DATA_ENUMS.TicketState.Completed)
+                .Where(t => t.TicketState != WEB_ENUMS.TicketState.Completed)
                 .Select(t => new SelectListItem
                 {
                     Text = t.Title,

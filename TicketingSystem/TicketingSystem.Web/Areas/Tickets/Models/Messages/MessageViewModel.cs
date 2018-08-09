@@ -1,6 +1,6 @@
 ﻿using System;
-using TicketingSystem.Data.Enums;
-using TicketingSystem.Data.Models;
+using TicketingSystem.Web.Common.Enums;
+using TicketingSystem.Web.Common.ViewModels;
 
 namespace TicketingSystem.Web.Areas.Tickets.Models.Messages
 {

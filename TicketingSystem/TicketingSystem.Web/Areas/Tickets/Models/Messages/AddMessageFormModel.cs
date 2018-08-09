@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TicketingSystem.Common.Constants;
-using TicketingSystem.Data.Enums;
+using TicketingSystem.Web.Common.Enums;
 
 namespace TicketingSystem.Web.Areas.Tickets.Models.Messages
 {
