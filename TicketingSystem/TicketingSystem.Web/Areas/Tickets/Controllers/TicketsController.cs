@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Common.Constants;
+using TicketingSystem.Data.Constants;
 using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
+using TicketingSystem.Web.Common.Constants;
 using TicketingSystem.Web.Infrastructure.Extensions;
-using DATA_MODELS = TicketingSystem.Data.Models;
 using WEB_ENUMS = TicketingSystem.Web.Common.Enums;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers
@@ -20,12 +19,12 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
     [Authorize(Roles = WebConstants.AdministratorRole + ", " + WebConstants.SuportRole + ", " + WebConstants.ClientRole)]
     public class TicketsController : Controller
     {
-        private readonly UserManager<DATA_MODELS.User> userManager;
+        private readonly IUserService userManager;
         private readonly IAdminProjectService projects;
         private readonly ITicketService tickets;
         private readonly IMessageService messages;
 
-        public TicketsController(UserManager<DATA_MODELS.User> userManager, IAdminProjectService projects, ITicketService tickets, IMessageService messages)
+        public TicketsController(IUserService userManager, IAdminProjectService projects, ITicketService tickets, IMessageService messages)
         {
             this.userManager = userManager;
             this.projects = projects;

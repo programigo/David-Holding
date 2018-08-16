@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TicketingSystem.Common.Constants;
+using TicketingSystem.Data.Constants;
 using TicketingSystem.Data.Enums;
 
 namespace TicketingSystem.Data.Models

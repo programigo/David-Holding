@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using TicketingSystem.Common.Constants;
+using TicketingSystem.Web.Common.Constants;
 using TicketingSystem.Data;
-using TicketingSystem.Data.Models;
+
+using TicketingSystem.Services;
 
 namespace TicketingSystem.Web.Infrastructure.Extensions
 {
@@ -17,8 +18,8 @@ namespace TicketingSystem.Web.Infrastructure.Extensions
             {
                 serviceScope.ServiceProvider.GetService<TicketingSystemDbContext>().Database.Migrate();
 
-                UserManager<User> userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                RoleManager<IdentityRole> roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                IUserService userManager = serviceScope.ServiceProvider.GetService<IUserService>();
+                IRoleService roleManager = serviceScope.ServiceProvider.GetService<IRoleService>();
                 
                 Task.Run(async () =>
                 {

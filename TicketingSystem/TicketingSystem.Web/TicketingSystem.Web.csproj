@@ -57,7 +57,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TicketingSystem.Common\TicketingSystem.Common.csproj" />
     <ProjectReference Include="..\TicketingSystem.Data\TicketingSystem.Data.csproj" />
     <ProjectReference Include="..\TicketingSystem.Implementations\TicketingSystem.Implementations.csproj" />
     <ProjectReference Include="..\TicketingSystem.Services\TicketingSystem.Services.csproj" />

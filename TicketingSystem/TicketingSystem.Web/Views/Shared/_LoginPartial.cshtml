@@ -2,7 +2,7 @@
 @using TicketingSystem.Web.Models
 
 @inject SignInManager<DATA_MODELS.User> SignInManager
-@inject UserManager<DATA_MODELS.User> UserManager
+@inject IUserService UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

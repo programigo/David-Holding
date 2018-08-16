@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using TicketingSystem.Common.Constants;
+using TicketingSystem.Web.Common.Constants;
 
 namespace TicketingSystem.Web.Infrastructure.Extensions
 {

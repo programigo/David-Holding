@@ -1,5 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +7,9 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using DATA_MODELS = TicketingSystem.Data.Models;
 using TicketingSystem.Services;
 using TicketingSystem.Web.Models.AccountViewModels;
+using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web.Controllers
 {
@@ -18,13 +17,13 @@ namespace TicketingSystem.Web.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<DATA_MODELS.User> _userManager;
+        private readonly IUserService _userManager;
         private readonly SignInManager<DATA_MODELS.User> _signInManager;
         private readonly ILogger _logger;
         private readonly IAdminUserService _users;
 
         public AccountController(
-            UserManager<DATA_MODELS.User> userManager,
+            IUserService userManager,
             SignInManager<DATA_MODELS.User> signInManager,
             ILogger<AccountController> logger,
             IAdminUserService users)
@@ -244,7 +243,7 @@ namespace TicketingSystem.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new DATA_MODELS.User
+                var user = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
@@ -259,7 +258,14 @@ namespace TicketingSystem.Web.Controllers
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    var signInUser = new DATA_MODELS.User
+                    {
+                        UserName = model.Username,
+                        Email = model.Email,
+                        Name = model.Name
+                    };
+
+                    await _signInManager.SignInAsync(signInUser, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -343,14 +349,16 @@ namespace TicketingSystem.Web.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new DATA_MODELS.User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        var signInUser = new DATA_MODELS.User { UserName = model.Email, Email = model.Email };
+
+                        await _signInManager.SignInAsync(signInUser, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }

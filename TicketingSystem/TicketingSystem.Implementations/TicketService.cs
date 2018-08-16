@@ -11,12 +11,10 @@ namespace TicketingSystem.Implementations
     public class TicketService : ITicketService
     {
         private readonly DATA.TicketingSystemDbContext db;
-        private readonly UserManager<DATA_MODELS.User> userManager;
 
-        public TicketService(DATA.TicketingSystemDbContext db, UserManager<DATA_MODELS.User> userManager)
+        public TicketService(DATA.TicketingSystemDbContext db)
         {
             this.db = db;
-            this.userManager = userManager;
         }
 
         public IQueryable<TicketListingServiceModel> All(int page = 1)

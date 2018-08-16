@@ -1,26 +1,29 @@
 ﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DATA_MODELS = TicketingSystem.Data.Models;
 using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Admin.Models.Users;
 using TicketingSystem.Web.Areas.Projects.Models.Users;
+using TicketingSystem.Web.Common.Constants;
 using TicketingSystem.Web.Infrastructure.Extensions;
 using TicketingSystem.Web.Models.AccountViewModels;
 
 namespace TicketingSystem.Web.Areas.Projects.Controllers
 {
-    public class UsersController : BaseAdminController
+    [Area("Admin")]
+    [Authorize(Roles = WebConstants.AdministratorRole)]
+    public class UsersController : Controller
     {
         private readonly IAdminUserService users;
-        private readonly UserManager<DATA_MODELS.User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IUserService userManager;
+        private readonly IRoleService roleManager;
 
-        public UsersController(IAdminUserService users, UserManager<DATA_MODELS.User> userManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(IAdminUserService users, IUserService userManager, IRoleService roleManager)
         {
             this.users = users;
             this.userManager = userManager;
@@ -56,7 +59,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         public async Task<IActionResult> AddToRole(AddUserToRoleFormModel model)
         {
             bool roleExists = await this.roleManager.RoleExistsAsync(model.Role);
-            DATA_MODELS.User user = await this.userManager.FindByIdAsync(model.UserId);
+            User user = await this.userManager.FindByIdAsync(model.UserId);
             bool userExists = user != null;
 
             bool isAlreadyInRole = this.users.IsAlreadyInRole(user.Id);
@@ -90,7 +93,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         
         public async Task<IActionResult> Approve(string id)
         {
-            DATA_MODELS.User user = await this.userManager.FindByIdAsync(id);
+            User user = await this.userManager.FindByIdAsync(id);
 
             this.users.Approve(id);
 
@@ -112,7 +115,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
 
             if (ModelState.IsValid)
             {
-                DATA_MODELS.User user = new DATA_MODELS.User
+                User user = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
@@ -133,7 +136,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         
         public async Task<IActionResult> Remove(string id)
         {
-            DATA_MODELS.User user = await this.userManager.FindByIdAsync(id);
+            User user = await this.userManager.FindByIdAsync(id);
 
             this.users.Remove(id);
 
@@ -172,16 +175,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
 
         public async Task<IActionResult> ChangeUserPassword(string id)
         {
-            DATA_MODELS.User user = this.users.GetUser(id)
-                .Select(u => new DATA_MODELS.User
-                {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    Name = u.Name,
-                    Email = u.Email,
-                    IsApproved = u.IsApproved
-                })
-                .FirstOrDefault();
+            User user = this.users.GetUser(id).FirstOrDefault();
 
             if (user == null)
             {
@@ -198,16 +192,7 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangeUserPassword(string id, AdminUserChangePasswordViewModel model)
         {
-            DATA_MODELS.User user = this.users.GetUser(id)
-               .Select(u => new DATA_MODELS.User
-               {
-                   Id = u.Id,
-                   UserName = u.UserName,
-                   Name = u.Name,
-                   Email = u.Email,
-                   IsApproved = u.IsApproved
-               })
-               .FirstOrDefault();
+            User user = this.users.GetUser(id).FirstOrDefault();
 
             IdentityResult result = await userManager.RemovePasswordAsync(user);
 

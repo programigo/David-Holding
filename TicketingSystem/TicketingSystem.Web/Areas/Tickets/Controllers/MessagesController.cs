@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TicketingSystem.Common.Constants;
+using TicketingSystem.Data.Constants;
 using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
 using TicketingSystem.Web.Infrastructure.Extensions;
 using WEB_ENUMS = TicketingSystem.Web.Common.Enums;
-using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers
 {
@@ -20,9 +18,9 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
     {
         private readonly IMessageService messages;
         private readonly ITicketService tickets;
-        private readonly UserManager<DATA_MODELS.User> userManager;
+        private readonly IUserService userManager;
 
-        public MessagesController(IMessageService messages, ITicketService tickets, UserManager<DATA_MODELS.User> userManager)
+        public MessagesController(IMessageService messages, ITicketService tickets, IUserService userManager)
         {
             this.messages = messages;
             this.tickets = tickets;

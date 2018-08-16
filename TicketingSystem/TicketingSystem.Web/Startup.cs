@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicketingSystem.Data;
-using DATA_MODELS = TicketingSystem.Data.Models;
 using TicketingSystem.Implementations;
 using TicketingSystem.Services;
 using TicketingSystem.Web.Infrastructure.Extensions;
+using TicketingSystem.Web.Services;
+using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web
 {
@@ -48,6 +49,8 @@ namespace TicketingSystem.Web
             });
 
             services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IAdminUserService, AdminUserService>();
             services.AddScoped<IAdminProjectService, AdminProjectService>();
