@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,17 +8,14 @@ using TicketingSystem.Services;
 
 namespace TicketingSystem.Web.Services
 {
-    public class RoleService :  IRoleService
+    public class RoleService : RoleManager<IdentityRole>, IRoleService
     {
-        private readonly RoleManager<IdentityRole> roleManager;
-
-        public RoleService(RoleManager<IdentityRole> roleManager)
+        public RoleService(IRoleStore<IdentityRole> store, IEnumerable<IRoleValidator<IdentityRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<IdentityRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
         {
-            this.roleManager = roleManager;
         }
 
         public List<SelectListItem> GetRoles()
-        => roleManager.Roles
+        => this.Roles
                .Select(r => new SelectListItem
                {
                    Text = r.Name,
@@ -25,10 +23,7 @@ namespace TicketingSystem.Web.Services
                })
                .ToList();
 
-        public Task<bool> RoleExistsAsync(string role)
-        => roleManager.RoleExistsAsync(role);
-
         Task IRoleService.CreateAsync(IdentityRole identityRole)
-        => roleManager.CreateAsync(identityRole);
+        => base.CreateAsync(identityRole);
     }
 }

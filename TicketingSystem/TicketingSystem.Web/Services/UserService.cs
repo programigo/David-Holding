@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -8,13 +11,10 @@ using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.Web.Services
 {
-    public class UserService : IUserService
+    public class UserService : UserManager<DATA_MODELS.User>, IUserService
     {
-        private readonly UserManager<DATA_MODELS.User> userManager;
-
-        public UserService(UserManager<DATA_MODELS.User> userManager)
+        public UserService(IUserStore<DATA_MODELS.User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<DATA_MODELS.User> passwordHasher, IEnumerable<IUserValidator<DATA_MODELS.User>> userValidators, IEnumerable<IPasswordValidator<DATA_MODELS.User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<DATA_MODELS.User>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
-            this.userManager = userManager;
         }
 
         public async Task<IdentityResult> AddLoginAsync(User user, ExternalLoginInfo info)
@@ -28,35 +28,35 @@ namespace TicketingSystem.Web.Services
                 SecurityStamp = user.SecurityStamp
             };
 
-            return await userManager.AddLoginAsync(returnUser, info);
+            return await base.AddLoginAsync(returnUser, info);
         }
 
         public async Task<IdentityResult> AddPasswordAsync(User user, string password)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.AddPasswordAsync(returnUser, password);
+            return await base.AddPasswordAsync(returnUser, password);
         }
 
         public async Task<IdentityResult> AddToRoleAsync(User user, string role)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.AddToRoleAsync(returnUser, role);
+            return await base.AddToRoleAsync(returnUser, role);
         }
 
         public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.ChangePasswordAsync(returnUser, oldPassword, newPassword);
+            return await base.ChangePasswordAsync(returnUser, oldPassword, newPassword);
         }
 
         public async Task<IdentityResult> ConfirmEmailAsync(User user, string code)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.ConfirmEmailAsync(returnUser, code);
+            return await base.ConfirmEmailAsync(returnUser, code);
         }
 
         public async Task<IdentityResult> CreateAsync(User user, string password)
@@ -69,7 +69,7 @@ namespace TicketingSystem.Web.Services
                 IsApproved = user.IsApproved
             };
 
-            return await userManager.CreateAsync(returnUser, password);
+            return await base.CreateAsync(returnUser, password);
         }
 
         public async Task<IdentityResult> CreateAsync(User user)
@@ -81,78 +81,75 @@ namespace TicketingSystem.Web.Services
                 Name = user.Name
             };
 
-            return await userManager.CreateAsync(returnUser);
+            return await base.CreateAsync(returnUser);
         }
 
         public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.GenerateEmailConfirmationTokenAsync(returnUser);
+            return await base.GenerateEmailConfirmationTokenAsync(returnUser);
         }
 
         public async Task<string> GeneratePasswordResetTokenAsync(User user)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.GeneratePasswordResetTokenAsync(returnUser);
+            return await base.GeneratePasswordResetTokenAsync(returnUser);
         }
 
         public async Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.GetLoginsAsync(returnUser);
+            return await base.GetLoginsAsync(returnUser);
         }
-
-        public string GetUserName(ClaimsPrincipal user)
-        => userManager.GetUserName(user);
 
         public async Task<bool> HasPasswordAsync(User user)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.HasPasswordAsync(returnUser);
+            return await base.HasPasswordAsync(returnUser);
         }
 
         public async Task<bool> IsEmailConfirmedAsync(User user)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.IsEmailConfirmedAsync(returnUser);
+            return await base.IsEmailConfirmedAsync(returnUser);
         }
 
         public async Task<IdentityResult> RemoveLoginAsync(User user, string loginProvider, string providerKey)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.RemoveLoginAsync(returnUser, loginProvider, providerKey);
+            return await base.RemoveLoginAsync(returnUser, loginProvider, providerKey);
         }
 
         public async Task<IdentityResult> RemovePasswordAsync(User user)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.RemovePasswordAsync(returnUser);
+            return await base.RemovePasswordAsync(returnUser);
         }
 
         public async Task<IdentityResult> ResetPasswordAsync(User user, string code, string password)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.ResetPasswordAsync(returnUser, code, password);
+            return await base.ResetPasswordAsync(returnUser, code, password);
         }
 
         public async Task<IdentityResult> SetEmailAsync(User user, string email)
         {
-            DATA_MODELS.User returnUser = await userManager.FindByIdAsync(user.Id);
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await userManager.SetEmailAsync(returnUser, email);
+            return await base.SetEmailAsync(returnUser, email);
         }
 
         async Task<User> IUserService.FindByEmailAsync(string email)
         {
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await base.FindByEmailAsync(email);
 
             if (user == null)
             {
@@ -177,7 +174,7 @@ namespace TicketingSystem.Web.Services
 
         async Task<User> IUserService.FindByIdAsync(string userId)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await base.FindByIdAsync(userId);
 
             var returnUser = new User
             {
@@ -194,7 +191,7 @@ namespace TicketingSystem.Web.Services
 
         async Task<User> IUserService.GetUserAsync(ClaimsPrincipal user)
         {
-            var dataUser = await userManager.FindByIdAsync(user.GetUserId());
+            var dataUser = await base.FindByIdAsync(user.GetUserId());
 
             var returnUser = new User
             {
@@ -209,6 +206,6 @@ namespace TicketingSystem.Web.Services
         }
 
         string IUserService.GetUserId(ClaimsPrincipal user)
-        => userManager.GetUserId(user);
+        => base.GetUserId(user);
     }
 }
