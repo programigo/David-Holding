@@ -48,6 +48,7 @@ namespace TicketingSystem.Web
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
             });
 
+            services.AddScoped<ISignInService, SignInService>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();

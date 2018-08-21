@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,6 +7,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
+using TicketingSystem.Web.Common.Constants;
+using TicketingSystem.Web.Common.Models;
 using TicketingSystem.Web.Models.AccountViewModels;
 using DATA_MODELS = TicketingSystem.Data.Models;
 
@@ -18,13 +19,13 @@ namespace TicketingSystem.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userManager;
-        private readonly SignInManager<DATA_MODELS.User> _signInManager;
+        private readonly ISignInService _signInManager;
         private readonly ILogger _logger;
         private readonly IAdminUserService _users;
 
         public AccountController(
             IUserService userManager,
-            SignInManager<DATA_MODELS.User> signInManager,
+            ISignInService signInManager,
             ILogger<AccountController> logger,
             IAdminUserService users)
         {
@@ -115,7 +116,7 @@ namespace TicketingSystem.Web.Controllers
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
 
             if (user == null)
             {
@@ -138,7 +139,7 @@ namespace TicketingSystem.Web.Controllers
                 return View(model);
             }
 
-            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -171,7 +172,7 @@ namespace TicketingSystem.Web.Controllers
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -192,7 +193,7 @@ namespace TicketingSystem.Web.Controllers
                 return View(model);
             }
 
-            DATA_MODELS.User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            User user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -258,7 +259,7 @@ namespace TicketingSystem.Web.Controllers
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    var signInUser = new DATA_MODELS.User
+                    var signInUser = new User
                     {
                         UserName = model.Username,
                         Email = model.Email,
@@ -271,7 +272,8 @@ namespace TicketingSystem.Web.Controllers
                 }
                 else
                 {
-                    AddErrors(result);
+                    IdentityResultWeb res = new IdentityResultWeb(result);
+                    AddErrors(res);
                     return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
             }
@@ -356,14 +358,15 @@ namespace TicketingSystem.Web.Controllers
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        var signInUser = new DATA_MODELS.User { UserName = model.Email, Email = model.Email };
+                        var signInUser = new User { UserName = model.Email, Email = model.Email };
 
                         await _signInManager.SignInAsync(signInUser, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }
                 }
-                AddErrors(result);
+                IdentityResultWeb res = new IdentityResultWeb(result);
+                AddErrors(res);
             }
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -460,7 +463,8 @@ namespace TicketingSystem.Web.Controllers
             {
                 return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
-            AddErrors(result);
+            IdentityResultWeb res = new IdentityResultWeb(result);
+            AddErrors(res);
             return View();
         }
 
@@ -480,7 +484,7 @@ namespace TicketingSystem.Web.Controllers
 
         #region Helpers
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrors(IdentityResultWeb result)
         {
             foreach (var error in result.Errors)
             {

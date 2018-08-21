@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using DATA_MODELS = TicketingSystem.Data.Models;
 using TicketingSystem.Web.Models.ManageViewModels;
+using TicketingSystem.Services;
+using TicketingSystem.Web.Common.Models;
+using TicketingSystem.Web.Common.Constants;
 
 namespace TicketingSystem.Web.Controllers
 {
@@ -17,8 +18,8 @@ namespace TicketingSystem.Web.Controllers
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
-        private readonly UserManager<DATA_MODELS.User> _userManager;
-        private readonly SignInManager<DATA_MODELS.User> _signInManager;
+        private readonly IUserService _userManager;
+        private readonly ISignInService _signInManager;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
 
@@ -26,8 +27,8 @@ namespace TicketingSystem.Web.Controllers
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
 
         public ManageController(
-          UserManager<DATA_MODELS.User> userManager,
-          SignInManager<DATA_MODELS.User> signInManager,
+          IUserService userManager,
+          ISignInService signInManager,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
@@ -152,7 +153,8 @@ namespace TicketingSystem.Web.Controllers
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
-                AddErrors(changePasswordResult);
+                IdentityResultWeb changePasswordRes = new IdentityResultWeb(changePasswordResult);
+                AddErrors(changePasswordRes);
                 return View(model);
             }
 
@@ -201,7 +203,8 @@ namespace TicketingSystem.Web.Controllers
             var addPasswordResult = await _userManager.AddPasswordAsync(user, model.NewPassword);
             if (!addPasswordResult.Succeeded)
             {
-                AddErrors(addPasswordResult);
+                IdentityResultWeb addPasswordRes = new IdentityResultWeb(addPasswordResult);
+                AddErrors(addPasswordRes);
                 return View(model);
             }
 
@@ -478,7 +481,7 @@ namespace TicketingSystem.Web.Controllers
 
         #region Helpers
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrors(IdentityResultWeb result)
         {
             foreach (var error in result.Errors)
             {
@@ -512,7 +515,7 @@ namespace TicketingSystem.Web.Controllers
                 unformattedKey);
         }
 
-        private async Task LoadSharedKeyAndQrCodeUriAsync(DATA_MODELS.User user, EnableAuthenticatorViewModel model)
+        private async Task LoadSharedKeyAndQrCodeUriAsync(User user, EnableAuthenticatorViewModel model)
         {
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
             if (string.IsNullOrEmpty(unformattedKey))

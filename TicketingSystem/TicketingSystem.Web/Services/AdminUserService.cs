@@ -1,9 +1,8 @@
-﻿using TicketingSystem.Web.Common.Constants;
-using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TicketingSystem.Services;
+using TicketingSystem.Web.Common.Constants;
 using DATA = TicketingSystem.Data;
 using DATA_MODELS = TicketingSystem.Data.Models;
 

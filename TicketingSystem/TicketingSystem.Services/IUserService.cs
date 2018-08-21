@@ -7,6 +7,8 @@ namespace TicketingSystem.Services
 {
     public interface IUserService
     {
+        IdentityOptionsModel Options { get; set; }
+
         Task<User> FindByIdAsync(string userId);
 
         Task<IdentityResult> AddToRoleAsync(User user, string role);
@@ -48,5 +50,17 @@ namespace TicketingSystem.Services
         Task<IList<UserLoginInfo>> GetLoginsAsync(User user);
 
         Task<IdentityResult> RemoveLoginAsync(User user, string loginProvider, string providerKey);
+
+        Task<string> GetAuthenticatorKeyAsync(User user);
+
+        Task<int> CountRecoveryCodesAsync(User user);
+
+        Task<IdentityResult> SetTwoFactorEnabledAsync(User user, bool enabled);
+
+        Task<bool> VerifyTwoFactorTokenAsync(User user, string authenticatorTokenProvider, string verificationCode);
+
+        Task<IEnumerable<string>> GenerateNewTwoFactorRecoveryCodesAsync(User user, int number);
+
+        Task<IdentityResult> ResetAuthenticatorKeyAsync(User user);
     }
 }

@@ -17,6 +17,8 @@ namespace TicketingSystem.Web.Services
         {
         }
 
+        IdentityOptionsModel IUserService.Options { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public async Task<IdentityResult> AddLoginAsync(User user, ExternalLoginInfo info)
         {
             DATA_MODELS.User returnUser = new DATA_MODELS.User
@@ -59,6 +61,13 @@ namespace TicketingSystem.Web.Services
             return await base.ConfirmEmailAsync(returnUser, code);
         }
 
+        public async Task<int> CountRecoveryCodesAsync(User user)
+        {
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
+
+            return await base.CountRecoveryCodesAsync(returnUser);
+        }
+
         public async Task<IdentityResult> CreateAsync(User user, string password)
         {
             DATA_MODELS.User returnUser = new DATA_MODELS.User
@@ -91,11 +100,25 @@ namespace TicketingSystem.Web.Services
             return await base.GenerateEmailConfirmationTokenAsync(returnUser);
         }
 
+        public async Task<IEnumerable<string>> GenerateNewTwoFactorRecoveryCodesAsync(User user, int number)
+        {
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
+
+            return await base.GenerateNewTwoFactorRecoveryCodesAsync(returnUser, number);
+        }
+
         public async Task<string> GeneratePasswordResetTokenAsync(User user)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
             return await base.GeneratePasswordResetTokenAsync(returnUser);
+        }
+
+        public async Task<string> GetAuthenticatorKeyAsync(User user)
+        {
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
+
+            return await base.GetAuthenticatorKeyAsync(returnUser);
         }
 
         public async Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
@@ -133,6 +156,13 @@ namespace TicketingSystem.Web.Services
             return await base.RemovePasswordAsync(returnUser);
         }
 
+        public async Task<IdentityResult> ResetAuthenticatorKeyAsync(User user)
+        {
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
+
+            return await base.ResetAuthenticatorKeyAsync(returnUser);
+        }
+
         public async Task<IdentityResult> ResetPasswordAsync(User user, string code, string password)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
@@ -145,6 +175,20 @@ namespace TicketingSystem.Web.Services
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
             return await base.SetEmailAsync(returnUser, email);
+        }
+
+        public async Task<IdentityResult> SetTwoFactorEnabledAsync(User user, bool enabled)
+        {
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
+
+            return await base.SetTwoFactorEnabledAsync(returnUser, enabled);
+        }
+
+        public async Task<bool> VerifyTwoFactorTokenAsync(User user, string authenticatorTokenProvider, string verificationCode)
+        {
+            DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
+
+            return await base.VerifyTwoFactorTokenAsync(returnUser, authenticatorTokenProvider, verificationCode);
         }
 
         async Task<User> IUserService.FindByEmailAsync(string email)
