@@ -1,14 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace TicketingSystem.Services
+﻿namespace TicketingSystem.Services
 {
-    public class IdentityOptionsModel : IdentityOptions
+    public class IdentityOptionsModel
     {
-        private readonly IdentityOptions options;
-
-        public IdentityOptionsModel(IdentityOptions options)
-        {
-            this.options = options;
-        }
+        public TokenOptions Tokens { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace TicketingSystem.Services
 {
@@ -19,11 +18,8 @@ namespace TicketingSystem.Services
 
         public MessageState State { get; set; }
 
-        [Required]
-        [MinLength(ServicesDataConstants.MessageContentMinLength)]
         public string Content { get; set; }
 
-        [MaxLength(ServicesDataConstants.AttachedFileLength)]
         public byte[] AttachedFiles { get; set; }
     }
 }

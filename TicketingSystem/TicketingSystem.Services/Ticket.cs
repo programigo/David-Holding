@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TicketingSystem.Services
 {
@@ -21,17 +20,11 @@ namespace TicketingSystem.Services
         public TicketType TicketType { get; set; }
 
         public TicketState TicketState { get; set; }
-
-        [Required]
-        [MinLength(ServicesDataConstants.TicketTitleMinLength)]
-        [MaxLength(ServicesDataConstants.TicketTitleMaxLength)]
+       
         public string Title { get; set; }
 
-        [Required]
-        [MinLength(ServicesDataConstants.TicketDescriptionMinLength)]
         public string Description { get; set; }
 
-        [MaxLength(ServicesDataConstants.AttachedFileLength)]
         public byte[] AttachedFiles { get; set; }
 
         public List<Message> Messages { get; set; } = new List<Message>();

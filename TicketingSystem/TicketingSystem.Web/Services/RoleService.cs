@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
+using IdentityRole = Microsoft.AspNetCore.Identity.IdentityRole;
+using ServiceIdentityRole = TicketingSystem.Services.IdentityRole;
+using SelectListItem = TicketingSystem.Services.SelectListItem;
 
 namespace TicketingSystem.Web.Services
 {
@@ -23,7 +25,13 @@ namespace TicketingSystem.Web.Services
                })
                .ToList();
 
-        Task IRoleService.CreateAsync(IdentityRole identityRole)
-        => base.CreateAsync(identityRole);
+        Task IRoleService.CreateAsync(ServiceIdentityRole identityRole)
+        {
+            var systemIdentityRole = new IdentityRole(identityRole.Name); 
+
+            var res = base.CreateAsync(systemIdentityRole);
+
+            return res;
+        }
     }
 }

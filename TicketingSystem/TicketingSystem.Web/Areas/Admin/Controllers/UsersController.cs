@@ -12,6 +12,7 @@ using TicketingSystem.Web.Areas.Projects.Models.Users;
 using TicketingSystem.Web.Common.Constants;
 using TicketingSystem.Web.Infrastructure.Extensions;
 using TicketingSystem.Web.Models.AccountViewModels;
+using IdentityResult = TicketingSystem.Services.IdentityResult;
 
 namespace TicketingSystem.Web.Areas.Projects.Controllers
 {
@@ -40,7 +41,11 @@ namespace TicketingSystem.Web.Areas.Projects.Controllers
             return View(new UserListingViewModel
             {
                 Users = users,
-                Roles = roles
+                Roles = roles.Select(r => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                {
+                    Text = r.Text,
+                    Value = r.Value
+                })
             });
         }
 

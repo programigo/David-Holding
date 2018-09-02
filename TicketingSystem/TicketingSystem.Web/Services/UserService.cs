@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 using TicketingSystem.Services;
 using TicketingSystem.Web.Infrastructure.Extensions;
 using DATA_MODELS = TicketingSystem.Data.Models;
+//using ExternalLoginInfo = Microsoft.AspNetCore.Identity.ExternalLoginInfo;
+using IdentityError = TicketingSystem.Services.IdentityError;
+using ExternalLoginInfo = TicketingSystem.Services.ExternalLoginInfo;
+using IdentityResult = TicketingSystem.Services.IdentityResult;
+using UserLoginInfo = TicketingSystem.Services.UserLoginInfo;
+using System.Linq;
 
 namespace TicketingSystem.Web.Services
 {
@@ -30,35 +36,47 @@ namespace TicketingSystem.Web.Services
                 SecurityStamp = user.SecurityStamp
             };
 
-            return await base.AddLoginAsync(returnUser, info);
+            var newInfo = new Microsoft.AspNetCore.Identity.ExternalLoginInfo(info.Principal, info.LoginProvider, info.ProviderKey, info.ProviderDisplayName);
+
+            var res = await base.AddLoginAsync(returnUser, newInfo);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> AddPasswordAsync(User user, string password)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.AddPasswordAsync(returnUser, password);
+            var res = await base.AddPasswordAsync(returnUser, password);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> AddToRoleAsync(User user, string role)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.AddToRoleAsync(returnUser, role);
+            var res = await base.AddToRoleAsync(returnUser, role);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.ChangePasswordAsync(returnUser, oldPassword, newPassword);
+            var res = await base.ChangePasswordAsync(returnUser, oldPassword, newPassword);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> ConfirmEmailAsync(User user, string code)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.ConfirmEmailAsync(returnUser, code);
+            var res = await base.ConfirmEmailAsync(returnUser, code);
+
+            return Result(res);
         }
 
         public async Task<int> CountRecoveryCodesAsync(User user)
@@ -78,7 +96,9 @@ namespace TicketingSystem.Web.Services
                 IsApproved = user.IsApproved
             };
 
-            return await base.CreateAsync(returnUser, password);
+            var res = await base.CreateAsync(returnUser, password);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> CreateAsync(User user)
@@ -90,7 +110,9 @@ namespace TicketingSystem.Web.Services
                 Name = user.Name
             };
 
-            return await base.CreateAsync(returnUser);
+            var res = await base.CreateAsync(returnUser);
+
+            return Result(res);
         }
 
         public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
@@ -125,7 +147,18 @@ namespace TicketingSystem.Web.Services
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.GetLoginsAsync(returnUser);
+            var res = await base.GetLoginsAsync(returnUser);
+
+            var returnRes = new List<UserLoginInfo>();
+
+            foreach (var loginInfo in res)
+            {
+                var systemLoginInfo = new UserLoginInfo(loginInfo.LoginProvider, loginInfo.ProviderKey, loginInfo.ProviderDisplayName);
+
+                returnRes.Add(systemLoginInfo);
+            }
+
+            return returnRes;
         }
 
         public async Task<bool> HasPasswordAsync(User user)
@@ -146,42 +179,54 @@ namespace TicketingSystem.Web.Services
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.RemoveLoginAsync(returnUser, loginProvider, providerKey);
+            var res = await base.RemoveLoginAsync(returnUser, loginProvider, providerKey);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> RemovePasswordAsync(User user)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.RemovePasswordAsync(returnUser);
+            var res = await base.RemovePasswordAsync(returnUser);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> ResetAuthenticatorKeyAsync(User user)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.ResetAuthenticatorKeyAsync(returnUser);
+            var res = await base.ResetAuthenticatorKeyAsync(returnUser);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> ResetPasswordAsync(User user, string code, string password)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.ResetPasswordAsync(returnUser, code, password);
+            var res = await base.ResetPasswordAsync(returnUser, code, password);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> SetEmailAsync(User user, string email)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.SetEmailAsync(returnUser, email);
+            var res = await base.SetEmailAsync(returnUser, email);
+
+            return Result(res);
         }
 
         public async Task<IdentityResult> SetTwoFactorEnabledAsync(User user, bool enabled)
         {
             DATA_MODELS.User returnUser = await base.FindByIdAsync(user.Id);
 
-            return await base.SetTwoFactorEnabledAsync(returnUser, enabled);
+            var res = await base.SetTwoFactorEnabledAsync(returnUser, enabled);
+
+            return Result(res);
         }
 
         public async Task<bool> VerifyTwoFactorTokenAsync(User user, string authenticatorTokenProvider, string verificationCode)
@@ -251,5 +296,17 @@ namespace TicketingSystem.Web.Services
 
         string IUserService.GetUserId(ClaimsPrincipal user)
         => base.GetUserId(user);
+
+        private static IdentityResult Result(Microsoft.AspNetCore.Identity.IdentityResult res)
+        {
+            var returnRes = new IdentityResult
+            {
+                Succeeded = res.Succeeded,
+                //Errors = new List<IdentityError>(res.Errors),
+            };
+
+
+            return returnRes;
+        }
     }
 }

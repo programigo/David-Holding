@@ -9,6 +9,7 @@ using TicketingSystem.Services;
 using TicketingSystem.Web.Areas.Tickets.Models.Messages;
 using TicketingSystem.Web.Areas.Tickets.Models.Tickets;
 using TicketingSystem.Web.Infrastructure.Extensions;
+using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 using WEB_ENUMS = TicketingSystem.Web.Common.Enums;
 
 namespace TicketingSystem.Web.Areas.Tickets.Controllers

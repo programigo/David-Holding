@@ -151,9 +151,14 @@ namespace TicketingSystem.Web.Controllers
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            var changePasswordReturnResult = new Microsoft.AspNetCore.Identity.IdentityResult
+            {
+
+            };
+
             if (!changePasswordResult.Succeeded)
             {
-                IdentityResultWeb changePasswordRes = new IdentityResultWeb(changePasswordResult);
+                IdentityResultWeb changePasswordRes = new IdentityResultWeb(changePasswordReturnResult);
                 AddErrors(changePasswordRes);
                 return View(model);
             }
@@ -201,9 +206,13 @@ namespace TicketingSystem.Web.Controllers
             }
 
             var addPasswordResult = await _userManager.AddPasswordAsync(user, model.NewPassword);
+            var addPasswordReturnResult = new Microsoft.AspNetCore.Identity.IdentityResult
+            {
+
+            };
             if (!addPasswordResult.Succeeded)
             {
-                IdentityResultWeb addPasswordRes = new IdentityResultWeb(addPasswordResult);
+                IdentityResultWeb addPasswordRes = new IdentityResultWeb(addPasswordReturnResult);
                 AddErrors(addPasswordRes);
                 return View(model);
             }
@@ -222,6 +231,8 @@ namespace TicketingSystem.Web.Controllers
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
+            var logins = await _userManager.GetLoginsAsync(user);
 
             var model = new ExternalLoginsViewModel { CurrentLogins = await _userManager.GetLoginsAsync(user) };
             model.OtherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
@@ -243,7 +254,15 @@ namespace TicketingSystem.Web.Controllers
             // Request a redirect to the external login provider to link a login for the current user
             var redirectUrl = Url.Action(nameof(LinkLoginCallback));
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, _userManager.GetUserId(User));
-            return new ChallengeResult(provider, properties);
+            var systemProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
+            {
+                IsPersistent = properties.IsPersistent,
+                RedirectUri = properties.RedirectUri,
+                AllowRefresh = properties.AllowRefresh,
+                ExpiresUtc = properties.ExpiresUtc,
+                IssuedUtc = properties.IssuedUtc
+            };
+            return new ChallengeResult(provider, systemProperties);
         }
 
         [HttpGet]

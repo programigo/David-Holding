@@ -10,6 +10,7 @@ using TicketingSystem.Services;
 using TicketingSystem.Web.Common.Constants;
 using DATA_MODELS = TicketingSystem.Data.Models;
 using DATA_ENUMS = TicketingSystem.Data.Enums;
+using IdentityRole = TicketingSystem.Services.IdentityRole;
 
 namespace TicketingSystem.Web.Infrastructure.Extensions
 {

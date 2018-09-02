@@ -251,6 +251,10 @@ namespace TicketingSystem.Web.Controllers
                     Name = model.Name
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                var returnResult = new Microsoft.AspNetCore.Identity.IdentityResult
+                {
+
+                };
                 if (result.Succeeded && user.IsApproved)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -272,7 +276,7 @@ namespace TicketingSystem.Web.Controllers
                 }
                 else
                 {
-                    IdentityResultWeb res = new IdentityResultWeb(result);
+                    IdentityResultWeb res = new IdentityResultWeb(returnResult);
                     AddErrors(res);
                     return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
@@ -299,7 +303,15 @@ namespace TicketingSystem.Web.Controllers
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return Challenge(properties, provider);
+            var systemProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
+            {
+                IsPersistent = properties.IsPersistent,
+                RedirectUri = properties.RedirectUri,
+                AllowRefresh = properties.AllowRefresh,
+                ExpiresUtc = properties.ExpiresUtc,
+                IssuedUtc = properties.IssuedUtc
+            };
+            return Challenge(systemProperties, provider);
         }
 
         [HttpGet]
@@ -353,6 +365,10 @@ namespace TicketingSystem.Web.Controllers
                 }
                 var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
+                var returnResult = new Microsoft.AspNetCore.Identity.IdentityResult
+                {
+
+                };
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
@@ -365,7 +381,7 @@ namespace TicketingSystem.Web.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
-                IdentityResultWeb res = new IdentityResultWeb(result);
+                IdentityResultWeb res = new IdentityResultWeb(returnResult);
                 AddErrors(res);
             }
 
@@ -459,11 +475,15 @@ namespace TicketingSystem.Web.Controllers
                 return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var returnResult = new Microsoft.AspNetCore.Identity.IdentityResult
+            {
+                
+            };
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
-            IdentityResultWeb res = new IdentityResultWeb(result);
+            IdentityResultWeb res = new IdentityResultWeb(returnResult);
             AddErrors(res);
             return View();
         }
