@@ -107,10 +107,10 @@ namespace TicketingSystem.Web.Infrastructure.Extensions
                 SeedTickets(database);
             }
 
-            if (!database.Messages.Any())
-            {
-                SeedMessages(database);
-            }
+            //if (!database.Messages.Any())
+            //{
+            //    SeedMessages(database);
+            //}
         }
 
         private static void SeedProjects(TicketingSystemDbContext database)
