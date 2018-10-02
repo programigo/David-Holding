@@ -27,8 +27,10 @@ namespace TicketingSystem.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionStr = Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContext<TicketingSystemDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionStr));
 
             services.AddIdentity<DATA_MODELS.User, IdentityRole>(options => 
             {
