@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f04ab539f0d2776a2205"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "927dd0313d7f91e4cd7e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -4546,7 +4546,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/"
     }
-  }, [_vm._v("Ticketing System")])])
+  }, [_vm._v("Ticketing System test")])])
 }]}
 module.exports.render._withStripped = true
 if (true) {
