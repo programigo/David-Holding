@@ -22,6 +22,12 @@
     <ProjectReference Include="..\TicketingSystem.Services\TicketingSystem.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Users\Register.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
