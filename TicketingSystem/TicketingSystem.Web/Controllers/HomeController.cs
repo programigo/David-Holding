@@ -9,6 +9,7 @@ using TicketingSystem.Web.Models;
 
 namespace TicketingSystem.Web.Controllers
 {
+    [Route("api/[controller]")]
     public class HomeController : Controller
     {
         private readonly IAdminProjectService projects;
@@ -29,6 +30,8 @@ namespace TicketingSystem.Web.Controllers
                 TotalProjects = this.projects.Total(),
                 CurrentPage = page
             });
+
+            
         }
 
         public IActionResult Error()
