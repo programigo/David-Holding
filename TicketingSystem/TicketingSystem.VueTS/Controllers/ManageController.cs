@@ -15,7 +15,7 @@ using TicketingSystem.VueTS.Common.Constants;
 namespace TicketingSystem.VueTS.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]")]
     public class ManageController : Controller
     {
         private readonly IUserService _userManager;

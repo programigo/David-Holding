@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2fc8ee02a1278e47d919"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "be469cc3bdd02d97c625"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -4805,8 +4805,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "text-align": "center"
       }
-    }, [_vm._v("\n\n                        " + _vm._s(project.description) + ";\n\n\n\n                    ")])])])])
-  })) : _c('p'), _c('h1', [_vm._v("Welcome to the Ticketing System. Please login or register.")]), _c('p')])
+    }, [_vm._v(_vm._s(project.description) + ";")])])])])
+  })) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {

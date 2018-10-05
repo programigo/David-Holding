@@ -19,11 +19,12 @@ namespace TicketingSystem.VueTS.Controllers
             this.projects = projects;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public IActionResult Index(int page = 1)
         {
             var projects = this.projects.All(page)
-                .ProjectTo<ProjectViewModel>().ToArray();
+                //.ProjectTo<ProjectViewModel>()
+                .ToArray();
 
             return Ok(projects);
         }
