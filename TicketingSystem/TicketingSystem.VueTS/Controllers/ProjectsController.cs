@@ -46,13 +46,14 @@ namespace TicketingSystem.VueTS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet("{id}")]
         public IActionResult Details(int id)
         {
-            ProjectViewModel project = this.projects.Details(id)
-                .ProjectTo<ProjectViewModel>()
+            var project = this.projects.Details(id)
+                //.ProjectTo<ProjectViewModel>()
                 .FirstOrDefault();
 
-            return View(project);
+            return Ok(project);
         }
 
         public IActionResult Edit(int id)
