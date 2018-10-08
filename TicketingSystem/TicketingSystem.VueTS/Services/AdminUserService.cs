@@ -54,6 +54,7 @@ namespace TicketingSystem.VueTS.Services
 
             user.Name = name;
             user.Email = email;
+            user.NormalizedEmail = email.ToUpper();
 
             this.db.SaveChanges();
 

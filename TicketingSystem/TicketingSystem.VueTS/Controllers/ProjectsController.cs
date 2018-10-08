@@ -28,25 +28,29 @@ namespace TicketingSystem.VueTS.Controllers
 
             return Ok(projects);
         }
-        
-        public IActionResult Create() => View();
 
-        [HttpPost]
-        public IActionResult Create(AddProjectFormModel model)
+        [HttpGet("create")]
+        public IActionResult Create()
+        {
+            return Ok();
+        }
+
+        [HttpPost("create")]
+        public IActionResult Create([FromBody]AddProjectFormModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return BadRequest(model);
             }
 
             this.projects.Create(model.Name, model.Description);
 
             TempData.AddSuccessMessage($"Project {model.Name} created successfully");
 
-            return RedirectToAction(nameof(Index));
+            return StatusCode(201);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public IActionResult Details(int id)
         {
             var project = this.projects.Details(id)
@@ -56,10 +60,11 @@ namespace TicketingSystem.VueTS.Controllers
             return Ok(project);
         }
 
+        [HttpGet("edit/{id}")]
         public IActionResult Edit(int id)
         {
-            ProjectViewModel project = this.projects.Details(id)
-                .ProjectTo<ProjectViewModel>()
+            var project = this.projects.Details(id)
+                //.ProjectTo<ProjectViewModel>()
                 .FirstOrDefault();
         
             if (project == null)
@@ -67,11 +72,11 @@ namespace TicketingSystem.VueTS.Controllers
                 return NotFound();
             }
 
-            return View(project);
+            return Ok(project);
         }
 
-        [HttpPost]
-        public IActionResult Edit(int id, AddProjectFormModel model)
+        [HttpPost("edit/{id}")]
+        public IActionResult Edit(int id, [FromBody]AddProjectFormModel model)
         {
             bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
 
@@ -82,14 +87,15 @@ namespace TicketingSystem.VueTS.Controllers
 
             TempData.AddSuccessMessage($"Project {model.Name} edited successfully");
 
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             this.projects.Delete(id);
 
-            return RedirectToAction(nameof(Index));
+            return StatusCode(204);
         }
     }
 }

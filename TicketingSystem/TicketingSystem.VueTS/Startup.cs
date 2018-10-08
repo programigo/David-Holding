@@ -69,10 +69,10 @@ namespace TicketingSystem.VueTS
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
+                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                //{
+                //    HotModuleReplacement = true
+                //});
                 app.UseDatabaseErrorPage();
             }
             else
