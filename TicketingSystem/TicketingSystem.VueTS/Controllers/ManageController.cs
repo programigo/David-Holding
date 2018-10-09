@@ -60,7 +60,7 @@ namespace TicketingSystem.VueTS.Controllers
                 StatusMessage = StatusMessage
             };
 
-            return View(model);
+            return Ok(model);
         }
 
         [HttpPost]

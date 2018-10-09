@@ -115,7 +115,7 @@ namespace TicketingSystem.VueTS.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return Ok();
         }
 
         [AllowAnonymous]
@@ -153,18 +153,18 @@ namespace TicketingSystem.VueTS.Controllers
 
                     await _signInManager.SignInAsync(signInUser, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return Ok();
                 }
                 else
                 {
                     IdentityResultWeb res = new IdentityResultWeb(returnResult);
                     AddErrors(res);
-                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                    return Ok();
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return Ok(model);
         }
 
         [AllowAnonymous]
@@ -278,13 +278,6 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
-
-        [HttpGet]
-        public IActionResult AccessDenied()
         {
             return View();
         }

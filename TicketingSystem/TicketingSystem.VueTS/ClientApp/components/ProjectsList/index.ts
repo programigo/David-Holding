@@ -7,8 +7,13 @@ interface Project {
     description: string
 }
 
-@Component
-export default class ProjectsComponent extends Vue {
+@Component({
+    name: 'projects-list',
+    components: {
+    }
+})
+
+export default class ProjectsList extends Vue {
     projects: Project[] = [];
 
     mounted() {
