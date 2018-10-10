@@ -1,6 +1,5 @@
 <template>
     <h1>Welcome to the Ticketing System. Please login or register</h1>
-    
 </template>
 
 <script src="./home.ts"></script>

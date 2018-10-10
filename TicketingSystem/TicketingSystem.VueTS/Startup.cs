@@ -63,17 +63,13 @@ namespace TicketingSystem.VueTS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDatabaseMigration();
-
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                //{
-                //    HotModuleReplacement = true
-                //});
-                app.UseDatabaseErrorPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
             }
             else
             {
@@ -94,6 +90,8 @@ namespace TicketingSystem.VueTS
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            app.UseDatabaseMigration();
         }
     }
 }

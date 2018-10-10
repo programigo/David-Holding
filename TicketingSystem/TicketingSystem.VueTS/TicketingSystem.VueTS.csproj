@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\sidebar\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
+    <None Remove="ClientApp\pages\projects\index.ts" />
+    <None Remove="ClientApp\router.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,11 +88,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\components\login\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />
+    <TypeScriptCompile Include="ClientApp\router.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

@@ -2,7 +2,6 @@
 import { Component } from 'vue-property-decorator';
 
 @Component
-export default class RegisterComponent extends Vue {
+export default class Register extends Vue {
 
-   
 }
