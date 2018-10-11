@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem.VueTS.Areas.Projects.Models.Projects
 {
-    public class ProjectViewModel
+    public class ProjectModel
     {
         public int Id { get; set; }
 

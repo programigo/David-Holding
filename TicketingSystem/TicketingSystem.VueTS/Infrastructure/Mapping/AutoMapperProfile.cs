@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TicketingSystem.Web.Infrastructure.Mapping
+namespace TicketingSystem.VueTS.Infrastructure.Mapping
 {
     public class AutoMapperProfile : Profile
     {

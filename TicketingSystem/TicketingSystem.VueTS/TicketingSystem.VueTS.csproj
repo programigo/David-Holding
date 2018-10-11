@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\api\projects\ProjectsController.ts" />
     <None Remove="ClientApp\components\sidebar\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
     <None Remove="ClientApp\pages\projects\index.ts" />
@@ -88,6 +89,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\api\projects\ProjectsController.ts" />
     <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />

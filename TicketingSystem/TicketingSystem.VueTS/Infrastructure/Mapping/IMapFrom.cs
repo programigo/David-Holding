@@ -1,4 +1,4 @@
-﻿namespace TicketingSystem.Web.Infrastructure.Mapping
+﻿namespace TicketingSystem.VueTS.Infrastructure.Mapping
 {
     public interface IMapFrom<TModel>
     {

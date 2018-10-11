@@ -1,4 +1,5 @@
 ﻿using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ using TicketingSystem.VueTS.Infrastructure.Extensions;
 
 namespace TicketingSystem.VueTS.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/projects")]
     
     public class ProjectsController : Controller
     {
@@ -20,13 +22,19 @@ namespace TicketingSystem.VueTS.Controllers
         }
 
         [HttpGet]
+        [Route("")]
         public IActionResult Index(int page = 1)
         {
             var projects = this.projects.All(page)
-                //.ProjectTo<ProjectViewModel>()
+                .ProjectTo<ProjectModel>()
                 .ToArray();
 
-            return Ok(projects);
+            return Ok(new ProjectListingModel
+            {
+                Projects = projects,
+                TotalProjects = this.projects.Total(),
+                CurrentPage = page
+            });
         }
 
         [HttpGet("create")]
@@ -53,8 +61,8 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpGet("details/{id}")]
         public IActionResult Details(int id)
         {
-            var project = this.projects.Details(id)
-                //.ProjectTo<ProjectViewModel>()
+            ProjectModel project = this.projects.Details(id)
+                .ProjectTo<ProjectModel>()
                 .FirstOrDefault();
 
             return Ok(project);
@@ -63,8 +71,8 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpGet("edit/{id}")]
         public IActionResult Edit(int id)
         {
-            var project = this.projects.Details(id)
-                //.ProjectTo<ProjectViewModel>()
+            ProjectModel project = this.projects.Details(id)
+                .ProjectTo<ProjectModel>()
                 .FirstOrDefault();
         
             if (project == null)

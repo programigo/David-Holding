@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace TicketingSystem.VueTS.Areas.Projects.Models.Projects
 {
-    public class ProjectListingViewModel
+    public class ProjectListingModel
     {
-        public IEnumerable<ProjectViewModel> Projects { get; set; }
+        public IEnumerable<ProjectModel> Projects { get; set; }
 
         public int TotalProjects { get; set; }
 

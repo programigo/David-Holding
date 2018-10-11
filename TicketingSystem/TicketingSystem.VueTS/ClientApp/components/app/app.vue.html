@@ -1,15 +1,28 @@
 <template>
-    <div class="app-container">
-        <div class="app-view">
-            <router-view />
-            <template v-if="authenticated">
-                <button v-on:click='logout'>Log out</button>
-            </template>
-            <template v-else>
-                <button v-on:click='$auth.loginRedirect'>Log in</button>
-            </template>
-        </div>
-    </div>
+    <b-navbar toggleable="lg" type="dark" variant="primary" fixed="top">
+        <b-link class="navbar-brand" href="#">
+            <div class="main-title">
+                Ticketing System
+            </div>
+        </b-link>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
+            <b-dropdown class="user-dropdown text-link">
+                <template slot="button-content">
+                    {{user}}
+                </template>
+                <b-dropdown-item href="#"
+                                 @click="logout">
+                    <font-awesome-icon icon="sign-out-alt"
+                                       class="icon-color">
+                    </font-awesome-icon>
+                    {{$t("Log out")}}
+                </b-dropdown-item>
+            </b-dropdown>
+        </b-navbar-nav>
+    </b-navbar>
 </template>
 
 <script src="./app.ts"></script>
