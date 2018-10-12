@@ -87,7 +87,7 @@ namespace TicketingSystem.VueTS.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {

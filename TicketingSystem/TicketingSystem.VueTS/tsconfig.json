@@ -6,6 +6,7 @@
     "moduleResolution": "node",
     "target": "es5",
     "sourceMap": true,
+    "strictNullChecks": false,
     "skipDefaultLibCheck": true,
     "strict": true,
     "types": [ "webpack-env" ],

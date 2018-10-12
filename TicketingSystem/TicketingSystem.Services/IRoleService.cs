@@ -5,7 +5,7 @@ namespace TicketingSystem.Services
 {
     public interface IRoleService
     {
-        List<SelectListItem> GetRoles();
+        IEnumerable<SelectListItem> GetRoles();
 
         Task<bool> RoleExistsAsync(string role);
 

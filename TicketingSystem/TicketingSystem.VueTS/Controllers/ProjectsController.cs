@@ -12,7 +12,7 @@ namespace TicketingSystem.VueTS.Controllers
     [Authorize]
     [Route("api/projects")]
     
-    public class ProjectsController : Controller
+    public class ProjectsController : ControllerBase
     {
         private readonly IAdminProjectService projects;
 
@@ -21,8 +21,7 @@ namespace TicketingSystem.VueTS.Controllers
             this.projects = projects;
         }
 
-        [HttpGet]
-        [Route("")]
+        [HttpGet("")]
         public IActionResult Index(int page = 1)
         {
             var projects = this.projects.All(page)
@@ -53,8 +52,6 @@ namespace TicketingSystem.VueTS.Controllers
 
             this.projects.Create(model.Name, model.Description);
 
-            TempData.AddSuccessMessage($"Project {model.Name} created successfully");
-
             return StatusCode(201);
         }
 
@@ -83,7 +80,7 @@ namespace TicketingSystem.VueTS.Controllers
             return Ok(project);
         }
 
-        [HttpPost("edit/{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult Edit(int id, [FromBody]AddProjectFormModel model)
         {
             bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
@@ -92,8 +89,6 @@ namespace TicketingSystem.VueTS.Controllers
             {
                 return NotFound();
             }
-
-            TempData.AddSuccessMessage($"Project {model.Name} edited successfully");
 
             return Ok();
         }

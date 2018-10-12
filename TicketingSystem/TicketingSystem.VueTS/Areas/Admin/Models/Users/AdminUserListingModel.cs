@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem.VueTS.Areas.Admin.Models.Users
 {
-    public class AdminUserListingViewModel
+    public class AdminUserListingModel
     {
         public string Id { get; set; }
 

@@ -16,14 +16,13 @@ namespace TicketingSystem.VueTS.Services
         {
         }
 
-        public List<SelectListItem> GetRoles()
+        public IEnumerable<SelectListItem> GetRoles()
         => this.Roles
                .Select(r => new SelectListItem
                {
                    Text = r.Name,
                    Value = r.Name
-               })
-               .ToList();
+               });
 
         Task IRoleService.CreateAsync(ServiceIdentityRole identityRole)
         {

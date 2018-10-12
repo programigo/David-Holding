@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem.VueTS.Areas.Admin.Models.Users
 {
-    public class UserChangeDataViewModel
+    public class UserChangeDataModel
     {
         public string Id { get; set; }
 

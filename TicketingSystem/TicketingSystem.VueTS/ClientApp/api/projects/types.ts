@@ -12,3 +12,8 @@ export interface ProjectModel {
     name: string;
     description: string;
 }
+
+export interface AddProjectFormModel {
+    name: string;
+    description: string
+}

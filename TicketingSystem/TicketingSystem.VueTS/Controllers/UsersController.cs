@@ -15,10 +15,10 @@ using IdentityResult = TicketingSystem.Services.IdentityResult;
 
 namespace TicketingSystem.VueTS.Controllers
 {
-    //[Authorize(Roles = WebConstants.AdministratorRole)]
-    [Route("api/[controller]")]
+    [Authorize(Roles = WebConstants.AdministratorRole)]
+    [Route("api/users")]
 
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private readonly IAdminUserService users;
         private readonly IUserService userManager;
@@ -35,12 +35,12 @@ namespace TicketingSystem.VueTS.Controllers
         public IActionResult Index()
         {
             var users = this.users.GetAllUsers()
-                .ProjectTo<AdminUserListingViewModel>()
-                .ToList();
+                .ProjectTo<AdminUserListingModel>()
+                .ToArray();
 
-            var roles = this.roleManager.GetRoles();
+            var roles = this.roleManager.GetRoles().ToArray();
 
-            return Ok(new UserListingViewModel
+            return Ok(new UserListingModel
             {
                 Users = users,
                 Roles = roles.Select(r => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
@@ -55,10 +55,10 @@ namespace TicketingSystem.VueTS.Controllers
         public IActionResult Pending()
         {
             var users = this.users.GetPendingUsers()
-                .ProjectTo<AdminUserListingViewModel>()
-                .ToList();
+                .ProjectTo<AdminUserListingModel>()
+                .ToArray();
 
-            return Ok(new UserPendingViewModel
+            return Ok(new UserPendingModel
             {
                 Users = users
             });
@@ -87,14 +87,10 @@ namespace TicketingSystem.VueTS.Controllers
             {
                 await this.userManager.AddToRoleAsync(user, model.Role);
 
-                TempData.AddSuccessMessage($"User {user.UserName} successfully added to {model.Role} role.");
-
                 return Ok();
             }
             
             await this.userManager.AddToRoleAsync(user, model.Role);
-
-            TempData.AddSuccessMessage($"User {user.UserName} successfully added to {model.Role} role.");
 
             return Ok();
         }
@@ -106,22 +102,18 @@ namespace TicketingSystem.VueTS.Controllers
 
             this.users.Approve(id);
 
-            TempData.AddSuccessMessage($"User {user.UserName} successfully approved.");
-
             return Ok();
         }
 
         [HttpGet("register")]
         public IActionResult Register(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return Ok();
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
 
             if (ModelState.IsValid)
             {
@@ -134,8 +126,6 @@ namespace TicketingSystem.VueTS.Controllers
                 };
 
                 await userManager.CreateAsync(user, model.Password);
-
-                TempData.AddSuccessMessage($"User {user.UserName} successfully created");
 
                 return Ok();
             }
@@ -150,16 +140,14 @@ namespace TicketingSystem.VueTS.Controllers
 
             this.users.Remove(id);
 
-            TempData.AddSuccessMessage($"User {user.UserName} successfully removed");
-
             return Ok();
         }
 
         [HttpGet("changeuserdata/{id}")]
         public IActionResult ChangeUserData(string id)
         {
-            UserChangeDataViewModel user = this.users.Details(id)
-                .ProjectTo<UserChangeDataViewModel>().FirstOrDefault();
+            UserChangeDataModel user = this.users.Details(id)
+                .ProjectTo<UserChangeDataModel>().FirstOrDefault();
 
             if (user == null)
             {
@@ -169,8 +157,8 @@ namespace TicketingSystem.VueTS.Controllers
             return Ok(user);
         }
 
-        [HttpPost("changeuserdata/{id}")]
-        public IActionResult ChangeUserData(string id, [FromBody]AdminChangeDataViewModel model)
+        [HttpPut("changeuserdata/{id}")]
+        public IActionResult ChangeUserData(string id, [FromBody]AdminChangeDataModel model)
         {
             bool changedUser = this.users.ChangeData(id, model.Name, model.Email);
 
@@ -178,8 +166,6 @@ namespace TicketingSystem.VueTS.Controllers
             {
                 return NotFound();
             }
-
-            TempData.AddSuccessMessage($"User data for {model.Name} changed successfuly.");
 
             return Ok();
         }
@@ -196,13 +182,13 @@ namespace TicketingSystem.VueTS.Controllers
 
             bool hasPassword = await userManager.HasPasswordAsync(user);
 
-            AdminUserChangePasswordViewModel model = new AdminUserChangePasswordViewModel();
+            AdminUserChangePasswordModel model = new AdminUserChangePasswordModel();
 
             return Ok(model);
         }
 
-        [HttpPost("changeuserpassword/{id}")]
-        public async Task<ActionResult> ChangeUserPassword(string id, [FromBody]AdminUserChangePasswordViewModel model)
+        [HttpPut("changeuserpassword/{id}")]
+        public async Task<ActionResult> ChangeUserPassword(string id, [FromBody]AdminUserChangePasswordModel model)
         {
             User user = this.users.GetUser(id).FirstOrDefault();
 
@@ -212,8 +198,6 @@ namespace TicketingSystem.VueTS.Controllers
             {
                 result = await userManager.AddPasswordAsync(user, model.NewPassword);
             }
-
-            TempData.AddSuccessMessage($"Password for {user.UserName} changed successfuly.");
 
             return Ok();
         }

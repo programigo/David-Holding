@@ -3,7 +3,7 @@ using TicketingSystem.Data.Constants;
 
 namespace TicketingSystem.VueTS.Areas.Admin.Models.Users
 {
-    public class AdminChangeDataViewModel
+    public class AdminChangeDataModel
     {
         public string Id { get; set; }
 

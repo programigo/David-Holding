@@ -3,7 +3,7 @@ using TicketingSystem.Data.Constants;
 
 namespace TicketingSystem.VueTS.Models.AccountViewModels
 {
-    public class RegisterViewModel
+    public class RegisterModel
     {
         [Required]
         [StringLength(50)]
