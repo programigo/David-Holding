@@ -1,13 +1,19 @@
 import { ControllerBase } from '../ControllerBase';
-import { LoginRequest, RegisterRequest } from './types';
+import { LoginRequest, LoginResult, RegisterRequest } from './types';
 
 export class AccountController extends ControllerBase {
 	public constructor() {
 		super("api/account");
     }
 
-    public async logIn(): Promise<void> {
-        await super.ajaxPost<void, LoginRequest>("login");
+    public async logIn(request?: LoginRequest): Promise<LoginResult> {
+        const result = await super.ajaxPost<LoginRequest, LoginResult>("login", request);
+
+        return result.data;
+    }
+
+    public async isLoggedOn(): Promise<void> {
+        await super.ajaxGet<void, void>("isLoggedOn");
     }
 
     public async logOut(): Promise<void> {

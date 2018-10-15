@@ -16,11 +16,11 @@ interface Project {
 export default class ProjectsList extends Vue {
     projects: Project[] = [];
 
-    mounted() {
-        fetch('api/projects')
-            .then(response => response.json() as Promise<Project[]>)
-            .then(data => {
-                this.projects = data;
-            })
-    }
+    //mounted() {
+    //    fetch('api/projects')
+    //        .then(response => response.json() as Promise<Project[]>)
+    //        .then(data => {
+    //            this.projects = data;
+    //        })
+    //}
 }

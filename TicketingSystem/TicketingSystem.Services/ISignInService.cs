@@ -17,6 +17,8 @@ namespace TicketingSystem.Services
 
         Task SignOutAsync();
 
+        bool IsSignedIn();
+
         AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
 
         Task<ExternalLoginInfo> GetExternalLoginInfoAsync();

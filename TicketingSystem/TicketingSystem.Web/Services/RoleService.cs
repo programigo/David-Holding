@@ -16,7 +16,7 @@ namespace TicketingSystem.Web.Services
         {
         }
 
-        public List<SelectListItem> GetRoles()
+        public IEnumerable<SelectListItem> GetRoles()
         => this.Roles
                .Select(r => new SelectListItem
                {

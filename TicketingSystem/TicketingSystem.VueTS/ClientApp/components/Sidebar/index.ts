@@ -2,7 +2,7 @@
 import { Component } from 'vue-property-decorator';
 
 @Component({
-    name: 'sidebar',
+    name: 'the-sidebar',
     components: {
     }
 })

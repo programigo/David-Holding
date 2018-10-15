@@ -1,19 +1,25 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es2015"
+    ],
     "module": "es2015",
     "moduleResolution": "node",
-    "target": "es5",
-    "sourceMap": true,
-    "strictNullChecks": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "skipDefaultLibCheck": true,
+    "sourceMap": true,
     "strict": true,
-    "types": [ "webpack-env" ],
-    "lib": [ "es2015" ]
+    "strictNullChecks": false,
+    "target": "es5",
+    "types": [ "webpack-env" ]
   },
-  "exclude": [
-      "bin",
-      "node_modules"
-  ]
+	"exclude": [
+		"bin",
+		"node_modules"
+	]
 }

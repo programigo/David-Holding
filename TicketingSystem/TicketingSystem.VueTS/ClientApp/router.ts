@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
+import { store } from './store';
 
 Vue.use(VueRouter);
 
@@ -20,8 +21,25 @@ export const router = new VueRouter({
     routes: routes
 });
 
-//router.beforeEach((to: Route, from: Route, next) => {
-//    const authRequired: boolean = to.matched.some((route) => route.meta.auth);
-//
-//    
-//})
+router.beforeEach((to: Route, from: Route, next) => {
+    const authRequired: boolean = to.matched.some((route) => route.meta.auth);
+
+    if (store.state.sessionInfo) {
+        if (to.name === "login") {
+            next({
+                path: "home"
+            });
+        } else {
+            next();
+        }
+    } else if (authRequired) {
+        next({
+            path: "login",
+            query: {
+                redirectUrl: to.path
+            }
+        });
+    } else {
+        next();
+    }
+});

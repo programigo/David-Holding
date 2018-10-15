@@ -85,6 +85,20 @@ namespace TicketingSystem.VueTS.Controllers
             return Ok(model);
         }
 
+        [Authorize]
+        [HttpGet("isLoggedOn")]
+        public IActionResult IsLoggedOn()
+        {
+            
+                bool isLoggedOn = _signInManager.IsSignedIn();
+                if (isLoggedOn)
+                {
+                    return Ok();
+                }
+
+                return Unauthorized();
+        }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
