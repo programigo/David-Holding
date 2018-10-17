@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
 using AuthenticationProperties = TicketingSystem.Services.AuthenticationProperties;
@@ -42,6 +43,11 @@ namespace TicketingSystem.Web.Services
             var returnRes = new ExternalLoginInfo(res.Principal, res.LoginProvider, res.ProviderKey, res.ProviderDisplayName);
 
             return returnRes;
+        }
+
+        public bool IsSignedIn()
+        {
+            return base.IsSignedIn(ClaimsPrincipal.Current);
         }
 
         public async Task SignInAsync(User signInUser, bool isPersistent)

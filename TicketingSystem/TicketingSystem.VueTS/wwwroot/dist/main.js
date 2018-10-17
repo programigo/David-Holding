@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8d8a12c8a32f4fe42f1c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9181dcc32d41ecf2e4ca"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -2835,7 +2835,8 @@ module.exports = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Sidebar__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api__ = __webpack_require__(8);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2890,6 +2891,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -2899,7 +2901,7 @@ var App = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].isLoggedOn()];
+                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_3__api__["a" /* account */].isLoggedOn()];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -2913,7 +2915,7 @@ var App = /** @class */ (function (_super) {
     App = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__["Component"])({
             components: {
-                Sidebar: __webpack_require__(29)
+                Sidebar: __WEBPACK_IMPORTED_MODULE_2__components_Sidebar__["a" /* default */]
             }
         })
     ], App);
@@ -3007,7 +3009,6 @@ var ProjectsList = /** @class */ (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__);
@@ -3101,7 +3102,7 @@ var Sidebar = /** @class */ (function (_super) {
     ], Sidebar);
     return Sidebar;
 }(__WEBPACK_IMPORTED_MODULE_0_vue__["default"]));
-/* harmony default export */ __webpack_exports__["default"] = (Sidebar);
+/* harmony default export */ __webpack_exports__["a"] = (Sidebar);
 
 
 /***/ }),
