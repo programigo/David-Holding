@@ -2,24 +2,25 @@ import './css/site.css';
 import 'bootstrap';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 import App from './App';
 import { store } from './store';
 import { router } from './router';
+import { messages } from './language';
 
+Vue.use(VueI18n);
 Vue.use(VueRouter);
 
-//const routes = [
-//    { path: '/', component: require('./pages/home/index.vue') },
-//    { path: '/counter', component: require('./components/counter/counter.vue.html') },
-//    { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html') },
-//    { path: '/projects', component: require('./pages/projects/index.vue') },
-//    { path: '/register', component: require('./components/register/register.vue.html') },
-//    { path: '/login', component: require('./pages/login/index.vue') }
-//];
+const i18n = new VueI18n({
+    locale: store.getters.culture,
+    fallbackLocale: "en-US",
+    messages,
+});
 
 new Vue({
     el: '#app-root',
     store: store,
     router: router,
-    render: h => h(App)
+    render: h => h(require('./components/app/app.vue.html')),
+    i18n
 });
