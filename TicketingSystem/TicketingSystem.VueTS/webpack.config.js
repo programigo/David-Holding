@@ -10,20 +10,73 @@ module.exports = (env) => {
     return [{
         stats: { modules: false },
         context: __dirname,
-        resolve: { extensions: [ '.js', '.ts' ] },
+        resolve: {
+            extensions: ['.vue', '.js', '.ts'],
+            // prevent a JavaScript console warning
+            alias: {
+                'vue$': 'vue/dist/vue.esm.js'
+            }
+        },
         entry: { 'main': './ClientApp/boot.ts' },
         module: {
             rules: [
-                { test: /\.vue\.html$/, include: /ClientApp/, loader: 'vue-loader', options: { loaders: { js: 'awesome-typescript-loader?silent=true' } } },
-                { test: /\.ts$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true' },
-                { test: /\.css$/, use: isDevBuild ? [ 'style-loader', 'css-loader' ] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+                {
+                    test: /\.vue(\.html)?$/,
+                    include: /ClientApp/,
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            js: 'awesome-typescript-loader?silent=true'
+                        }
+                    }
+                },
+                {
+                    test: /\.ts$/,
+                    include: /ClientApp/,
+                    use: 'awesome-typescript-loader?silent=true'
+                },
+                {
+                    test: /\.css$/,
+                    use: isDevBuild
+                        ? ['style-loader', 'css-loader']
+                        : ExtractTextPlugin.extract({ use: 'css-loader?minimize' })
+                },
+                {
+                    test: /\.scss$/,
+                    use: isDevBuild
+                        ? ['style-loader', 'sass-loader']
+                        : ExtractTextPlugin.extract({ use: 'sass-loader?minimize' })
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                    loader: 'url-loader',
+                    options: {
+                        limit: 25000,
+                        //name: utils.assetsPath('img/[name].[hash:7].[ext]')
+                    }
+                },
+                {
+                    test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+                    loader: 'url-loader',
+                    options: {
+                        limit: 25000,
+                        //name: utils.assetsPath('media/[name].[hash:7].[ext]')
+                    }
+                },
+                {
+                    test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                    loader: 'url-loader',
+                    options: {
+                        limit: 25000,
+                        //name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+                    }
+                }
             ]
         },
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: '[name].js',
-            publicPath: 'dist/'
+            publicPath: isDevBuild ? 'dist/' : ''
         },
         plugins: [
             new CheckerPlugin(),
@@ -43,9 +96,9 @@ module.exports = (env) => {
                 moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
             })
         ] : [
-            // Plugins that apply in production builds only
-            new webpack.optimize.UglifyJsPlugin(),
-            new ExtractTextPlugin('site.css')
-        ])
+                // Plugins that apply in production builds only
+                new webpack.optimize.UglifyJsPlugin(),
+                new ExtractTextPlugin('site.css')
+            ])
     }];
 };

@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <h2>Register</h2>
-        
     </div>
 </template>
 
+<script src="./index.ts"></script>

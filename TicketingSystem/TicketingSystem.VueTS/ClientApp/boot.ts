@@ -21,6 +21,6 @@ new Vue({
     el: '#app-root',
     store: store,
     router: router,
-    render: h => h(require('./components/app/app.vue.html')),
+    render: h => h(App),
     i18n
 });

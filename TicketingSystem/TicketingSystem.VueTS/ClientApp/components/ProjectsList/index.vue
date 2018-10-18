@@ -14,4 +14,4 @@
 
 </template>
 
-<script src="./projects.ts"></script>
+<script src="./index.ts"></script>
