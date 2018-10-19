@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
-        <h1>Stana</h1>
-        
+        <h1>All projects</h1>
+        <projects-list />
     </div>
 </template>
 

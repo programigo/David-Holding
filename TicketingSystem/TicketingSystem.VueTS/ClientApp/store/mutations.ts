@@ -4,6 +4,7 @@ import { AppState, SessionInfo } from './types';
 export const UNAUTHORIZED = "UNAUTHORIZED";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const REGISTER = "REGISTER";
 export const UPDATE = "UPDATE";
 
 export const mutations: MutationTree<AppState> = {
@@ -18,7 +19,11 @@ export const mutations: MutationTree<AppState> = {
 	[LOGOUT](state: AppState) {
 		state.sessionInfo = null;
 		return state;
-	},
+    },
+    [REGISTER](state: AppState, payload: RegisterMutationPayload) {
+        state.sessionInfo = payload.sessionInfo;
+        return state;
+    },
 	[UPDATE](state: AppState, payload: UpdateMutationPayload) {
 		state.sessionInfo = null;
 		state.sessionInfo = payload.sessionInfo;
@@ -31,6 +36,10 @@ export interface UnauthorizedMutationPayload {
 
 export interface LoginMutationPayload {
 	sessionInfo: SessionInfo;
+}
+
+export interface RegisterMutationPayload {
+    sessionInfo: SessionInfo;
 }
 
 export interface UpdateMutationPayload {

@@ -14,8 +14,9 @@ interface Project {
 })
 
 export default class ProjectsList extends Vue {
-    projects: Project[] = [];
-
+    //private get allProjects(): 
+    //projects: Project[] = [];
+    //
     //mounted() {
     //    fetch('api/projects')
     //        .then(response => response.json() as Promise<Project[]>)

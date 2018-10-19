@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
+using System.Web;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
@@ -72,7 +73,7 @@ namespace TicketingSystem.VueTS.Controllers
                 if (result.Succeeded && isApprovedUser)
                 {
                     _logger.LogInformation("User logged in.");
-                    return Ok();
+                    return Ok(user);
                 }
                 else
                 {
@@ -90,8 +91,8 @@ namespace TicketingSystem.VueTS.Controllers
         public IActionResult IsLoggedOn()
         {
             
-                bool isLoggedOn = _signInManager.IsSignedIn();
-                if (isLoggedOn)
+                //bool isLoggedOn = _signInManager.IsSignedIn();
+                if (User.Identity.IsAuthenticated)
                 {
                     return Ok();
                 }

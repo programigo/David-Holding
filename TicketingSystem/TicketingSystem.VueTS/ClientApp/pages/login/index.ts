@@ -6,6 +6,8 @@ import { LoginActionPayload } from '../../store/actions';
 
 import VeeValidate from 'vee-validate';
 
+Vue.use(VeeValidate);
+
 @Component({
     
 })

@@ -9,7 +9,7 @@ using TicketingSystem.VueTS.Infrastructure.Extensions;
 
 namespace TicketingSystem.VueTS.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/projects")]
     
     public class ProjectsController : ControllerBase

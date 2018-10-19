@@ -5,6 +5,7 @@ import * as mutations from './mutations';
 export const UNAUTHORIZED = "UNAUTHORIZED";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const REGISTER = "REGISTER";
 export const UPDATE = "UPDATE";
 
 export const actions: ActionTree<AppState, any> = {
@@ -26,7 +27,14 @@ export const actions: ActionTree<AppState, any> = {
 		};
 
 		context.commit(LOGOUT, mutationPayload);
-	},
+    },
+    [REGISTER](context, payload: RegisterActionPayload) {
+        const mutationPayload: mutations.RegisterMutationPayload = {
+            sessionInfo: payload.sessionInfo
+        };
+
+        context.commit(REGISTER, mutationPayload);
+    },
 	[UPDATE](context, payload: UpdateActionPayload) {
 		const mutationPayload: mutations.UpdateMutationPayload = {
 			sessionInfo: payload.sessionInfo
@@ -41,6 +49,10 @@ export interface UnauthorizedActionPayload {
 
 export interface LoginActionPayload {
 	sessionInfo: SessionInfo;
+}
+
+export interface RegisterActionPayload {
+    sessionInfo: SessionInfo;
 }
 
 export interface LogoutActionPayload {
