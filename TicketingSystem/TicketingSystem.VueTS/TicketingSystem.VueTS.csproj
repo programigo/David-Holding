@@ -18,7 +18,6 @@
     <None Remove="ClientApp\api\projects\ProjectsController.ts" />
     <None Remove="ClientApp\api\users\UsersController.ts" />
     <None Remove="ClientApp\App.ts" />
-    <None Remove="ClientApp\components\navmenu\navmenu.ts" />
     <None Remove="ClientApp\components\sidebar\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
     <None Remove="ClientApp\pages\projects\index.ts" />
@@ -26,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
   </ItemGroup>
 
@@ -95,7 +94,6 @@
     <TypeScriptCompile Include="ClientApp\api\projects\ProjectsController.ts" />
     <TypeScriptCompile Include="ClientApp\api\users\UsersController.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
-    <TypeScriptCompile Include="ClientApp\components\navmenu\navmenu.ts" />
     <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />

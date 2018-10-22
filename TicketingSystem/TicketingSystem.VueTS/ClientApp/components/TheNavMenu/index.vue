@@ -1,7 +1,7 @@
 ﻿<template>
     <b-navbar class="navbar navbar-expand-md navbar-static-top navbar-dark bg-dark">
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-        <b-navbar-brand to="/" :exact="true">Archimed Eurohold</b-navbar-brand>
+        <b-navbar-brand to="/" :exact="true">Ticketing System</b-navbar-brand>
         <b-collapse is-nav id="nav_collapse">
            
             <b-navbar-nav class="ml-auto">

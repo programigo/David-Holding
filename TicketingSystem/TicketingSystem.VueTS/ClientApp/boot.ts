@@ -9,6 +9,9 @@ import { store } from './store';
 import { router } from './router';
 import { messages } from './language';
 
+import './mixins';
+import './axios';
+
 Vue.use(VueI18n);
 Vue.use(BootstrapVue);
 
@@ -18,7 +21,7 @@ const i18n = new VueI18n({
     messages,
 });
 
-new Vue({
+export default new Vue({
     el: '#app-root',
     store: store,
     router: router,
