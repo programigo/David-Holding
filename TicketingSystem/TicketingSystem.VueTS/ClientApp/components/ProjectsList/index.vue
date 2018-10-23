@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
-        <div v-if="projects.length">
-            <div v-for="project in projects">
+        <div v-if="renderProjects.length">
+            <div v-for="project in renderProjects">
                 <div class="col-md-3">
                     <div class="panel panel-primary">
                         <div class="panel-heading" style="text-align: center">{{ project.name }}</div>
@@ -10,6 +10,7 @@
                 </div>
             </div>
         </div>
+        <p v-else><em>Loading...</em></p>
     </div>
 
 </template>

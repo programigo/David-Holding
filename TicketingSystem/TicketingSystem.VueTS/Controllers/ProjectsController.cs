@@ -25,15 +25,10 @@ namespace TicketingSystem.VueTS.Controllers
         public IActionResult Index(int page = 1)
         {
             var projects = this.projects.All(page)
-                .ProjectTo<ProjectModel>()
+                //.ProjectTo<ProjectModel>()
                 .ToArray();
 
-            return Ok(new ProjectListingModel
-            {
-                Projects = projects,
-                TotalProjects = this.projects.Total(),
-                CurrentPage = page
-            });
+            return Ok(projects);
         }
 
         [HttpGet("create")]

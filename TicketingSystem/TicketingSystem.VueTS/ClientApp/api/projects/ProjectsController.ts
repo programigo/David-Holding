@@ -7,13 +7,13 @@ export class ProjectsController extends ControllerBase {
     }
 
     public async getProjects(): Promise<ProjectModel[]> {
-        const response = await super.ajaxGet<null, ProjectModel[]>("");
+        const response = await super.ajaxGet<void, ProjectModel[]>("");
 
         return response.data;
     }
 
-    public async create(): Promise<AddProjectFormModel> {
-        const response = await super.ajaxPost<void, AddProjectFormModel>("create");
+    public async create(request?: AddProjectFormModel): Promise<void> {
+        const response = await super.ajaxPost<AddProjectFormModel, void>("create", request);
 
         return response.data;
     }

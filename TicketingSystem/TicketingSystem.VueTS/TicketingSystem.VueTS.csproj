@@ -19,6 +19,7 @@
     <None Remove="ClientApp\api\users\UsersController.ts" />
     <None Remove="ClientApp\App.ts" />
     <None Remove="ClientApp\components\sidebar\index.ts" />
+    <None Remove="ClientApp\pages\createProject\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
     <None Remove="ClientApp\pages\projects\index.ts" />
     <None Remove="ClientApp\router.ts" />
@@ -95,6 +96,7 @@
     <TypeScriptCompile Include="ClientApp\api\users\UsersController.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\createProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />
     <TypeScriptCompile Include="ClientApp\router.ts" />

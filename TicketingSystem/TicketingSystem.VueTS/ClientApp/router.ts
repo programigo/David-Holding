@@ -8,12 +8,14 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
 import Projects from './pages/projects';
+import CreateProject from './pages/createProject';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
     { name: 'login', path: '/login', component: Login, meta: { requiresAuth: false } },
     { name: 'register', path: '/register', component: Register, meta: { requiresAuth: false } }, 
-    { name: 'projects', path: '/projects/:projectId', component: Projects, meta: { requiresAuth: true } },
+    { name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true } },
+    { name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({
