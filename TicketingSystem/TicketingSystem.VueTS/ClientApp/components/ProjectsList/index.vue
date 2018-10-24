@@ -2,11 +2,18 @@
     <div>
         <div v-if="renderProjects.length">
             <div v-for="project in renderProjects">
-                <div class="col-md-3">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading" style="text-align: center">{{ project.name }}</div>
-                        <div class="panel-body" style="text-align: center">{{ project.description }}</div>
-                    </div>
+                <div>
+                    <b-card :title="project.name" tag="article" style="max-width: 25rem;" class="mb-2">
+                        <b-link to="/projects/details/9">
+                            {{project.name}}
+                        </b-link>
+                        <hr />
+                        <p class="card-text">
+                            {{project.description}}
+                        </p>
+                        <b-button to="projects/edit/:id" variant="warning">Edit</b-button>
+                        <b-button href="#" variant="danger">Delete</b-button>
+                    </b-card>
                 </div>
             </div>
         </div>

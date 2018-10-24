@@ -18,10 +18,12 @@ export default class ProjectsList extends Vue {
     private async getAllProjects(): Promise<ProjectViewModel[]> {
         const response: api.ProjectModel[] = await api.projects.getProjects();
 
-        const projects: ProjectViewModel[] = response as ProjectViewModel[]; 
-            //.map(project => {
-            //    return this.createProjectViewModel(project);
-            //});
+        
+
+        const projects: ProjectViewModel[] = response
+            .map(project => {
+                return this.createProjectViewModel(project);
+            });
 
         this.renderProjects = projects;
 

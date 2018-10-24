@@ -15,11 +15,11 @@ namespace TicketingSystem.Implementations
             this.db = db;
         }
 
-        public IQueryable<ProjectListingServiceModel> All(int page = 1)
+        public IQueryable<ProjectListingServiceModel> All()
         => this.db
             .Projects
-            .Skip((page - 1) * 8)
-            .Take(8)
+            //.Skip((page - 1) * 8)
+            //.Take(8)
             .Select(p => new ProjectListingServiceModel
             {
                 Id = p.Id,

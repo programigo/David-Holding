@@ -22,19 +22,13 @@ namespace TicketingSystem.VueTS.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index()
         {
-            var projects = this.projects.All(page)
+            var projects = this.projects.All()
                 //.ProjectTo<ProjectModel>()
                 .ToArray();
 
             return Ok(projects);
-        }
-
-        [HttpGet("create")]
-        public IActionResult Create()
-        {
-            return Ok();
         }
 
         [HttpPost("create")]
