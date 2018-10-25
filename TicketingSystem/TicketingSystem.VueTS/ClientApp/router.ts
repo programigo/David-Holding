@@ -10,6 +10,7 @@ import Register from './pages/register';
 import Projects from './pages/projects';
 import CreateProject from './pages/createProject';
 import EditProject from './pages/editProject';
+import DeleteProject from './pages/deleteProject';
 import ProjectDetails from './pages/projectDetails';
 
 const routes = [
@@ -20,6 +21,7 @@ const routes = [
     { name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true } },
     { name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },
     { name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
+    { name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({

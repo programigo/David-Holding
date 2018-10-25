@@ -3,7 +3,6 @@ import { Component } from 'vue-property-decorator';
 import * as api from '../../api/projects';
 
 import VeeValidate from 'vee-validate';
-import { AddProjectFormModel } from '../../api/projects';
 
 Vue.use(VeeValidate);
 
@@ -17,17 +16,32 @@ export default class EditProject extends Vue {
         description: null
     };
 
+    public async mounted(): Promise<void> {
+        this.getProjectInfo();
+    }
+
+    private async getProjectInfo(): Promise<api.ProjectModel> {
+        const request: number = this.id;
+
+        const response: api.ProjectModel = await api.projects.getDetails(request);
+
+        this.editProjectViewModel.name = response.name;
+        this.editProjectViewModel.description = response.description;
+
+        return response;
+    }
+
     private get id(): number {
         return Number(this.$route.params.projectId);
     }
 
-    private async edit(): Promise<AddProjectFormModel> {
-        const request: number = this.id;
+    private async editProject(): Promise<void> {
+        const request: api.AddProjectFormModel = {
+            name: this.editProjectViewModel.name,
+            description: this.editProjectViewModel.description
+        }
 
-        const response: api.AddProjectFormModel = await api.projects.edit(request);
-
-        this.editProjectViewModel.name = response.name;
-        this.editProjectViewModel.description = response.description;
+        const response: void = await api.projects.edit(this.id, request);
 
         return response;
     }

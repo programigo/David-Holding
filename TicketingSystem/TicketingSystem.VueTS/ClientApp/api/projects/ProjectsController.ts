@@ -24,14 +24,14 @@ export class ProjectsController extends ControllerBase {
         return response.data;
     }
 
-    public async edit(id: number): Promise<AddProjectFormModel> {
-        const response = await super.ajaxPut<number, AddProjectFormModel>(`edit/${id}`);
+    public async edit(id: number, request?: AddProjectFormModel): Promise<void> {
+        const response = await super.ajaxPut<AddProjectFormModel, void>(`edit/${id}`, request);
 
         return response.data;
     }
 
-    public async delete(id: number): Promise<boolean> {
-        const response = await super.ajaxDelete<void, boolean>(`delete/${id}`);
+    public async delete(id: number): Promise<void> {
+        const response = await super.ajaxDelete<number, void>(`delete/${id}`);
 
         return response.data;
     }

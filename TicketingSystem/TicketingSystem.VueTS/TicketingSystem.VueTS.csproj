@@ -20,6 +20,7 @@
     <None Remove="ClientApp\App.ts" />
     <None Remove="ClientApp\components\sidebar\index.ts" />
     <None Remove="ClientApp\pages\createProject\index.ts" />
+    <None Remove="ClientApp\pages\deleteProject\index.ts" />
     <None Remove="ClientApp\pages\editProject\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
     <None Remove="ClientApp\pages\projectDetails\index.ts" />
@@ -99,6 +100,7 @@
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\createProject\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\deleteProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\editProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projectDetails\index.ts" />

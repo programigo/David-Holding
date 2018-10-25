@@ -34,6 +34,8 @@ export default class Login extends Vue {
         }
 
         await this.$store.dispatch(actions.LOGIN, payload);
+
+        this.$router.push('/');
     }
 
     private validateBeforeLogin(): void {
