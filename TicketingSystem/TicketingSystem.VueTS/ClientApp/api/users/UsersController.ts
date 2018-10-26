@@ -7,13 +7,19 @@ export class UsersController extends ControllerBase {
     }
 
     public async getUsers(): Promise<UserListingModel> {
-        const response = await super.ajaxGet<null, UserListingModel>("");
+        const response = await super.ajaxGet<void, UserListingModel>("");
+
+        return response.data;
+    }
+
+    public async getUserInfo(id: string): Promise<AdminChangeDataModel> {
+        const response = await super.ajaxGet<string, AdminChangeDataModel>(`changeuserdata/${id}`);
 
         return response.data;
     }
 
     public async pending(): Promise<UserPendingModel> {
-        const response = await super.ajaxGet<null, UserPendingModel>("pending");
+        const response = await super.ajaxGet<void, UserPendingModel>("pending");
 
         return response.data;
     }
@@ -23,7 +29,7 @@ export class UsersController extends ControllerBase {
     }
 
     public async approve(id: string): Promise<void> {
-        await super.ajaxPost<void, void>(`approve/${id}`);
+        await super.ajaxPost<string, void>(`approve/${id}`);
     }
 
     public async registerUser(model: RegisterModel): Promise<void> {
@@ -31,7 +37,7 @@ export class UsersController extends ControllerBase {
     }
 
     public async removeUser(id: string): Promise<void> {
-        await super.ajaxPost<void, void>(`remove/${id}`);
+        await super.ajaxPost<string, void>(`remove/${id}`);
     }
 
     public async changeUserData(id: string, model: AdminChangeDataModel): Promise<void> {

@@ -15,7 +15,7 @@ using IdentityResult = TicketingSystem.Services.IdentityResult;
 
 namespace TicketingSystem.VueTS.Controllers
 {
-    [Authorize(Roles = WebConstants.AdministratorRole)]
+    [Authorize]
     [Route("api/users")]
 
     public class UsersController : ControllerBase
@@ -130,7 +130,7 @@ namespace TicketingSystem.VueTS.Controllers
                 return Ok();
             }
            
-            return Ok(model);
+            return BadRequest(model);
         }
 
         [HttpPost("remove/{id}")]

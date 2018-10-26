@@ -34,7 +34,6 @@ export interface RegisterModel {
 }
 
 export interface AdminChangeDataModel {
-    id: string;
     username: string;
     name: string;
     email: string;

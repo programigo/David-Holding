@@ -12,6 +12,11 @@ import CreateProject from './pages/createProject';
 import EditProject from './pages/editProject';
 import DeleteProject from './pages/deleteProject';
 import ProjectDetails from './pages/projectDetails';
+import AllUsers from './pages/allUsers';
+import RegisterUser from './pages/registerUser';
+import ChangeUserData from './pages/changeUserData';
+import ChangeUserPassword from './pages/changeUserPassword';
+import PendingUsers from './pages/pendingUsers';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
@@ -22,6 +27,11 @@ const routes = [
     { name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },
     { name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
     { name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
+    { name: 'users', path: '/users', component: AllUsers, meta: { requiresAuth: true } },
+    { name: 'register-user', path: '/users/register', component: RegisterUser, meta: { requiresAuth: true } },
+    { name: 'user-changeData', path: '/users/changeuserdata/:userId', component: ChangeUserData, meta: { requiresAuth: true } },
+    { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true } },
+    { name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({
