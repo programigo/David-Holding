@@ -16,8 +16,17 @@ export default class AllUsers extends Vue {
         roles: null
     };
 
+    addToRoleModel: AddUserToRoleViewModel = {
+        userId: null,
+        role: null
+    };
+
     public async mounted(): Promise<UserListingViewModel> {
         return this.getAllUsers();
+    }
+
+    private get id(): string {
+        return this.$route.params.userId;
     }
 
     private async getAllUsers(): Promise<UserListingViewModel> {
@@ -42,6 +51,17 @@ export default class AllUsers extends Vue {
 
         return response;
     }
+
+    private async addUserToRole(): Promise<void> {
+        const request: api.AddUserToRoleFormModel = {
+            userId: this.id,
+            role: this.addToRoleModel.role
+        }
+
+        const response: void = await api.users.addToRole(request);
+
+        return response;
+    }
 }
 
 interface UserListingViewModel {
@@ -59,4 +79,9 @@ interface AdminUserListingViewModel {
 interface SelectListItem {
     text: string;
     value: string;
+}
+
+interface AddUserToRoleViewModel {
+    userId: string;
+    role: string;
 }

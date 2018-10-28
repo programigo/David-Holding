@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2b70d836b6b49b42a94b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "79ab4844c2216a7709ad"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28221,6 +28221,7 @@ var routes = [
     { name: 'project-edit', path: '/projects/edit/:projectId', component: __WEBPACK_IMPORTED_MODULE_8__pages_editProject__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'project-delete', path: '/projects/delete/:projectId', component: __WEBPACK_IMPORTED_MODULE_9__pages_deleteProject__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'users', path: '/users', component: __WEBPACK_IMPORTED_MODULE_11__pages_allUsers__["a" /* default */], meta: { requiresAuth: true } },
+    { name: 'users-addToRole', path: '/users/addtorole', component: __WEBPACK_IMPORTED_MODULE_11__pages_allUsers__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'register-user', path: '/users/register', component: __WEBPACK_IMPORTED_MODULE_12__pages_registerUser__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'user-changeData', path: '/users/changeuserdata/:userId', component: __WEBPACK_IMPORTED_MODULE_13__pages_changeUserData__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: __WEBPACK_IMPORTED_MODULE_14__pages_changeUserPassword__["a" /* default */], meta: { requiresAuth: true } },
@@ -29517,6 +29518,10 @@ var AllUsers = /** @class */ (function (_super) {
             users: null,
             roles: null
         };
+        _this.addToRoleModel = {
+            userId: null,
+            role: null
+        };
         return _this;
     }
     AllUsers.prototype.mounted = function () {
@@ -29526,6 +29531,13 @@ var AllUsers = /** @class */ (function (_super) {
             });
         });
     };
+    Object.defineProperty(AllUsers.prototype, "id", {
+        get: function () {
+            return this.$route.params.userId;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AllUsers.prototype.getAllUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, users, roles, result;
@@ -29553,6 +29565,24 @@ var AllUsers = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].removeUser(id)];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response];
+                }
+            });
+        });
+    };
+    AllUsers.prototype.addUserToRole = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var request, response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        request = {
+                            userId: this.id,
+                            role: this.addToRoleModel.role
+                        };
+                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].addToRole(request)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response];
@@ -54158,40 +54188,121 @@ var render = function() {
                         { staticClass: "row" },
                         [
                           _c(
-                            "b-button",
+                            "b-form",
                             {
-                              attrs: {
-                                to: {
-                                  path: "users/changeuserpassword/" + user.id
-                                },
-                                variant: "success"
-                              }
-                            },
-                            [_vm._v("Change Password")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                to: { path: "users/changeuserdata/" + user.id },
-                                variant: "warning"
-                              }
-                            },
-                            [_vm._v("Change Data")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "danger" },
                               on: {
-                                click: function($event) {
-                                  _vm.remove(user.id)
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.addUserToRole($event)
                                 }
                               }
                             },
-                            [_vm._v("Remove")]
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "UserId",
+                                  value: "user.id"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.addToRoleModel.role,
+                                      expression: "addToRoleModel.role"
+                                    }
+                                  ],
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.addToRoleModel,
+                                        "role",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                _vm._l(_vm.allUsers.roles, function(role) {
+                                  return _c("option", [
+                                    _vm._v(_vm._s(role.text))
+                                  ])
+                                })
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: { type: "submit", variant: "success" }
+                                },
+                                [_vm._v("Add To Role")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8" },
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    to: {
+                                      path:
+                                        "users/changeuserpassword/" + user.id
+                                    },
+                                    variant: "success"
+                                  }
+                                },
+                                [_vm._v("Change Password")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    to: {
+                                      path: "users/changeuserdata/" + user.id
+                                    },
+                                    variant: "warning"
+                                  }
+                                },
+                                [_vm._v("Change Data")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: { variant: "danger" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.remove(user.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Remove")]
+                              )
+                            ],
+                            1
                           )
                         ],
                         1

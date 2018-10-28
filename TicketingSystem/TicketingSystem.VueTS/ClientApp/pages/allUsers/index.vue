@@ -15,9 +15,22 @@
                         <th>{{user.email}}</th>
                         <th>
                             <div class="row">
-                                <b-button :to="{ path: 'users/changeuserpassword/' + user.id }" variant="success">Change Password</b-button>
-                                <b-button :to="{ path: 'users/changeuserdata/' + user.id }" variant="warning">Change Data</b-button>
-                                <b-button v-on:click="remove(user.id)" variant="danger">Remove</b-button>
+                                
+                                <b-form @submit.prevent="addUserToRole">
+                                    <input type="hidden" name="UserId" value="user.id" />
+                                    <select v-model="addToRoleModel.role">
+                                        <option v-for="role in allUsers.roles" >{{role.text}}</option>
+                                    </select>
+                                    <b-button type="submit" variant="success">Add To Role</b-button>
+                                </b-form>
+                                
+                                
+                                <div class="col-md-8">
+                                    <b-button :to="{ path: 'users/changeuserpassword/' + user.id }" variant="success">Change Password</b-button>
+                                    <b-button :to="{ path: 'users/changeuserdata/' + user.id }" variant="warning">Change Data</b-button>
+                                    <b-button v-on:click="remove(user.id)" variant="danger">Remove</b-button>
+                                </div>
+                                
                             </div>
                         </th>
                     </tr>

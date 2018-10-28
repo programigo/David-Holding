@@ -28,6 +28,7 @@ const routes = [
     { name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
     { name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
     { name: 'users', path: '/users', component: AllUsers, meta: { requiresAuth: true } },
+    { name: 'users-addToRole', path: '/users/addtorole', component: AllUsers, meta: { requiresAuth: true } },
     { name: 'register-user', path: '/users/register', component: RegisterUser, meta: { requiresAuth: true } },
     { name: 'user-changeData', path: '/users/changeuserdata/:userId', component: ChangeUserData, meta: { requiresAuth: true } },
     { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true } },
