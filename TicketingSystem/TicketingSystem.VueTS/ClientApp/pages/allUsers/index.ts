@@ -25,10 +25,6 @@ export default class AllUsers extends Vue {
         return this.getAllUsers();
     }
 
-    private get id(): string {
-        return this.$route.params.userId;
-    }
-
     private async getAllUsers(): Promise<UserListingViewModel> {
         const response: api.UserListingModel = await api.users.getUsers();
 
@@ -52,9 +48,9 @@ export default class AllUsers extends Vue {
         return response;
     }
 
-    private async addUserToRole(): Promise<void> {
+    private async addUserToRole(id: string): Promise<void> {
         const request: api.AddUserToRoleFormModel = {
-            userId: this.id,
+            userId: id,
             role: this.addToRoleModel.role
         }
 

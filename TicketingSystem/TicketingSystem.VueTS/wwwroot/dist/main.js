@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "79ab4844c2216a7709ad"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e847896df35c264a5a03"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -29531,13 +29531,6 @@ var AllUsers = /** @class */ (function (_super) {
             });
         });
     };
-    Object.defineProperty(AllUsers.prototype, "id", {
-        get: function () {
-            return this.$route.params.userId;
-        },
-        enumerable: true,
-        configurable: true
-    });
     AllUsers.prototype.getAllUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, users, roles, result;
@@ -29572,14 +29565,14 @@ var AllUsers = /** @class */ (function (_super) {
             });
         });
     };
-    AllUsers.prototype.addUserToRole = function () {
+    AllUsers.prototype.addUserToRole = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var request, response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         request = {
-                            userId: this.id,
+                            userId: id,
                             role: this.addToRoleModel.role
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].addToRole(request)];
@@ -54171,7 +54164,10 @@ var render = function() {
       ? _c("div", [
           _c(
             "table",
-            { staticClass: "table table-hover table-bordered" },
+            {
+              staticClass: "table table-hover table-bordered",
+              attrs: { id: "all-users" }
+            },
             [
               _vm._m(0),
               _vm._v(" "),
@@ -54193,19 +54189,11 @@ var render = function() {
                               on: {
                                 submit: function($event) {
                                   $event.preventDefault()
-                                  return _vm.addUserToRole($event)
+                                  _vm.addUserToRole(user.id)
                                 }
                               }
                             },
                             [
-                              _c("input", {
-                                attrs: {
-                                  type: "hidden",
-                                  name: "UserId",
-                                  value: "user.id"
-                                }
-                              }),
-                              _vm._v(" "),
                               _c(
                                 "select",
                                 {

@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div v-if="allUsers.users.length">
-            <table class="table table-hover table-bordered">
+            <table id="all-users" class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>Username</th>
@@ -16,14 +16,14 @@
                         <th>
                             <div class="row">
                                 
-                                <b-form @submit.prevent="addUserToRole">
-                                    <input type="hidden" name="UserId" value="user.id" />
+                                <b-form @submit.prevent="addUserToRole(user.id)">
+                                    
                                     <select v-model="addToRoleModel.role">
-                                        <option v-for="role in allUsers.roles" >{{role.text}}</option>
+                                        <option v-for="role in allUsers.roles">{{role.text}}</option>
                                     </select>
+                                        
                                     <b-button type="submit" variant="success">Add To Role</b-button>
                                 </b-form>
-                                
                                 
                                 <div class="col-md-8">
                                     <b-button :to="{ path: 'users/changeuserpassword/' + user.id }" variant="success">Change Password</b-button>
