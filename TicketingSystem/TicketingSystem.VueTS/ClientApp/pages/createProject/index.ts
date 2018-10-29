@@ -6,9 +6,7 @@ import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-@Component({
-
-})
+@Component
 
 export default class CreateProject extends Vue {
     addProjectViewModel: AddProjectViewModel = {

@@ -1,0 +1,51 @@
+﻿@model AddMessageFormModel
+
+@{
+    ViewData["Title"] = "Send message";
+}
+
+<h2 style="text-align:center">@ViewData["Title"]</h2>
+
+@if (Model.Tickets.Count() == 0)
+{
+    <h3 style="text-align:center">You have no active tickets to send message</h3>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Content"></label>
+                    <textarea asp-for="Content" rows="10" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                @if (User.IsInRole("Administrator") || User.IsInRole("Support"))
+                {
+                    <div class="form-group">
+                        <label asp-for="State"></label>
+                        <select asp-for="State" asp-items="Html.GetEnumSelectList<MessageState>()" class="form-control"></select>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+
+
+                }
+
+                <div class="form-group">
+                    <label asp-for="TicketId"></label>
+                    <select asp-for="TicketId" asp-items="Model.Tickets" class="form-control"></select>
+                    <span asp-validation-for="TicketId" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+}
+
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

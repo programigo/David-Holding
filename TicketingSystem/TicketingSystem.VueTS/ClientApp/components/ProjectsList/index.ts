@@ -39,16 +39,6 @@ export default class ProjectsList extends Vue {
 
         return projectViewModel;
     }
-
-    //mounted() {
-    //    fetch('api/projects')
-    //        //.then(response => response.json() as Promise<Project[]>)
-    //        .then(response => response.text())          // convert to plain text
-    //        .then(text => console.log(text))
-    //        //.then(data => {
-    //        //    this.projects = data;
-    //        //})
-    //}
 }
 
 //interface ProjectListingViewModel {

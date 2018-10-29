@@ -16,13 +16,18 @@
 
   <ItemGroup>
     <None Remove="ClientApp\api\projects\ProjectsController.ts" />
+    <None Remove="ClientApp\api\tickets\index.ts" />
+    <None Remove="ClientApp\api\tickets\TicketsController.ts" />
+    <None Remove="ClientApp\api\tickets\types.ts" />
     <None Remove="ClientApp\api\users\UsersController.ts" />
     <None Remove="ClientApp\App.ts" />
     <None Remove="ClientApp\components\sidebar\index.ts" />
+    <None Remove="ClientApp\components\TicketsList\index.ts" />
     <None Remove="ClientApp\pages\allUsers\index.ts" />
     <None Remove="ClientApp\pages\changeUserData\index.ts" />
     <None Remove="ClientApp\pages\changeUserPassword\index.ts" />
     <None Remove="ClientApp\pages\createProject\index.ts" />
+    <None Remove="ClientApp\pages\createTicket\index.ts" />
     <None Remove="ClientApp\pages\deleteProject\index.ts" />
     <None Remove="ClientApp\pages\editProject\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
@@ -30,6 +35,7 @@
     <None Remove="ClientApp\pages\projectDetails\index.ts" />
     <None Remove="ClientApp\pages\projects\index.ts" />
     <None Remove="ClientApp\pages\registerUser\index.ts" />
+    <None Remove="ClientApp\pages\tickets\index.ts" />
     <None Remove="ClientApp\router.ts" />
   </ItemGroup>
 
@@ -94,6 +100,36 @@
     <Content Update="Areas\Projects\Views\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Tickets\Views\Messages\AttachFiles.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Messages\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Tickets\AttachFiles.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Tickets\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Tickets\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Tickets\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Tickets\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\Tickets\_TicketsListingPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Tickets\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Users\Register.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -101,13 +137,18 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\api\projects\ProjectsController.ts" />
+    <TypeScriptCompile Include="ClientApp\api\tickets\index.ts" />
+    <TypeScriptCompile Include="ClientApp\api\tickets\TicketsController.ts" />
+    <TypeScriptCompile Include="ClientApp\api\tickets\types.ts" />
     <TypeScriptCompile Include="ClientApp\api\users\UsersController.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
     <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
+    <TypeScriptCompile Include="ClientApp\components\TicketsList\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\allUsers\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changeUserData\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changeUserPassword\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\createProject\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\createTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\deleteProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\editProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
@@ -115,6 +156,7 @@
     <TypeScriptCompile Include="ClientApp\pages\projectDetails\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\registerUser\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\tickets\index.ts" />
     <TypeScriptCompile Include="ClientApp\router.ts" />
   </ItemGroup>
 

@@ -1,0 +1,12 @@
+﻿@model TicketViewModel
+
+@{
+    ViewData["Title"] = "Attach Files";
+}
+
+<h3 style="text-align: center">@ViewData["Title"] to ticket @Model.Title</h3>
+
+<form asp-action="AttachFiles" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+    Choose files to attach: <input type="file" name="files" />
+    <input type="submit" class="btn btn-primary" value="Attach" />
+</form>

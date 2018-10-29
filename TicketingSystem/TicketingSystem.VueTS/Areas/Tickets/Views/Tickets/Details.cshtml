@@ -1,0 +1,70 @@
+﻿@model TicketViewModel
+
+<div class="jumbotron" style="background-color:forestgreen">
+    <h2 class="project-name" style="text-align:center">@Model.Title</h2>
+    <p style="text-align:center">@Model.Description</p>
+</div>
+
+<div style="text-align:center">
+    <button id="messages-button" class="btn btn-lg btn-primary">Messages (@Model.Messages.Count())</button>
+</div>
+
+<br />
+
+    <div id="message-toggle-div" style="display:none">
+
+
+        @foreach (var message in Model.Messages)
+        {
+
+            <div class="col-md-4"></div>
+            @if (message.Author == User.Identity.Name)
+            {
+                <div class="col-md-8">
+                    <div class="panel panel-default" style="width:60%">
+                        <div class="panel-heading" style="text-align: center">Sent on  @message.PostDate.ToShortDateString(), @message.PostDate.ToShortTimeString() by @message.Author</div>
+                        <div class="panel-body" style="text-align: center; height: 150%">
+                            @message.Content
+
+                            <p>
+                                @if (message.AttachedFiles != null)
+                                {
+                                    <a asp-controller="Messages" asp-action="DownloadAttached" asp-route-id="@message.Id" class="btn btn-primary">Download</a>
+                                }
+
+                                @if (message.Author == User.Identity.Name)
+                                {
+                                    <a asp-controller="Messages" asp-action="AttachFiles" asp-route-id="@message.Id" class="btn" style="background-color:coral">Attach Files</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-8">
+                    <div class="panel panel-success" style="width:60%">
+                        <div class="panel-heading" style="text-align: center">Sent on  @message.PostDate.ToShortDateString(), @message.PostDate.ToShortTimeString() by @message.Author</div>
+                        <div class="panel-body" style="text-align: center; height: 150%">
+                            @message.Content
+
+                            <p>
+                                @if (message.AttachedFiles != null)
+                                {
+                                    <a asp-controller="Messages" asp-action="DownloadAttached" asp-route-id="@message.Id" class="btn btn-primary">Download</a>
+                                }
+
+                                @if (message.Author == User.Identity.Name)
+                                {
+                                    <a asp-controller="Messages" asp-action="AttachFiles" asp-route-id="@message.Id" class="btn" style="background-color:coral">Attach Files</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        }
+    </div>
