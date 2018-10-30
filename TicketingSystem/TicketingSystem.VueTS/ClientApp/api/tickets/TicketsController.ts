@@ -1,5 +1,6 @@
 ﻿import { ControllerBase } from '../ControllerBase';
 import { TicketModel, TicketListingModel, SubmitTicketFormModel } from './types';
+import { SelectListItem } from '../users';
 
 export class TicketsController extends ControllerBase {
     public constructor() {
@@ -32,6 +33,12 @@ export class TicketsController extends ControllerBase {
 
     public async delete(id: number): Promise<void> {
         const response = await super.ajaxPost<number, void>(`delete/${id}`);
+
+        return response.data;
+    }
+
+    public async getProjects(): Promise<SelectListItem[]> {
+        const response = await super.ajaxGet<void, SelectListItem[]>("projects");
 
         return response.data;
     }

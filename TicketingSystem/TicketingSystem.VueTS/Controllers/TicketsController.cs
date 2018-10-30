@@ -69,7 +69,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             });
 
         [HttpPost("create")]
-        public IActionResult Create(SubmitTicketFormModel model)
+        public IActionResult Create([FromBody]SubmitTicketFormModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -170,7 +170,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         }
 
         [HttpPost("edit/{id}")]
-        public IActionResult Edit(int id, SubmitTicketFormModel model)
+        public IActionResult Edit(int id, [FromBody]SubmitTicketFormModel model)
         {
             TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
 
@@ -244,7 +244,8 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             return StatusCode(204);
         }
 
-        private IEnumerable<SelectListItem> GetProjects()
+        [HttpGet("projects")]
+        public IEnumerable<SelectListItem> GetProjects()
         {
             IEnumerable<ProjectListingServiceModel> projects = this.projects.DropdownAll();
 
@@ -254,7 +255,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                     Text = p.Name,
                     Value = p.Id.ToString()
                 })
-                .ToList();
+                .ToArray();
 
             return projectListItems;
         }

@@ -18,6 +18,7 @@ import ChangeUserData from './pages/changeUserData';
 import ChangeUserPassword from './pages/changeUserPassword';
 import PendingUsers from './pages/pendingUsers';
 import Tickets from './pages/tickets';
+import CreateTicket from './pages/createTicket';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
@@ -35,6 +36,7 @@ const routes = [
     { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true } },
     { name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
     { name: 'tickets', path: '/tickets', component: Tickets, meta: { requiresAuth: true } },
+    { name: 'ticket-create', path: '/tickets/create', component: CreateTicket, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({

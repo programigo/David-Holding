@@ -11,7 +11,7 @@ export interface TicketListingModel {
 
 export interface TicketModel {
     id: number,
-    postTime: Date,
+    postTime: string,
     projectId: number,
     project: string,
     sender: string,
@@ -26,7 +26,7 @@ export interface TicketModel {
 
 export interface MessageModel {
     id: number,
-    postDate: Date,
+    postDate: string,
     authorId: string,
     author: string,
     ticketId: number,
@@ -37,10 +37,9 @@ export interface MessageModel {
 }
 
 export interface SubmitTicketFormModel {
-    id: number,
     title: string,
     description: string,
-    postTime: Date,
+    postTime: string,
     ticketType: TicketType,
     ticketState: TicketState,
     projectId: number,

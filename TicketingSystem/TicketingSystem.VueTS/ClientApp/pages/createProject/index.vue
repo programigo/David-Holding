@@ -8,14 +8,14 @@
             <fieldset id="login-fieldset" class="col-12">
 
                 <div class="form-group col-12 row justify-content-center">
-                    <label class="col-12" for="name">{{$t('name')}}</label>
+                    <label class="col-12" for="name">Name</label>
                     <b-form-input type="text" class="form-control col-4" name="name" data-vv-as="Name" v-validate="'required'" v-model="addProjectViewModel.name" id="name">
                     </b-form-input>
                     <span v-show="errors.has('name')" class="text-danger col-12 text-center">{{ errors.first('name') }}</span>
                 </div>
 
                 <div class="form-group col-12 row justify-content-center">
-                    <label class="col-12" for="description">{{$t('description')}}</label>
+                    <label class="col-12" for="description">Description</label>
                     <b-form-textarea :rows="5" class="form-control col-4" name="description" data-vv-as="Description" v-validate="'required'" v-model="addProjectViewModel.description" id="description">
                     </b-form-textarea>
                     <span v-show="errors.has('description')" class="text-danger col-12 text-center">{{ errors.first('description') }}</span>
