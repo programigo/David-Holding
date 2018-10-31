@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Projects\Controllers\**" />
-    <Content Remove="Areas\Projects\Controllers\**" />
-    <EmbeddedResource Remove="Areas\Projects\Controllers\**" />
-    <None Remove="Areas\Projects\Controllers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="ClientApp\api\projects\ProjectsController.ts" />
     <None Remove="ClientApp\api\tickets\index.ts" />
     <None Remove="ClientApp\api\tickets\TicketsController.ts" />
@@ -29,6 +22,7 @@
     <None Remove="ClientApp\pages\createProject\index.ts" />
     <None Remove="ClientApp\pages\createTicket\index.ts" />
     <None Remove="ClientApp\pages\deleteProject\index.ts" />
+    <None Remove="ClientApp\pages\deleteTicket\index.ts" />
     <None Remove="ClientApp\pages\editProject\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
     <None Remove="ClientApp\pages\pendingUsers\index.ts" />
@@ -55,81 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Admin\Views\Users\ChangeUserData.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Users\ChangeUserPassword.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Users\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Users\Pending.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Users\Register.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Users\_StatusMessage.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\_ViewImports.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\_ViewStart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\Projects\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\Projects\Details.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\Projects\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\Projects\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\Projects\_ProjectsListingPartial.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\_ViewImports.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Projects\Views\_ViewStart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Messages\AttachFiles.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Messages\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Tickets\AttachFiles.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Tickets\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Tickets\Details.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Tickets\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Tickets\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\Tickets\_TicketsListingPartial.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\_ViewImports.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Tickets\Views\_ViewStart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Users\Register.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -150,6 +69,7 @@
     <TypeScriptCompile Include="ClientApp\pages\createProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\createTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\deleteProject\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\deleteTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\editProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\pendingUsers\index.ts" />

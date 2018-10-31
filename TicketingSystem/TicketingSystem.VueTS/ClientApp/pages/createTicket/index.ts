@@ -21,14 +21,35 @@ export default class CreateTicket extends Vue {
         projects: null
     };
 
+    private ticketTypes: Map<api.TicketType, string> = new Map<api.TicketType, string>([
+        [api.TicketType.AssistanceRequest, 'Assistance Request'],
+        [api.TicketType.BugReport, 'Bug Report'],
+        [api.TicketType.FeatureRequest, 'Feature Request'],
+        [api.TicketType.Other, 'Other']
+    ]);
+
+    private ticketStates: Map<api.TicketState, string> = new Map<api.TicketState, string>([
+        [api.TicketState.Completed, 'Completed'],
+        [api.TicketState.Draft, 'Draft'],
+        [api.TicketState.New, 'New'],
+        [api.TicketState.Running, 'Running']
+    ]);
+
     public async mounted(): Promise<SelectListItem[]> {
         return this.getProjects();
+    }
+
+    private onFileSelected(event?: HTMLInputEvent): void{
+        var file = event.target.files[0];
+        console.log(event.target.files[0]);
     }
 
     private async getProjects(): Promise<SelectListItem[]> {
         const response: SelectListItem[] = await api.tickets.getProjects();
 
         this.createTicketViewModel.projects = response;
+
+        //this.ticketTypes.forEach(e => console.log(e));
 
         return response;
     }
@@ -50,6 +71,10 @@ export default class CreateTicket extends Vue {
 
         return response;
     }
+}
+
+interface HTMLInputEvent extends Event {
+    target: HTMLInputElement & EventTarget;
 }
 
 interface CreateTicketViewModel {

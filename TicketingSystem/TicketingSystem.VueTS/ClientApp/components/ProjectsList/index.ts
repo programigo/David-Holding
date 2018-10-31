@@ -12,7 +12,7 @@ export default class ProjectsList extends Vue {
     renderProjects: ProjectViewModel[] = [];
 
     public async mounted(): Promise<void> {
-        this.getAllProjects();
+        await this.getAllProjects();
     }
 
     private async getAllProjects(): Promise<ProjectViewModel[]> {

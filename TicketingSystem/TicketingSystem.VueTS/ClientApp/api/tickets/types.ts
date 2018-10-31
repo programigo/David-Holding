@@ -11,7 +11,7 @@ export interface TicketListingModel {
 
 export interface TicketModel {
     id: number,
-    postTime: string,
+    postTime: Date,
     projectId: number,
     project: string,
     sender: string,

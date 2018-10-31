@@ -22,7 +22,7 @@ export default class AllUsers extends Vue {
     };
 
     public async mounted(): Promise<UserListingViewModel> {
-        return this.getAllUsers();
+        return await this.getAllUsers();
     }
 
     private async getAllUsers(): Promise<UserListingViewModel> {

@@ -116,7 +116,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                 if (!file.FileName.EndsWith(".zip")
                 || file.Length > DataConstants.AttachedFileLength)
                 {
-                    return RedirectToAction(nameof(AttachFiles), new { id });
+                    return BadRequest();
                 }
 
                 byte[] fileContents = file.ToByteArray();
@@ -129,7 +129,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
                 }
             }
 
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         public IActionResult DownloadAttached(int id)

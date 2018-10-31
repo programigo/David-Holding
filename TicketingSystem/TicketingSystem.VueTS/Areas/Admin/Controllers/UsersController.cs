@@ -13,7 +13,7 @@ using TicketingSystem.VueTS.Infrastructure.Extensions;
 using TicketingSystem.VueTS.Models.AccountViewModels;
 using IdentityResult = TicketingSystem.Services.IdentityResult;
 
-namespace TicketingSystem.VueTS.Controllers
+namespace TicketingSystem.VueTS.Areas.Admin.Controllers
 {
     [Authorize]
     [Route("api/users")]

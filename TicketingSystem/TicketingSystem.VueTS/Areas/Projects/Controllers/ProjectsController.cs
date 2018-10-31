@@ -7,7 +7,7 @@ using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Projects.Models.Projects;
 using TicketingSystem.VueTS.Infrastructure.Extensions;
 
-namespace TicketingSystem.VueTS.Controllers
+namespace TicketingSystem.VueTS.Areas.Projects.Controllers
 {
     [Authorize]
     [Route("api/projects")]

@@ -24,14 +24,14 @@
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticketType">Ticket Type</label>
                     <select v-model="createTicketViewModel.ticketType">
-                        <option v-for="type in createTicketViewModel.ticketType" v-bind:value="type">{{type}}</option>
+                        <option v-for="type in ticketTypes" v-bind:value="type">{{type}}</option>
                     </select>
                 </div>
 
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticketState">Ticket State</label>
                     <select v-model="createTicketViewModel.ticketState">
-                        <option v-for="state in createTicketViewModel.ticketState" v-bind:value="state">{{state}}</option>
+                        <option v-for="state in ticketStates" v-bind:value="state">{{state}}</option>
                     </select>
                 </div>
 
@@ -41,6 +41,11 @@
                         <option v-for="project in createTicketViewModel.projects" v-bind:value="project.value">{{project.text}}</option>
                     </select>
                 </div>
+
+                <!--<div class="form-group col-12 row justify-content-center">
+        <label class="col-12" for="upload-file">Upload file</label>
+        <input type="file" @change="onFileSelected" accept="application/zip"/>
+    </div>-->
 
                 <div class="form-group justify-content-center text-center col-12 row custom-margin-top">
                     <b-button id="button-create" type="submit" class="col-2" variant="secondary">Create</b-button>

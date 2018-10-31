@@ -19,6 +19,7 @@ import ChangeUserPassword from './pages/changeUserPassword';
 import PendingUsers from './pages/pendingUsers';
 import Tickets from './pages/tickets';
 import CreateTicket from './pages/createTicket';
+import DeleteTicket from './pages/deleteTicket';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
@@ -37,6 +38,7 @@ const routes = [
     { name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
     { name: 'tickets', path: '/tickets', component: Tickets, meta: { requiresAuth: true } },
     { name: 'ticket-create', path: '/tickets/create', component: CreateTicket, meta: { requiresAuth: true } },
+    { name: 'ticket-delete', path: '/tickets/delete/:ticketId', component: DeleteTicket, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({

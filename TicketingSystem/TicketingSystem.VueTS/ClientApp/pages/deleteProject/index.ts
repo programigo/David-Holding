@@ -6,9 +6,7 @@ import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-@Component({
-
-})
+@Component
 
 export default class DeleteProject extends Vue {
     private get id(): number {
@@ -19,6 +17,8 @@ export default class DeleteProject extends Vue {
         const request: number = this.id;
 
         const response: void = await api.projects.delete(request);
+
+        this.$router.push('/projects');
 
         return response;
     }

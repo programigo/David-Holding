@@ -21,11 +21,11 @@ export default class TheNavMenu extends Vue {
 		return this.$store.getters.isLoggedIn;
 	}
 
-	public async mounted(): Promise<void> {
+	public mounted(): void {
 		this.populateData();
 	}
 
-	public async updated(): Promise<void> {
+	public updated(): void {
 		this.populateData();
 	}
 
@@ -38,7 +38,7 @@ export default class TheNavMenu extends Vue {
 		await this.$store.dispatch(actions.LOGOUT, payload);
 
 		this.$router.push({
-			path: "login"
+			path: "/login"
 		});
 	}
 
