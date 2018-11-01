@@ -24,11 +24,14 @@
     <None Remove="ClientApp\pages\deleteProject\index.ts" />
     <None Remove="ClientApp\pages\deleteTicket\index.ts" />
     <None Remove="ClientApp\pages\editProject\index.ts" />
+    <None Remove="ClientApp\pages\editTicket\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
     <None Remove="ClientApp\pages\pendingUsers\index.ts" />
     <None Remove="ClientApp\pages\projectDetails\index.ts" />
     <None Remove="ClientApp\pages\projects\index.ts" />
     <None Remove="ClientApp\pages\registerUser\index.ts" />
+    <None Remove="ClientApp\pages\ticketAttachFiles\index.ts" />
+    <None Remove="ClientApp\pages\ticketDetails\index.ts" />
     <None Remove="ClientApp\pages\tickets\index.ts" />
     <None Remove="ClientApp\router.ts" />
   </ItemGroup>
@@ -71,11 +74,14 @@
     <TypeScriptCompile Include="ClientApp\pages\deleteProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\deleteTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\editProject\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\editTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\pendingUsers\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projectDetails\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\registerUser\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\ticketAttachFiles\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\ticketDetails\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\tickets\index.ts" />
     <TypeScriptCompile Include="ClientApp\router.ts" />
   </ItemGroup>

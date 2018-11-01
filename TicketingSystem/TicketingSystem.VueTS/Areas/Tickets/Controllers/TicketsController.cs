@@ -108,7 +108,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             return Ok(ticket);
         }
 
-        [HttpPost]
+        [HttpPost("attachfiles/{id}")]
         public IActionResult AttachFiles(int id, IEnumerable<IFormFile> files)
         {
             foreach (var file in files)

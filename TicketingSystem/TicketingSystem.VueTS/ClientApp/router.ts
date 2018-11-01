@@ -19,7 +19,10 @@ import ChangeUserPassword from './pages/changeUserPassword';
 import PendingUsers from './pages/pendingUsers';
 import Tickets from './pages/tickets';
 import CreateTicket from './pages/createTicket';
+import EditTicket from './pages/editTicket';
 import DeleteTicket from './pages/deleteTicket';
+import TicketDetails from './pages/ticketDetails';
+import TicketAttachFiles from './pages/ticketAttachFiles';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
@@ -38,7 +41,10 @@ const routes = [
     { name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
     { name: 'tickets', path: '/tickets', component: Tickets, meta: { requiresAuth: true } },
     { name: 'ticket-create', path: '/tickets/create', component: CreateTicket, meta: { requiresAuth: true } },
+    { name: 'ticket-details', path: '/tickets/details/:ticketId', component: TicketDetails, meta: { requiresAuth: true } },
+    { name: 'ticket-edit', path: '/tickets/edit/:ticketId', component: EditTicket, meta: { requiresAuth: true } },
     { name: 'ticket-delete', path: '/tickets/delete/:ticketId', component: DeleteTicket, meta: { requiresAuth: true } },
+    { name: 'ticket-attach-files', path: '/tickets/attachfiles/:ticketId', component: TicketAttachFiles, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({

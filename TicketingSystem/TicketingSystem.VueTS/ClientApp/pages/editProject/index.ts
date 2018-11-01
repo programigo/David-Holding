@@ -17,7 +17,7 @@ export default class EditProject extends Vue {
     };
 
     public async mounted(): Promise<void> {
-        this.getProjectInfo();
+        await this.getProjectInfo();
     }
 
     private async getProjectInfo(): Promise<api.ProjectModel> {

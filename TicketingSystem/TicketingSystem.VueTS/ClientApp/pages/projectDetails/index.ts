@@ -6,9 +6,7 @@ import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-@Component({
-
-})
+@Component
 
 export default class ProjectDetails extends Vue {
     renderProject: ProjectViewModel = {
@@ -18,7 +16,7 @@ export default class ProjectDetails extends Vue {
     }
 
     public async mounted(): Promise<void> {
-        this.getProject();
+        await this.getProject();
     }
 
     private get id(): number {

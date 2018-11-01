@@ -46,6 +46,13 @@ export interface SubmitTicketFormModel {
     projects: SelectListItem[]
 }
 
+export interface EditTicketFormModel {
+    title: string,
+    description: string,
+    ticketType: TicketType,
+    ticketState: TicketState,
+}
+
 export enum TicketType {
     BugReport,
     FeatureRequest,

@@ -13,6 +13,7 @@
                         <p class="card-text">
                             {{ticket.description}}
                         </p>
+                        <b-button :to="{ path: 'tickets/attachfiles/' + ticket.id }" style="background-color:blueviolet">Attach Files</b-button>
                         <b-button :to="{ path: 'tickets/edit/' + ticket.id }" variant="warning">Edit</b-button>
                         <b-button :to="{ path: 'tickets/delete/' + ticket.id }" variant="danger">Delete</b-button>
                     </b-card>

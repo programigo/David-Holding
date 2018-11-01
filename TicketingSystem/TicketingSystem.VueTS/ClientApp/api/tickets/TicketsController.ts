@@ -1,5 +1,5 @@
 ﻿import { ControllerBase } from '../ControllerBase';
-import { TicketModel, TicketListingModel, SubmitTicketFormModel } from './types';
+import { TicketModel, TicketListingModel, SubmitTicketFormModel, EditTicketFormModel } from './types';
 import { SelectListItem } from '../users';
 
 export class TicketsController extends ControllerBase {
@@ -19,8 +19,8 @@ export class TicketsController extends ControllerBase {
         return response.data;
     }
 
-    public async edit(id: number, request?: SubmitTicketFormModel): Promise<void> {
-        const response = await super.ajaxPost<SubmitTicketFormModel, void>(`edit/${id}`, request);
+    public async edit(id: number, request?: EditTicketFormModel): Promise<void> {
+        const response = await super.ajaxPost<EditTicketFormModel, void>(`edit/${id}`, request);
 
         return response.data;
     }
@@ -32,13 +32,19 @@ export class TicketsController extends ControllerBase {
     }
 
     public async delete(id: number): Promise<void> {
-        const response = await super.ajaxPost<number, void>(`delete/${id}`);
+        const response = await super.ajaxDelete<number, void>(`delete/${id}`);
 
         return response.data;
     }
 
     public async getProjects(): Promise<SelectListItem[]> {
         const response = await super.ajaxGet<void, SelectListItem[]>("projects");
+
+        return response.data;
+    }
+
+    public async attachFiles(id: number, request?: FormData): Promise<void> {
+        const response = await super.ajaxPost<FormData, void>(`attachfiles/${id}`, request);
 
         return response.data;
     }
