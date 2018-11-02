@@ -109,9 +109,9 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
         }
 
         [HttpPost("attachfiles/{id}")]
-        public IActionResult AttachFiles(int id, IEnumerable<IFormFile> files)
+        public IActionResult AttachFiles(int id, IFormCollection files)
         {
-            foreach (var file in files)
+            foreach (var file in files.Files)
             {
                 if (!file.FileName.EndsWith(".zip")
                 || file.Length > DataConstants.AttachedFileLength)
@@ -132,6 +132,7 @@ namespace TicketingSystem.Web.Areas.Tickets.Controllers
             return Ok();
         }
 
+        [HttpGet("downloadattached/{id}")]
         public IActionResult DownloadAttached(int id)
         {
             byte[] ticketFiles = this.tickets.GetAttachedFiles(id);

@@ -53,6 +53,10 @@ export interface EditTicketFormModel {
     ticketState: TicketState,
 }
 
+export interface AttachFileModel {
+    file: FormData
+}
+
 export enum TicketType {
     BugReport,
     FeatureRequest,

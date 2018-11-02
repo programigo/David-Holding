@@ -37,6 +37,14 @@ export default class TicketsList extends Vue {
         return this.allTickets;
     }
 
+    private async downloadFile(id: number): Promise<File> {
+        const request: number = id;
+
+        const response: File = await api.tickets.downloadFiles(request);
+
+        return response;
+    }
+
     private createTicketViewModel(ticket: api.TicketModel): TicketViewModel {
         const ticketViewModel: TicketViewModel = {
             id: ticket.id,

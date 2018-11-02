@@ -1,5 +1,5 @@
 ﻿import { ControllerBase } from '../ControllerBase';
-import { TicketModel, TicketListingModel, SubmitTicketFormModel, EditTicketFormModel } from './types';
+import { TicketModel, TicketListingModel, SubmitTicketFormModel, EditTicketFormModel, AttachFileModel } from './types';
 import { SelectListItem } from '../users';
 
 export class TicketsController extends ControllerBase {
@@ -43,9 +43,15 @@ export class TicketsController extends ControllerBase {
         return response.data;
     }
 
-    public async attachFiles(id: number, request?: FormData): Promise<void> {
-        const response = await super.ajaxPost<FormData, void>(`attachfiles/${id}`, request);
+    public async downloadFiles(id: number): Promise<File> {
+        const response = await super.ajaxGet<number, File>(`downloadattached/${id}`);
 
         return response.data;
     }
+
+    //public async attachFiles(id: number): Promise<void> {
+    //    const response = await super.ajaxPost<FormData, any>(`attachfiles/${id}`);
+    //
+    //    return response.data;
+    //}
 }
