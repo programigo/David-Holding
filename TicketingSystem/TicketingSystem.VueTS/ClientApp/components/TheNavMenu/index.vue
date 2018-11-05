@@ -17,6 +17,7 @@
                     <b-dropdown-item to="/tickets">All Tickets</b-dropdown-item>
                     <b-dropdown-item to="/tickets/create">Create Ticket</b-dropdown-item>
                 </b-nav-item-dropdown>
+                <b-nav-item to="/messages/create">Send Message</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
                 <div v-if="!isLoggedIn">

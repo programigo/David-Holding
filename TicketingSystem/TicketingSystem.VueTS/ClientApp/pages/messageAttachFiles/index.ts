@@ -8,11 +8,11 @@ Vue.use(VeeValidate);
 
 @Component
 
-export default class TicketAttachFiles extends Vue {
+export default class MessageAttachFiles extends Vue {
     attachFileModel: FormData = new FormData();
 
     private get id(): number {
-        return Number(this.$route.params.ticketId);
+        return Number(this.$route.params.messageId);
     }
 
     private startUpload(): void {

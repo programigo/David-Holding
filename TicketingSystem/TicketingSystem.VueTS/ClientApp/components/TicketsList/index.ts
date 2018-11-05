@@ -1,6 +1,7 @@
 ﻿import Vue from "vue";
 import Component from "vue-class-component";
 import * as api from '../../api/tickets';
+import { File } from "../../api";
 
 @Component({
     name: 'tickets-list'
@@ -37,12 +38,24 @@ export default class TicketsList extends Vue {
         return this.allTickets;
     }
 
-    private async downloadFile(id: number): Promise<File> {
-        const request: number = id;
+    private async downloadFile(id: number): Promise<void> {
+       
+        const response: File = await api.tickets.downloadFiles(id);
 
-        const response: File = await api.tickets.downloadFiles(request);
+        this.download(response.blob, response.fileName);
+    }
 
-        return response;
+    private download(blob: Blob, fileName: string) {
+        if (navigator.appVersion.toString().indexOf('.NET') > 0)
+            window.navigator.msSaveBlob(blob, fileName);
+        else {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+        }
     }
 
     private createTicketViewModel(ticket: api.TicketModel): TicketViewModel {

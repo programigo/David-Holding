@@ -1,5 +1,5 @@
 ﻿<template>
-    <div>
+    <div style="text-align: center">
         <b-card :title="renderProject.name" tag="article" style="max-width: 45rem;" class="mb-2">
             <hr />
             <p class="card-text">

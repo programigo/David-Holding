@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\api\messages\index.ts" />
+    <None Remove="ClientApp\api\messages\MessagesController.ts" />
+    <None Remove="ClientApp\api\messages\types.ts" />
     <None Remove="ClientApp\api\projects\ProjectsController.ts" />
     <None Remove="ClientApp\api\tickets\index.ts" />
     <None Remove="ClientApp\api\tickets\TicketsController.ts" />
@@ -19,6 +22,7 @@
     <None Remove="ClientApp\pages\allUsers\index.ts" />
     <None Remove="ClientApp\pages\changeUserData\index.ts" />
     <None Remove="ClientApp\pages\changeUserPassword\index.ts" />
+    <None Remove="ClientApp\pages\createMessage\index.ts" />
     <None Remove="ClientApp\pages\createProject\index.ts" />
     <None Remove="ClientApp\pages\createTicket\index.ts" />
     <None Remove="ClientApp\pages\deleteProject\index.ts" />
@@ -26,6 +30,7 @@
     <None Remove="ClientApp\pages\editProject\index.ts" />
     <None Remove="ClientApp\pages\editTicket\index.ts" />
     <None Remove="ClientApp\pages\login\index.ts" />
+    <None Remove="ClientApp\pages\messageAttachFiles\index.ts" />
     <None Remove="ClientApp\pages\pendingUsers\index.ts" />
     <None Remove="ClientApp\pages\projectDetails\index.ts" />
     <None Remove="ClientApp\pages\projects\index.ts" />
@@ -58,6 +63,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\api\messages\index.ts" />
+    <TypeScriptCompile Include="ClientApp\api\messages\MessagesController.ts" />
+    <TypeScriptCompile Include="ClientApp\api\messages\types.ts" />
     <TypeScriptCompile Include="ClientApp\api\projects\ProjectsController.ts" />
     <TypeScriptCompile Include="ClientApp\api\tickets\index.ts" />
     <TypeScriptCompile Include="ClientApp\api\tickets\TicketsController.ts" />
@@ -69,6 +77,7 @@
     <TypeScriptCompile Include="ClientApp\pages\allUsers\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changeUserData\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changeUserPassword\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\createMessage\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\createProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\createTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\deleteProject\index.ts" />
@@ -76,6 +85,7 @@
     <TypeScriptCompile Include="ClientApp\pages\editProject\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\editTicket\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\login\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\messageAttachFiles\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\pendingUsers\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projectDetails\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\projects\index.ts" />

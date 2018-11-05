@@ -35,13 +35,8 @@ export default class CreateTicket extends Vue {
     ];
 
     public async mounted(): Promise<SelectListItem[]> {
-        return this.getProjects();
+        return await this.getProjects();
     }
-
-    //private onFileSelected(event?: HTMLInputEvent): void {
-    //    var file = event.target.files[0];
-    //    console.log(event.target.files[0]);
-    //}
 
     private async getProjects(): Promise<SelectListItem[]> {
         const response: SelectListItem[] = await api.tickets.getProjects();
@@ -69,10 +64,6 @@ export default class CreateTicket extends Vue {
         return response;
     }
 }
-
-//interface HTMLInputEvent extends Event {
-//    target: HTMLInputElement & EventTarget;
-//}
 
 interface CreateTicketViewModel {
     title: string,

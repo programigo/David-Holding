@@ -14,7 +14,7 @@ using TicketingSystem.VueTS.Infrastructure.Extensions;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 using WEB_ENUMS = TicketingSystem.VueTS.Common.Enums;
 
-namespace TicketingSystem.Web.Areas.Tickets.Controllers
+namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 {
     [Authorize]
     [Route("api/tickets")]

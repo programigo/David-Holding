@@ -1,6 +1,8 @@
 ﻿import Vue from "vue";
 import Component from "vue-class-component";
-import * as api from '../../api/tickets';
+import * as ticketsApi from '../../api/tickets';
+import * as messagesApi from '../../api/messages';
+import { File } from "../../api";
 
 @Component
 
@@ -31,7 +33,7 @@ export default class TicketDetails extends Vue {
     private async getTicket(): Promise<TicketViewModel> {
         const request: number = this.id;
 
-        const response: api.TicketModel = await api.tickets.details(request);
+        const response: ticketsApi.TicketModel = await ticketsApi.tickets.details(request);
 
         const ticket: TicketViewModel = {
             id: response.id,
@@ -52,6 +54,25 @@ export default class TicketDetails extends Vue {
 
         return this.renderTicket;
     }
+
+    private async downloadMessageFile(id: number): Promise<void> {
+        const response: File = await messagesApi.messages.downloadFiles(id);
+
+        this.download(response.blob, response.fileName);
+    }
+
+    private download(blob: Blob, fileName: string) {
+        if (navigator.appVersion.toString().indexOf('.NET') > 0)
+            window.navigator.msSaveBlob(blob, fileName);
+        else {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+        }
+    }
 }
 
 interface TicketViewModel {
@@ -61,10 +82,10 @@ interface TicketViewModel {
     project: string,
     sender: string,
     senderId: string,
-    ticketType: api.TicketType,
-    ticketState: api.TicketState,
+    ticketType: ticketsApi.TicketType,
+    ticketState: ticketsApi.TicketState,
     title: string,
     description: string,
     attachedFiles: [],
-    messages: api.MessageModel[]
+    messages: ticketsApi.MessageModel[]
 }

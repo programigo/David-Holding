@@ -23,6 +23,8 @@ import EditTicket from './pages/editTicket';
 import DeleteTicket from './pages/deleteTicket';
 import TicketDetails from './pages/ticketDetails';
 import TicketAttachFiles from './pages/ticketAttachFiles';
+import CreateMessage from './pages/createMessage';
+import MessageAttachFiles from './pages/messageAttachFiles';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
@@ -45,6 +47,8 @@ const routes = [
     { name: 'ticket-edit', path: '/tickets/edit/:ticketId', component: EditTicket, meta: { requiresAuth: true } },
     { name: 'ticket-delete', path: '/tickets/delete/:ticketId', component: DeleteTicket, meta: { requiresAuth: true } },
     { name: 'ticket-attach-files', path: '/tickets/attachfiles/:ticketId', component: TicketAttachFiles, meta: { requiresAuth: true } },
+    { name: 'message-create', path: '/messages/create', component: CreateMessage, meta: { requiresAuth: true } },
+    { name: 'message-attach-files', path: '/messages/attachfiles/:messageId', component: MessageAttachFiles, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({
