@@ -1,6 +1,5 @@
 ﻿import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import Sidebar from './components/Sidebar';
 import TheNavMenu from './components/TheNavMenu';
 import * as api from './api';
 

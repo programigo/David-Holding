@@ -4,7 +4,6 @@ export interface LoginRequest {
 }
 
 export interface LoginResult {
-    userId: string;
     userName: string;
 }
 
@@ -17,6 +16,5 @@ export interface RegisterRequest {
 }
 
 export interface RegisterResult {
-    userId: string;
     userName: string;
 }

@@ -33,7 +33,6 @@ export default class Register extends Vue {
         const response: api.RegisterResult = await api.account.register(request);
         const payload: RegisterActionPayload = {
             sessionInfo: {
-                userId: response.userId,
                 userName: response.userName
             }
         }

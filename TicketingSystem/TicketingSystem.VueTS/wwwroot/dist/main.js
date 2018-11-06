@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a87a91aa6903272c9e30"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1394616b6ee74a181c81"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28789,7 +28789,6 @@ var Login = /** @class */ (function (_super) {
                         response = _a.sent();
                         payload = {
                             sessionInfo: {
-                                userId: response.userId,
                                 userName: response.userName
                             }
                         };
@@ -28923,7 +28922,6 @@ var Register = /** @class */ (function (_super) {
                         response = _a.sent();
                         payload = {
                             sessionInfo: {
-                                userId: response.userId,
                                 userName: response.userName
                             }
                         };
