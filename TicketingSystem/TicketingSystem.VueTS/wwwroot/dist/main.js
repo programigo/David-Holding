@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1394616b6ee74a181c81"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "29fedb8a163c8942cfed"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -25424,6 +25424,32 @@ var AccountController = /** @class */ (function (_super) {
             });
         });
     };
+    AccountController.prototype.returnUserId = function (username) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "returnuserid", username)];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.data];
+                }
+            });
+        });
+    };
+    AccountController.prototype.getUserRole = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "getrole", id)];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.data];
+                }
+            });
+        });
+    };
     return AccountController;
 }(__WEBPACK_IMPORTED_MODULE_0__ControllerBase__["a" /* ControllerBase */]));
 
@@ -28236,7 +28262,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
 
 
 var routes = [
-    { name: 'home', path: '/', component: __WEBPACK_IMPORTED_MODULE_3__pages_home__["a" /* default */], meta: { requiresAuth: false } },
+    { name: 'home', path: '/', component: __WEBPACK_IMPORTED_MODULE_3__pages_home__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'login', path: '/login', component: __WEBPACK_IMPORTED_MODULE_4__pages_login__["a" /* default */], meta: { requiresAuth: false } },
     { name: 'register', path: '/register', component: __WEBPACK_IMPORTED_MODULE_5__pages_register__["a" /* default */], meta: { requiresAuth: false } },
     { name: 'projects', path: '/projects', component: __WEBPACK_IMPORTED_MODULE_6__pages_projects__["a" /* default */], meta: { requiresAuth: true } },
@@ -28265,6 +28291,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
 });
 router.beforeEach(function (to, from, next) {
     var authRequired = to.matched.some(function (route) { return route.meta.auth; });
+    var sinfo = __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state.sessionInfo;
     if (__WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state.sessionInfo) {
         if (to.name === "login") {
             next({
@@ -28776,7 +28803,7 @@ var Login = /** @class */ (function (_super) {
     }
     Login.prototype.login = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, payload;
+            var request, response, role, payload;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -28787,13 +28814,18 @@ var Login = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].logIn(request)];
                     case 1:
                         response = _a.sent();
+                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].getUserRole(response.id)];
+                    case 2:
+                        role = _a.sent();
+                        console.log(role);
                         payload = {
                             sessionInfo: {
+                                role: null,
                                 userName: response.userName
                             }
                         };
                         return [4 /*yield*/, this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_3__store_actions__["a" /* LOGIN */], payload)];
-                    case 2:
+                    case 3:
                         _a.sent();
                         this.$router.push('/');
                         return [2 /*return*/];
@@ -28906,7 +28938,7 @@ var Register = /** @class */ (function (_super) {
     }
     Register.prototype.register = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, payload;
+            var request, response, userId, role, payload;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -28920,13 +28952,20 @@ var Register = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].register(request)];
                     case 1:
                         response = _a.sent();
+                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].returnUserId(response.userName)];
+                    case 2:
+                        userId = _a.sent();
+                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].getUserRole(userId)];
+                    case 3:
+                        role = _a.sent();
                         payload = {
                             sessionInfo: {
+                                role: role,
                                 userName: response.userName
                             }
                         };
                         return [4 /*yield*/, this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_3__store_actions__["c" /* REGISTER */], payload)];
-                    case 2:
+                    case 4:
                         _a.sent();
                         return [2 /*return*/];
                 }

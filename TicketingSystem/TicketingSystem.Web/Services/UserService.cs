@@ -308,5 +308,15 @@ namespace TicketingSystem.Web.Services
 
             return returnRes;
         }
+
+        public Microsoft.AspNetCore.Identity.IdentityRole GetUserRole(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ReturnUserId(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

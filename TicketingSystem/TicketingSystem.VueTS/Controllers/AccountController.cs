@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
-using System.Web;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
-using TicketingSystem.VueTS.Common.Constants;
 using TicketingSystem.VueTS.Common.Models;
 using TicketingSystem.VueTS.Models.AccountViewModels;
 using DATA_MODELS = TicketingSystem.Data.Models;
@@ -59,6 +54,8 @@ namespace TicketingSystem.VueTS.Controllers
                     })
                 .FirstOrDefault();
 
+                var role = GetRole(user.Id);
+
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "No such user exists.");
@@ -84,6 +81,14 @@ namespace TicketingSystem.VueTS.Controllers
 
             // If we got this far, something failed, redisplay form
             return Ok(model);
+        }
+
+        [HttpPost("getrole")]
+        public async Task<string> GetRole([FromBody]string id)
+        {
+            var role =  await _userManager.GetUserRole(id);
+
+            return role.Name;
         }
 
         [Authorize]

@@ -25,9 +25,10 @@ import TicketDetails from './pages/ticketDetails';
 import TicketAttachFiles from './pages/ticketAttachFiles';
 import CreateMessage from './pages/createMessage';
 import MessageAttachFiles from './pages/messageAttachFiles';
+import { SessionInfo } from './store/types';
 
 const routes = [
-    { name: 'home', path: '/', component: Home, meta: { requiresAuth: false } },
+    { name: 'home', path: '/', component: Home, meta: { requiresAuth: true } },
     { name: 'login', path: '/login', component: Login, meta: { requiresAuth: false } },
     { name: 'register', path: '/register', component: Register, meta: { requiresAuth: false } },
     { name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
@@ -58,6 +59,7 @@ export const router = new VueRouter({
 
 router.beforeEach((to: Route, from: Route, next) => {
     const authRequired: boolean = to.matched.some((route) => route.meta.auth);
+    const sinfo: SessionInfo = store.state.sessionInfo;
 
     if (store.state.sessionInfo) {
         if (to.name === "login") {

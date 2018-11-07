@@ -4,5 +4,6 @@
 };
 
 export interface SessionInfo {
-	userName: string;
+    userName: string;
+    role: string;
 }
