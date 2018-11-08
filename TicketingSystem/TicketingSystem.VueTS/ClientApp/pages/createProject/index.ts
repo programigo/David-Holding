@@ -22,6 +22,8 @@ export default class CreateProject extends Vue {
 
         const response: void = await api.projects.create(request);
 
+        this.$router.push('/');
+
         return response;
     }
 }

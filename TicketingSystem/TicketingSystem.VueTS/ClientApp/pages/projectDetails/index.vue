@@ -5,8 +5,10 @@
             <p class="card-text">
                 {{renderProject.description}}
             </p>
-            <b-button :to="'projects/edit/' + renderProject.id" variant="warning">Edit</b-button>
-            <b-button :to="'projects/delete/' + renderProject.id" variant="danger">Delete</b-button>
+            <div v-if="userRole === 'Administrator'">
+                <b-button :to="'projects/edit/' + renderProject.id" variant="warning">Edit</b-button>
+                <b-button :to="'projects/delete/' + renderProject.id" variant="danger">Delete</b-button>
+            </div>
         </b-card>
     </div>
 </template>

@@ -14,7 +14,11 @@ export default class PendingUsers extends Vue {
     }
 
     public async mounted(): Promise<api.UserPendingModel> {
-        return this.getPendingUsers();
+        return await this.getPendingUsers();
+    }
+
+    public async updated(): Promise<api.UserPendingModel> {
+        return await this.getPendingUsers();
     }
 
     private async getPendingUsers(): Promise<api.UserPendingModel> {
@@ -27,8 +31,6 @@ export default class PendingUsers extends Vue {
 
     private async approveUser(id: string): Promise<void> {
         const result = await api.users.approve(id);
-
-        this.$router.push('/users');
 
         return result;
     }

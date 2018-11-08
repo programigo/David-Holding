@@ -59,7 +59,6 @@ export const router = new VueRouter({
 
 router.beforeEach((to: Route, from: Route, next) => {
     const authRequired: boolean = to.matched.some((route) => route.meta.auth);
-    const sinfo: SessionInfo = store.state.sessionInfo;
 
     if (store.state.sessionInfo) {
         if (to.name === "login") {

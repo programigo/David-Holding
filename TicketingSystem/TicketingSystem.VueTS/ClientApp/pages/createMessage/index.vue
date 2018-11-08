@@ -11,21 +11,21 @@
                     </b-form-textarea>
                     <span v-show="errors.has('content')" class="text-danger col-12 text-center">{{ errors.first('content') }}</span>
                 </div>
-
-                <div class="form-group col-12 row justify-content-center">
+                <br />
+                <div v-if="userRole === 'Administrator' || userRole === 'Support'" class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="messageState">Message State</label>
                     <select v-model="createMessageViewModel.state">
                         <option v-for="state in messageStates" v-bind:value="Number(state.value)">{{state.text}}</option>
                     </select>
                 </div>
-
+                <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticket">Ticket</label>
                     <select v-model="createMessageViewModel.ticketId">
                         <option v-for="ticket in createMessageViewModel.tickets" v-bind:value="ticket.value">{{ticket.text}}</option>
                     </select>
                 </div>
-
+                <br />
                 <div class="form-group justify-content-center text-center col-12 row custom-margin-top">
                     <b-button id="button-send" type="submit" class="col-2" variant="secondary">Send</b-button>
                 </div>

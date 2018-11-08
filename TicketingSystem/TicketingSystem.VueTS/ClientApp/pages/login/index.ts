@@ -26,14 +26,11 @@ export default class Login extends Vue {
         }
 
         const response: api.LoginResult = await api.account.logIn(request);
-        //const userId: string = await api.account.returnUserId(response.userName);
-        //console.log(response.id);
         const role: string = await api.account.getUserRole(response.id);
-        console.log(role);
 
         const payload: LoginActionPayload = {
             sessionInfo: {
-                role: null,
+                role: role,
                 userName: response.userName
             }
         }

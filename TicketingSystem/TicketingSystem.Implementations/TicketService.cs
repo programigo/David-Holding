@@ -40,7 +40,7 @@ namespace TicketingSystem.Implementations
 
         
 
-        public void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState ticketState, string senderId, int projectId)
+        public void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState? ticketState, string senderId, int projectId)
         {
             DATA_MODELS.Ticket ticket = new DATA_MODELS.Ticket
             {
@@ -48,7 +48,7 @@ namespace TicketingSystem.Implementations
                 Description = description,
                 PostTime = postTime,
                 TicketType = (DATA_ENUMS.TicketType)Enum.Parse(typeof(DATA_ENUMS.TicketType), ticketType.ToString()),
-                TicketState = (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), ticketState.ToString()),
+                TicketState = ticketState != null ? (DATA_ENUMS.TicketState)Enum.Parse(typeof(DATA_ENUMS.TicketState), ticketState.ToString()) : default(DATA_ENUMS.TicketState),
                 SenderId = senderId,
                 ProjectId = projectId
             };

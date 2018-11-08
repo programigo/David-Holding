@@ -31,13 +31,13 @@ namespace TicketingSystem.Implementations
             })
             .AsQueryable();
 
-        public void Create(string content, DateTime postTime, MessageState state, int ticketId, string authorId)
+        public void Create(string content, DateTime postTime, MessageState? state, int ticketId, string authorId)
         {
             DATA_MODELS.Message message = new DATA_MODELS.Message
             {
                 Content = content,
                 PostDate = postTime,
-                State = (DATA_ENUMS.MessageState)Enum.Parse(typeof(DATA_ENUMS.MessageState), state.ToString()),
+                State = state != null ? (DATA_ENUMS.MessageState)Enum.Parse(typeof(DATA_ENUMS.MessageState), state.ToString()) : default(DATA_ENUMS.MessageState),
                 TicketId = ticketId,
                 AuthorId = authorId
             };
@@ -65,7 +65,7 @@ namespace TicketingSystem.Implementations
 
         public byte[] GetAttachedFiles(int id)
         {
-            Message message = this.db.Find<Message>(id);
+            DATA_MODELS.Message message = this.db.Find<DATA_MODELS.Message>(id);
 
             if (message == null)
             {

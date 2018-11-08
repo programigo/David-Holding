@@ -11,7 +11,7 @@ namespace TicketingSystem.Services
 
         int Total();
 
-        void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState ticketState, string senderId, int projectId);
+        void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState? ticketState, string senderId, int projectId);
 
         bool SaveFiles(int ticketId, byte[] attachedFiles);
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,6 @@ using TicketingSystem.Data.Constants;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Messages;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Tickets;
-using TicketingSystem.VueTS.Common.Constants;
 using TicketingSystem.VueTS.Infrastructure.Extensions;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 using WEB_ENUMS = TicketingSystem.VueTS.Common.Enums;
@@ -81,7 +79,12 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
             TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
 
-            TicketState ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
+            TicketState? ticketState = null;
+
+            if (model.TicketState != null)
+            {
+                ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
+            }
 
             this.tickets.Create(model.Title, model.Description, DateTime.UtcNow, ticketType, ticketState, senderId, model.ProjectId);
 

@@ -27,7 +27,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Models.Tickets
         public TicketType TicketType { get; set; }
 
         [Display(Name = "Ticket State")]
-        public TicketState TicketState { get; set; }
+        public TicketState? TicketState { get; set; }
 
         [Display(Name = "Project")]
         [Required]

@@ -13,14 +13,14 @@
                     </b-form-input>
                     <span v-show="errors.has('name')" class="text-danger col-12 text-center">{{ errors.first('name') }}</span>
                 </div>
-
+                <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="description">Description</label>
                     <b-form-textarea :rows="5" class="form-control col-4" name="description" data-vv-as="Description" v-validate="'required'" v-model="editProjectViewModel.description" id="description">
                     </b-form-textarea>
                     <span v-show="errors.has('description')" class="text-danger col-12 text-center">{{ errors.first('description') }}</span>
                 </div>
-
+                <br />
                 <div class="form-group justify-content-center text-center col-12 row custom-margin-top">
                     <b-button id="button-edit" type="submit" class="col-2" variant="secondary">Edit</b-button>
                 </div>

@@ -26,14 +26,8 @@ export class AccountController extends ControllerBase {
         return result.data;
     }
 
-    public async returnUserId(username: string): Promise<string> {
-        const result = await super.ajaxGet<string, string>("returnuserid", username);
-
-        return result.data;
-    }
-
     public async getUserRole(id: string): Promise<string> {
-        const result = await super.ajaxGet<string, string>("getrole", id);
+        const result = await super.ajaxGet<string, string>(`getrole/${id}`);
 
         return result.data;
     }

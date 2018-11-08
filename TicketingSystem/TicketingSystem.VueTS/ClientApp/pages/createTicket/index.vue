@@ -13,40 +13,35 @@
                     </b-form-input>
                     <span v-show="errors.has('title')" class="text-danger col-12 text-center">{{ errors.first('title') }}</span>
                 </div>
-
+                <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="description">Description</label>
                     <b-form-textarea :rows="5" class="form-control col-4" name="description" data-vv-as="Description" v-validate="'required'" v-model="createTicketViewModel.description" id="description">
                     </b-form-textarea>
                     <span v-show="errors.has('description')" class="text-danger col-12 text-center">{{ errors.first('description') }}</span>
                 </div>
-
+                <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticketType">Ticket Type</label>
                     <select v-model="createTicketViewModel.ticketType">
                         <option v-for="type in ticketTypes" v-bind:value="Number(type.value)">{{type.text}}</option>
                     </select>
                 </div>
-
-                <div class="form-group col-12 row justify-content-center">
+                <br />
+                <div v-if="userRole === 'Administrator' || userRole === 'Support'" class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticketState">Ticket State</label>
                     <select v-model="createTicketViewModel.ticketState">
                         <option v-for="state in ticketStates" v-bind:value="Number(state.value)">{{state.text}}</option>
                     </select>
                 </div>
-
+                <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="project">Project</label>
                     <select v-model="createTicketViewModel.projectId">
                         <option v-for="project in createTicketViewModel.projects" v-bind:value="project.value">{{project.text}}</option>
                     </select>
                 </div>
-
-                <!--<div class="form-group col-12 row justify-content-center">
-        <label class="col-12" for="upload-file">Upload file</label>
-        <input type="file" @change="onFileSelected" accept="application/zip"/>
-    </div>-->
-
+                <br />
                 <div class="form-group justify-content-center text-center col-12 row custom-margin-top">
                     <b-button id="button-create" type="submit" class="col-2" variant="secondary">Create</b-button>
                 </div>

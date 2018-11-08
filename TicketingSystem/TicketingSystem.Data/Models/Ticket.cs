@@ -22,7 +22,7 @@ namespace TicketingSystem.Data.Models
 
         public TicketType TicketType { get; set; }
 
-        public TicketState TicketState { get; set; }
+        public TicketState? TicketState { get; set; }
 
         [Required]
         [MinLength(DataConstants.TicketTitleMinLength)]

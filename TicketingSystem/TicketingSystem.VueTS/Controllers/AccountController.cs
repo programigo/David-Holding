@@ -54,8 +54,6 @@ namespace TicketingSystem.VueTS.Controllers
                     })
                 .FirstOrDefault();
 
-                var role = GetRole(user.Id);
-
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "No such user exists.");
@@ -83,8 +81,8 @@ namespace TicketingSystem.VueTS.Controllers
             return Ok(model);
         }
 
-        [HttpPost("getrole")]
-        public async Task<string> GetRole([FromBody]string id)
+        [HttpGet("getrole/{id}")]
+        public async Task<string> GetRole(string id)
         {
             var role =  await _userManager.GetUserRole(id);
 

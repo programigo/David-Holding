@@ -48,7 +48,12 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
             string authorId = this.userManager.GetUserId(User);
 
-            MessageState messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
+            MessageState? messageState = null;
+
+            if (model.State != null)
+            {
+                messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
+            }
 
             this.messages.Create(model.Content, DateTime.UtcNow, messageState, model.TicketId, authorId);
         
@@ -118,6 +123,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
                     PostTime = t.PostTime,
                     Project = t.Project,
                     Sender = t.Sender,
+                    SenderId = t.SenderId,
                     TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
                     TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
                     Title = t.Title,
@@ -125,6 +131,8 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
                     AttachedFiles = t.AttachedFiles
                 })
                 .ToList();
+
+            var id = User.GetUserId();
 
             List<SelectListItem> ticketListItems = new List<SelectListItem>();
 

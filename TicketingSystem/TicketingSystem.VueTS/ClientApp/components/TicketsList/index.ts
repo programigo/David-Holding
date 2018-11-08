@@ -21,6 +21,18 @@ export default class TicketsList extends Vue {
         await this.getAllTickets();
     }
 
+    public async updated(): Promise<void> {
+        await this.getAllTickets();
+    }
+
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
+
+    private get myTickets(): TicketViewModel[] {
+        return this.allTickets.tickets.filter(t => t.sender === this.$store.getters.sessionInfo.userName);
+    }
+
     private async getAllTickets(): Promise<TicketListingViewModel> {
         const response: api.TicketListingModel = await api.tickets.getTickets();
 

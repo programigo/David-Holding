@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "29fedb8a163c8942cfed"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bf41018316847db08c68"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -24997,8 +24997,16 @@ var TheNavMenu = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TheNavMenu.prototype, "userRole", {
+        get: function () {
+            return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     TheNavMenu.prototype.mounted = function () {
         this.populateData();
+        console.log(this.$store.getters.sessionInfo.role);
     };
     TheNavMenu.prototype.updated = function () {
         this.populateData();
@@ -25424,25 +25432,12 @@ var AccountController = /** @class */ (function (_super) {
             });
         });
     };
-    AccountController.prototype.returnUserId = function (username) {
-        return __awaiter(this, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "returnuserid", username)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result.data];
-                }
-            });
-        });
-    };
     AccountController.prototype.getUserRole = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "getrole", id)];
+                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "getrole/" + id)];
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, result.data];
@@ -28291,7 +28286,6 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
 });
 router.beforeEach(function (to, from, next) {
     var authRequired = to.matched.some(function (route) { return route.meta.auth; });
-    var sinfo = __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state.sessionInfo;
     if (__WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state.sessionInfo) {
         if (to.name === "login") {
             next({
@@ -28552,6 +28546,13 @@ var ProjectsList = /** @class */ (function (_super) {
             });
         });
     };
+    Object.defineProperty(ProjectsList.prototype, "userRole", {
+        get: function () {
+            return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProjectsList.prototype.getAllProjects = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, projects;
@@ -28817,10 +28818,9 @@ var Login = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].getUserRole(response.id)];
                     case 2:
                         role = _a.sent();
-                        console.log(role);
                         payload = {
                             sessionInfo: {
-                                role: null,
+                                role: role,
                                 userName: response.userName
                             }
                         };
@@ -28938,7 +28938,7 @@ var Register = /** @class */ (function (_super) {
     }
     Register.prototype.register = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, userId, role, payload;
+            var request, response, role, payload;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -28952,11 +28952,8 @@ var Register = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].register(request)];
                     case 1:
                         response = _a.sent();
-                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].returnUserId(response.userName)];
+                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].getUserRole(response.id)];
                     case 2:
-                        userId = _a.sent();
-                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].getUserRole(userId)];
-                    case 3:
                         role = _a.sent();
                         payload = {
                             sessionInfo: {
@@ -28965,7 +28962,7 @@ var Register = /** @class */ (function (_super) {
                             }
                         };
                         return [4 /*yield*/, this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_3__store_actions__["c" /* REGISTER */], payload)];
-                    case 4:
+                    case 3:
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -29130,6 +29127,7 @@ var CreateProject = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].create(request)];
                     case 1:
                         response = _a.sent();
+                        this.$router.push('/');
                         return [2 /*return*/, response];
                 }
             });
@@ -29270,6 +29268,7 @@ var EditProject = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].edit(this.id, request)];
                     case 1:
                         response = _a.sent();
+                        this.$router.push('/');
                         return [2 /*return*/, response];
                 }
             });
@@ -29374,7 +29373,7 @@ var DeleteProject = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].delete(request)];
                     case 1:
                         response = _a.sent();
-                        this.$router.push('/projects');
+                        this.$router.push('/');
                         return [2 /*return*/, response];
                 }
             });
@@ -29479,6 +29478,13 @@ var ProjectDetails = /** @class */ (function (_super) {
             });
         });
     };
+    Object.defineProperty(ProjectDetails.prototype, "userRole", {
+        get: function () {
+            return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ProjectDetails.prototype, "id", {
         get: function () {
             return Number(this.$route.params.projectId);
@@ -29607,6 +29613,16 @@ var AllUsers = /** @class */ (function (_super) {
             });
         });
     };
+    AllUsers.prototype.updated = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getAllUsers()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     AllUsers.prototype.getAllUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, users, roles, result;
@@ -29636,6 +29652,7 @@ var AllUsers = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].removeUser(id)];
                     case 1:
                         response = _a.sent();
+                        this.$router.push('/users');
                         return [2 /*return*/, response];
                 }
             });
@@ -30290,7 +30307,20 @@ var PendingUsers = /** @class */ (function (_super) {
     PendingUsers.prototype.mounted = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.getPendingUsers()];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPendingUsers()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    PendingUsers.prototype.updated = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPendingUsers()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
             });
         });
     };
@@ -30316,7 +30346,6 @@ var PendingUsers = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].approve(id)];
                     case 1:
                         result = _a.sent();
-                        this.$router.push('/users');
                         return [2 /*return*/, result];
                 }
             });
@@ -30470,6 +30499,33 @@ var TicketsList = /** @class */ (function (_super) {
             });
         });
     };
+    TicketsList.prototype.updated = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getAllTickets()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Object.defineProperty(TicketsList.prototype, "userRole", {
+        get: function () {
+            return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TicketsList.prototype, "myTickets", {
+        get: function () {
+            var _this = this;
+            return this.allTickets.tickets.filter(function (t) { return t.sender === _this.$store.getters.sessionInfo.userName; });
+        },
+        enumerable: true,
+        configurable: true
+    });
     TicketsList.prototype.getAllTickets = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, tickets;
@@ -30799,6 +30855,13 @@ var CreateTicket = /** @class */ (function (_super) {
         ];
         return _this;
     }
+    Object.defineProperty(CreateTicket.prototype, "userRole", {
+        get: function () {
+            return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     CreateTicket.prototype.mounted = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -31572,6 +31635,13 @@ var CreateMessage = /** @class */ (function (_super) {
         ];
         return _this;
     }
+    Object.defineProperty(CreateMessage.prototype, "userRole", {
+        get: function () {
+            return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
     CreateMessage.prototype.mounted = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -31676,7 +31746,7 @@ var MessageAttachFiles = /** @class */ (function (_super) {
         configurable: true
     });
     MessageAttachFiles.prototype.startUpload = function () {
-        __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post("/api/tickets/attachfiles/" + this.id, this.attachFileModel, {
+        __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post("/api/messages/attachfiles/" + this.id, this.attachFileModel, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -41921,62 +41991,48 @@ var render = function() {
             ? _c(
                 "b-navbar-nav",
                 [
-                  _c(
-                    "b-nav-item-dropdown",
-                    { attrs: { text: "Users" } },
-                    [
-                      _c("b-dropdown-item", { attrs: { to: "/users" } }, [
-                        _vm._v("All Users")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item",
-                        { attrs: { to: "/users/pending" } },
-                        [_vm._v("Pending Users")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item",
-                        { attrs: { to: "/users/register" } },
-                        [_vm._v("Register New User")]
+                  _vm.userRole === "Administrator"
+                    ? _c(
+                        "b-nav-item-dropdown",
+                        { attrs: { text: "Users" } },
+                        [
+                          _c("b-dropdown-item", { attrs: { to: "/users" } }, [
+                            _vm._v("User Administration")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-dropdown-item",
+                            { attrs: { to: "/users/pending" } },
+                            [_vm._v("Pending Requests")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-dropdown-item",
+                            { attrs: { to: "/users/register" } },
+                            [_vm._v("Register New User")]
+                          )
+                        ],
+                        1
                       )
-                    ],
-                    1
-                  ),
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "b-nav-item-dropdown",
-                    { attrs: { text: "Projects" } },
-                    [
-                      _c("b-dropdown-item", { attrs: { to: "/projects" } }, [
-                        _vm._v("All Projects")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item",
-                        { attrs: { to: "/projects/create" } },
-                        [_vm._v("Create Project")]
-                      )
-                    ],
-                    1
-                  ),
+                  _vm.userRole === "Administrator"
+                    ? _c("b-nav-item", { attrs: { to: "/projects/create" } }, [
+                        _vm._v("Create Project")
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "b-nav-item-dropdown",
-                    { attrs: { text: "Tickets" } },
-                    [
-                      _c("b-dropdown-item", { attrs: { to: "/tickets" } }, [
+                  _vm.userRole === "Administrator" || _vm.userRole === "Support"
+                    ? _c("b-nav-item", { attrs: { to: "/tickets" } }, [
                         _vm._v("All Tickets")
+                      ])
+                    : _c("b-nav-item", { attrs: { to: "/tickets" } }, [
+                        _vm._v("My Tickets")
                       ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item",
-                        { attrs: { to: "/tickets/create" } },
-                        [_vm._v("Create Ticket")]
-                      )
-                    ],
-                    1
-                  ),
+                  _vm._v(" "),
+                  _c("b-nav-item", { attrs: { to: "/tickets/create" } }, [
+                    _vm._v("Create Ticket")
+                  ]),
                   _vm._v(" "),
                   _c("b-nav-item", { attrs: { to: "/messages/create" } }, [
                     _vm._v("Send Message")
@@ -54044,36 +54100,38 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticStyle: { "text-align": "center" } },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                to: { path: "projects/edit/" + project.id },
-                                variant: "warning"
-                              }
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                to: { path: "projects/delete/" + project.id },
-                                variant: "danger"
-                              }
-                            },
-                            [_vm._v("Delete")]
+                      _vm.userRole === "Administrator"
+                        ? _c(
+                            "div",
+                            { staticStyle: { "text-align": "center" } },
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    to: { path: "projects/edit/" + project.id },
+                                    variant: "warning"
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    to: {
+                                      path: "projects/delete/" + project.id
+                                    },
+                                    variant: "danger"
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            ],
+                            1
                           )
-                        ],
-                        1
-                      )
+                        : _vm._e()
                     ],
                     1
                   )
@@ -55001,6 +55059,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -55055,6 +55115,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 {
@@ -55072,7 +55134,7 @@ var render = function() {
                         variant: "secondary"
                       }
                     },
-                    [_vm._v(_vm._s(_vm.$t("create")))]
+                    [_vm._v("Create")]
                   )
                 ],
                 1
@@ -55238,6 +55300,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -55291,6 +55355,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -55397,30 +55463,37 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "modal-body" }, [
-      _vm._v("\n        Are you sure you want to delete this project ?\n    ")
-    ]),
+    _c(
+      "div",
+      { staticClass: "modal-body", staticStyle: { "text-align": "center" } },
+      [_vm._v("\n        Are you sure you want to delete this project ?\n    ")]
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", to: { path: "/projects" } }
-        },
-        [_vm._v("No")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "button" },
-          on: { click: _vm.deleteProject }
-        },
-        [_vm._v("Yes")]
-      )
-    ])
+    _c(
+      "div",
+      { staticStyle: { "text-align": "center" } },
+      [
+        _c(
+          "b-button",
+          {
+            staticClass: "btn btn-secondary",
+            attrs: { type: "button", to: "/" }
+          },
+          [_vm._v("No")]
+        ),
+        _vm._v(" "),
+        _c(
+          "b-button",
+          {
+            staticClass: "btn-success",
+            attrs: { type: "button" },
+            on: { click: _vm.deleteProject }
+          },
+          [_vm._v("Yes")]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -55519,29 +55592,36 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              attrs: {
-                to: "projects/edit/" + _vm.renderProject.id,
-                variant: "warning"
-              }
-            },
-            [_vm._v("Edit")]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              attrs: {
-                to: "projects/delete/" + _vm.renderProject.id,
-                variant: "danger"
-              }
-            },
-            [_vm._v("Delete")]
-          )
-        ],
-        1
+          _vm.userRole === "Administrator"
+            ? _c(
+                "div",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: {
+                        to: "projects/edit/" + _vm.renderProject.id,
+                        variant: "warning"
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: {
+                        to: "projects/delete/" + _vm.renderProject.id,
+                        variant: "danger"
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ]
       )
     ],
     1
@@ -55624,6 +55704,12 @@ var render = function() {
   return _c("div", [
     _vm.allUsers.users.length
       ? _c("div", [
+          _c("h1", { staticStyle: { "text-align": "center" } }, [
+            _vm._v("User Administration")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
           _c(
             "table",
             {
@@ -55936,6 +56022,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -55989,6 +56077,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -56044,6 +56134,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -56097,6 +56189,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -56154,6 +56248,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -56688,6 +56784,12 @@ var render = function() {
   return _c("div", [
     _vm.pendingUsers.users.length
       ? _c("div", [
+          _c("h1", { staticStyle: { "text-align": "center" } }, [
+            _vm._v("Pending user registrations")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
           _c(
             "table",
             { staticClass: "table table-hover table-bordered" },
@@ -56900,155 +57002,340 @@ var MessageState;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
 var render = function() {
+  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.allTickets.tickets.length
-      ? _c(
-          "div",
-          _vm._l(_vm.allTickets.tickets, function(ticket) {
-            return _c("div", [
-              _c(
+    _vm.userRole === "Administrator" || _vm.userRole === "Support"
+      ? _c("div", [
+          _vm.allTickets.tickets.length
+            ? _c(
                 "div",
-                [
-                  _c(
-                    "b-card",
-                    {
-                      staticClass: "mb-2",
-                      staticStyle: { "max-width": "25rem" }
-                    },
-                    [
-                      _c(
-                        "b-link",
-                        {
-                          attrs: {
-                            to: { path: "tickets/details/" + ticket.id }
-                          }
-                        },
-                        [
-                          _c(
-                            "h3",
-                            { staticStyle: { "text-align": "center" } },
-                            [_vm._v(_vm._s(ticket.title))]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", { staticStyle: { "text-align": "center" } }, [
-                        _vm._v(
-                          "Published on " +
-                            _vm._s(ticket.postTime) +
-                            " by " +
-                            _vm._s(ticket.sender)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticStyle: { "text-align": "center" } },
-                        [
-                          _vm._v("Project: "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: {
-                                  path: "projects/details/" + ticket.projectId
+                _vm._l(_vm.allTickets.tickets, function(ticket) {
+                  return _c("div", [
+                    _c(
+                      "div",
+                      [
+                        _c(
+                          "b-card",
+                          {
+                            staticClass: "mb-2",
+                            staticStyle: { "max-width": "25rem" }
+                          },
+                          [
+                            _c(
+                              "b-link",
+                              {
+                                attrs: {
+                                  to: { path: "tickets/details/" + ticket.id }
                                 }
-                              }
-                            },
-                            [_vm._v(_vm._s(ticket.project))]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(ticket.description) +
-                            "\n                    "
+                              },
+                              [
+                                _c(
+                                  "h3",
+                                  { staticStyle: { "text-align": "center" } },
+                                  [_vm._v(_vm._s(ticket.title))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticStyle: { "text-align": "center" } },
+                              [
+                                _vm._v(
+                                  "Published on " +
+                                    _vm._s(ticket.postTime) +
+                                    " by " +
+                                    _vm._s(ticket.sender)
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticStyle: { "text-align": "center" } },
+                              [
+                                _vm._v("Project: "),
+                                _c(
+                                  "b-link",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        path:
+                                          "projects/details/" + ticket.projectId
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(ticket.project))]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "card-text" }, [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(ticket.description) +
+                                  "\n                        "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticStyle: { "text-align": "center" } },
+                              [
+                                ticket.attachedFiles
+                                  ? _c(
+                                      "b-button",
+                                      {
+                                        staticStyle: {
+                                          "background-color": "blue"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.downloadFile(ticket.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Download Files")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                ticket.sender ===
+                                _vm.$store.getters.sessionInfo.userName
+                                  ? _c(
+                                      "b-button",
+                                      {
+                                        staticStyle: {
+                                          "background-color": "blueviolet"
+                                        },
+                                        attrs: {
+                                          to: {
+                                            path:
+                                              "tickets/attachfiles/" + ticket.id
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Attach Files")]
+                                    )
+                                  : _vm._e()
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticStyle: { "text-align": "center" } },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      to: { path: "tickets/edit/" + ticket.id },
+                                      variant: "warning"
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        path: "tickets/delete/" + ticket.id
+                                      },
+                                      variant: "danger"
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
+                      ],
+                      1
+                    )
+                  ])
+                })
+              )
+            : _c("p", [_c("em", [_vm._v("Loading...")])])
+        ])
+      : _c("div", [
+          _vm.allTickets.tickets.filter(function(t) {
+            return t.sender === this$1.$store.getters.sessionInfo.userName
+          }).length
+            ? _c(
+                "div",
+                _vm._l(
+                  _vm.allTickets.tickets.filter(function(t) {
+                    return (
+                      t.sender === this$1.$store.getters.sessionInfo.userName
+                    )
+                  }),
+                  function(ticket) {
+                    return _c("div", [
                       _c(
                         "div",
-                        { staticStyle: { "text-align": "center" } },
                         [
-                          ticket.attachedFiles
-                            ? _c(
-                                "b-button",
+                          _c(
+                            "b-card",
+                            {
+                              staticClass: "mb-2",
+                              staticStyle: { "max-width": "25rem" }
+                            },
+                            [
+                              _c(
+                                "b-link",
                                 {
-                                  staticStyle: { "background-color": "blue" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.downloadFile(ticket.id)
-                                    }
+                                  attrs: {
+                                    to: { path: "tickets/details/" + ticket.id }
                                   }
                                 },
-                                [_vm._v("Download Files")]
+                                [
+                                  _c(
+                                    "h3",
+                                    { staticStyle: { "text-align": "center" } },
+                                    [_vm._v(_vm._s(ticket.title))]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  _vm._v(
+                                    "Published on " +
+                                      _vm._s(ticket.postTime) +
+                                      " by " +
+                                      _vm._s(ticket.sender)
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  _vm._v("Project: "),
+                                  _c(
+                                    "b-link",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          path:
+                                            "projects/details/" +
+                                            ticket.projectId
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(ticket.project))]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "card-text" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(ticket.description) +
+                                    "\n                    "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  ticket.attachedFiles
+                                    ? _c(
+                                        "b-button",
+                                        {
+                                          staticStyle: {
+                                            "background-color": "blue"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.downloadFile(ticket.id)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Download Files")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  ticket.sender ===
+                                  _vm.$store.getters.sessionInfo.userName
+                                    ? _c(
+                                        "b-button",
+                                        {
+                                          staticStyle: {
+                                            "background-color": "blueviolet"
+                                          },
+                                          attrs: {
+                                            to: {
+                                              path:
+                                                "tickets/attachfiles/" +
+                                                ticket.id
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Attach Files")]
+                                      )
+                                    : _vm._e()
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          path: "tickets/edit/" + ticket.id
+                                        },
+                                        variant: "warning"
+                                      }
+                                    },
+                                    [_vm._v("Edit")]
+                                  )
+                                ],
+                                1
                               )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              staticStyle: { "background-color": "blueviolet" },
-                              attrs: {
-                                to: { path: "tickets/attachfiles/" + ticket.id }
-                              }
-                            },
-                            [_vm._v("Attach Files")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticStyle: { "text-align": "center" } },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                to: { path: "tickets/edit/" + ticket.id },
-                                variant: "warning"
-                              }
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                to: { path: "tickets/delete/" + ticket.id },
-                                variant: "danger"
-                              }
-                            },
-                            [_vm._v("Delete")]
+                            ],
+                            1
                           )
                         ],
                         1
                       )
-                    ],
-                    1
-                  )
-                ],
-                1
+                    ])
+                  }
+                )
               )
-            ])
-          })
-        )
-      : _c("p", [_c("em", [_vm._v("Loading...")])])
+            : _c("p", [_c("em", [_vm._v("Loading...")])])
+        ])
   ])
 }
 var staticRenderFns = []
@@ -57237,6 +57524,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -57291,6 +57580,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -57343,57 +57634,69 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group col-12 row justify-content-center" },
-                [
-                  _c(
-                    "label",
-                    { staticClass: "col-12", attrs: { for: "ticketState" } },
-                    [_vm._v("Ticket State")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
+              _c("br"),
+              _vm._v(" "),
+              _vm.userRole === "Administrator" || _vm.userRole === "Support"
+                ? _c(
+                    "div",
                     {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.createTicketViewModel.ticketState,
-                          expression: "createTicketViewModel.ticketState"
-                        }
-                      ],
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.createTicketViewModel,
-                            "ticketState",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
+                      staticClass:
+                        "form-group col-12 row justify-content-center"
                     },
-                    _vm._l(_vm.ticketStates, function(state) {
-                      return _c(
-                        "option",
-                        { domProps: { value: Number(state.value) } },
-                        [_vm._v(_vm._s(state.text))]
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-12",
+                          attrs: { for: "ticketState" }
+                        },
+                        [_vm._v("Ticket State")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.createTicketViewModel.ticketState,
+                              expression: "createTicketViewModel.ticketState"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.createTicketViewModel,
+                                "ticketState",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.ticketStates, function(state) {
+                          return _c(
+                            "option",
+                            { domProps: { value: Number(state.value) } },
+                            [_vm._v(_vm._s(state.text))]
+                          )
+                        })
                       )
-                    })
+                    ]
                   )
-                ]
-              ),
+                : _vm._e(),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -57448,6 +57751,8 @@ var render = function() {
                   )
                 ]
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -57609,6 +57914,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -57639,6 +57946,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -57692,6 +58001,8 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -57743,6 +58054,8 @@ var render = function() {
                   )
                 ]
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -57849,30 +58162,37 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "modal-body" }, [
-      _vm._v("\n        Are you sure you want to delete this ticket ?\n    ")
-    ]),
+    _c(
+      "div",
+      { staticClass: "modal-body", staticStyle: { "text-align": "center" } },
+      [_vm._v("\n        Are you sure you want to delete this ticket ?\n    ")]
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", to: { path: "/tickets" } }
-        },
-        [_vm._v("No")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "button" },
-          on: { click: _vm.deleteTicket }
-        },
-        [_vm._v("Yes")]
-      )
-    ])
+    _c(
+      "div",
+      { staticStyle: { "text-align": "center" } },
+      [
+        _c(
+          "b-button",
+          {
+            staticClass: "btn btn-secondary",
+            attrs: { type: "button", to: "/tickets" }
+          },
+          [_vm._v("No")]
+        ),
+        _vm._v(" "),
+        _c(
+          "b-button",
+          {
+            staticClass: "btn btn-success",
+            attrs: { type: "button" },
+            on: { click: _vm.deleteTicket }
+          },
+          [_vm._v("Yes")]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -57995,23 +58315,13 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-button",
-            {
-              attrs: {
-                to: "tickets/edit/" + _vm.renderTicket.id,
-                variant: "warning"
-              }
-            },
+            { attrs: { to: { name: "ticket-edit" }, variant: "warning" } },
             [_vm._v("Edit")]
           ),
           _vm._v(" "),
           _c(
             "b-button",
-            {
-              attrs: {
-                to: "tickets/delete/" + _vm.renderTicket.id,
-                variant: "danger"
-              }
-            },
+            { attrs: { to: { name: "ticket-delete" }, variant: "danger" } },
             [_vm._v("Delete")]
           )
         ],
@@ -58415,57 +58725,69 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group col-12 row justify-content-center" },
-                [
-                  _c(
-                    "label",
-                    { staticClass: "col-12", attrs: { for: "messageState" } },
-                    [_vm._v("Message State")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
+              _c("br"),
+              _vm._v(" "),
+              _vm.userRole === "Administrator" || _vm.userRole === "Support"
+                ? _c(
+                    "div",
                     {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.createMessageViewModel.state,
-                          expression: "createMessageViewModel.state"
-                        }
-                      ],
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.createMessageViewModel,
-                            "state",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
+                      staticClass:
+                        "form-group col-12 row justify-content-center"
                     },
-                    _vm._l(_vm.messageStates, function(state) {
-                      return _c(
-                        "option",
-                        { domProps: { value: Number(state.value) } },
-                        [_vm._v(_vm._s(state.text))]
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-12",
+                          attrs: { for: "messageState" }
+                        },
+                        [_vm._v("Message State")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.createMessageViewModel.state,
+                              expression: "createMessageViewModel.state"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.createMessageViewModel,
+                                "state",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.messageStates, function(state) {
+                          return _c(
+                            "option",
+                            { domProps: { value: Number(state.value) } },
+                            [_vm._v(_vm._s(state.text))]
+                          )
+                        })
                       )
-                    })
+                    ]
                   )
-                ]
-              ),
+                : _vm._e(),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -58520,6 +58842,8 @@ var render = function() {
                   )
                 ]
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",

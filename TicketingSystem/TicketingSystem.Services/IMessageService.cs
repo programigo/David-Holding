@@ -5,7 +5,7 @@ namespace TicketingSystem.Services
 {
     public interface IMessageService
     {
-        void Create(string content, DateTime postTime, MessageState state, int ticketId, string authorId);
+        void Create(string content, DateTime postTime, MessageState? state, int ticketId, string authorId);
 
         IQueryable<MessageListingServiceModel> All();
 

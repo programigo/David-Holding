@@ -23,6 +23,10 @@ export default class CreateMessage extends Vue {
         { text: 'Published', value: api.MessageState.Published.toString() }
     ];
 
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
+
     public async mounted(): Promise<SelectListItem[]> {
         return await this.getTickets();
     }

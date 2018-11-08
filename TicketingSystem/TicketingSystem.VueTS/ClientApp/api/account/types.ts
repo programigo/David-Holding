@@ -17,5 +17,6 @@ export interface RegisterRequest {
 }
 
 export interface RegisterResult {
+    id: string;
     userName: string;
 }

@@ -19,6 +19,10 @@ export default class ProjectDetails extends Vue {
         await this.getProject();
     }
 
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
+
     private get id(): number {
         return Number(this.$route.params.projectId);
     }

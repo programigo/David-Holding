@@ -14,7 +14,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Models.Messages
         [DataType(DataType.Date)]
         public DateTime PostDate { get; set; }
 
-        public MessageState State { get; set; }
+        public MessageState? State { get; set; }
 
         [Required]
         [MinLength(DataConstants.MessageContentMinLength)]

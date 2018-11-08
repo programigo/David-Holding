@@ -1,6 +1,8 @@
 ﻿<template>
     <div>
         <div v-if="pendingUsers.users.length">
+            <h1 style="text-align:center">Pending user registrations</h1>
+            <br />
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>

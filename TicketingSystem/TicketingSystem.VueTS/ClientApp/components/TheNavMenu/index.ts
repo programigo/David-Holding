@@ -17,12 +17,17 @@ import { AppState, SessionInfo } from '../../store/types';
 export default class TheNavMenu extends Vue {
 	private userName: string = null;
 
-	private get isLoggedIn(): boolean {
+    private get isLoggedIn(): boolean {
 		return this.$store.getters.isLoggedIn;
-	}
+    }
+
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
 
 	public mounted(): void {
-		this.populateData();
+        this.populateData();
+        console.log(this.$store.getters.sessionInfo.role);
 	}
 
 	public updated(): void {

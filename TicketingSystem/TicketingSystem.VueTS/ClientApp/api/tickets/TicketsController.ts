@@ -54,10 +54,4 @@ export class TicketsController extends ControllerBase {
 
         return file;
     }
-
-    //public async attachFiles(id: number): Promise<void> {
-    //    const response = await super.ajaxPost<FormData, any>(`attachfiles/${id}`);
-    //
-    //    return response.data;
-    //}
 }

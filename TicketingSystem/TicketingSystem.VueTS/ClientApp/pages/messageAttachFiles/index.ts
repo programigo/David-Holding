@@ -16,7 +16,7 @@ export default class MessageAttachFiles extends Vue {
     }
 
     private startUpload(): void {
-        axios.post(`/api/tickets/attachfiles/${this.id}`,
+        axios.post(`/api/messages/attachfiles/${this.id}`,
             this.attachFileModel,
             {
                 headers: {

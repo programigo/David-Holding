@@ -25,6 +25,10 @@ export default class AllUsers extends Vue {
         return await this.getAllUsers();
     }
 
+    public async updated(): Promise<UserListingViewModel> {
+        return await this.getAllUsers();
+    }
+
     private async getAllUsers(): Promise<UserListingViewModel> {
         const response: api.UserListingModel = await api.users.getUsers();
 
@@ -44,6 +48,8 @@ export default class AllUsers extends Vue {
 
     private async remove(id: string): Promise<void> {
         const response: void = await api.users.removeUser(id);
+
+        this.$router.push('/users');
 
         return response;
     }

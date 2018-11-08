@@ -43,6 +43,8 @@ export default class EditProject extends Vue {
 
         const response: void = await api.projects.edit(this.id, request);
 
+        this.$router.push('/');
+
         return response;
     }
 }

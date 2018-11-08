@@ -15,6 +15,10 @@ export default class ProjectsList extends Vue {
         await this.getAllProjects();
     }
 
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
+
     private async getAllProjects(): Promise<ProjectViewModel[]> {
         const response: api.ProjectModel[] = await api.projects.getProjects();
 

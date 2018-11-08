@@ -31,8 +31,7 @@ export default class Register extends Vue {
         }
 
         const response: api.RegisterResult = await api.account.register(request);
-        const userId: string = await api.account.returnUserId(response.userName);
-        const role: string = await api.account.getUserRole(userId);
+        const role: string = await api.account.getUserRole(response.id);
 
         const payload: RegisterActionPayload = {
             sessionInfo: {

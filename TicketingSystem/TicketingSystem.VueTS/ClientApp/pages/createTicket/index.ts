@@ -34,6 +34,10 @@ export default class CreateTicket extends Vue {
         { text: 'Completed', value: api.TicketState.Completed.toString() }
     ];
 
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
+
     public async mounted(): Promise<SelectListItem[]> {
         return await this.getProjects();
     }

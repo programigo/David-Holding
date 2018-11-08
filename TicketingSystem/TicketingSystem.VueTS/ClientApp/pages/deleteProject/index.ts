@@ -18,7 +18,7 @@ export default class DeleteProject extends Vue {
 
         const response: void = await api.projects.delete(request);
 
-        this.$router.push('/projects');
+        this.$router.push('/');
 
         return response;
     }

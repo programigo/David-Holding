@@ -4,19 +4,16 @@
         <b-navbar-brand to="/" :exact="true">Ticketing System</b-navbar-brand>
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav v-if="isLoggedIn">
-                <b-nav-item-dropdown text="Users">
-                    <b-dropdown-item to="/users">All Users</b-dropdown-item>
-                    <b-dropdown-item to="/users/pending">Pending Users</b-dropdown-item>
+                <b-nav-item-dropdown v-if="userRole === 'Administrator'" text="Users">
+                    <b-dropdown-item to="/users">User Administration</b-dropdown-item>
+                    <b-dropdown-item to="/users/pending">Pending Requests</b-dropdown-item>
                     <b-dropdown-item to="/users/register">Register New User</b-dropdown-item>
                 </b-nav-item-dropdown>
-                <b-nav-item-dropdown text="Projects">
-                    <b-dropdown-item to="/projects">All Projects</b-dropdown-item>
-                    <b-dropdown-item to="/projects/create">Create Project</b-dropdown-item>
-                </b-nav-item-dropdown>
-                <b-nav-item-dropdown text="Tickets">
-                    <b-dropdown-item to="/tickets">All Tickets</b-dropdown-item>
-                    <b-dropdown-item to="/tickets/create">Create Ticket</b-dropdown-item>
-                </b-nav-item-dropdown>
+                <b-nav-item v-if="userRole === 'Administrator'" to="/projects/create">Create Project</b-nav-item>
+                <b-nav-item v-if="userRole === 'Administrator' || userRole === 'Support'" to="/tickets">All Tickets</b-nav-item>
+                <b-nav-item v-else to="/tickets">My Tickets</b-nav-item>
+                <b-nav-item to="/tickets/create">Create Ticket</b-nav-item>
+
                 <b-nav-item to="/messages/create">Send Message</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
