@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bf41018316847db08c68"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1775c64d83d84538d1b0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28800,14 +28800,35 @@ var Login = /** @class */ (function (_super) {
             username: null,
             password: null
         };
+        _this.error = null;
         return _this;
     }
+    Object.defineProperty(Login.prototype, "hasError", {
+        get: function () {
+            return this.error !== null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Login.prototype.updated = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.validateBeforeLogin()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Login.prototype.login = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, role, payload;
+            var request, response, role, payload, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        _a.trys.push([0, 4, , 5]);
                         request = {
                             username: this.loginViewModel.username,
                             password: this.loginViewModel.password
@@ -28828,7 +28849,13 @@ var Login = /** @class */ (function (_super) {
                     case 3:
                         _a.sent();
                         this.$router.push('/');
-                        return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 4:
+                        e_1 = _a.sent();
+                        error = e_1.response.data;
+                        this.error = error.message;
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -54266,6 +54293,14 @@ var render = function() {
             "fieldset",
             { staticClass: "col-12", attrs: { id: "login-fieldset" } },
             [
+              _vm.hasError
+                ? _c(
+                    "b-alert",
+                    { attrs: { show: 2, variant: "danger", fade: "" } },
+                    [_vm._v(_vm._s(_vm.error))]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -54319,6 +54354,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -54374,6 +54411,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 {
@@ -54396,7 +54435,8 @@ var render = function() {
                 ],
                 1
               )
-            ]
+            ],
+            1
           )
         ]
       ),
@@ -54571,6 +54611,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -54624,6 +54666,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -54679,6 +54723,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group col-12 row justify-content-center" },
@@ -54732,6 +54778,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -54789,6 +54837,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -55600,7 +55650,7 @@ var render = function() {
                     "b-button",
                     {
                       attrs: {
-                        to: "projects/edit/" + _vm.renderProject.id,
+                        to: { name: "project-edit" },
                         variant: "warning"
                       }
                     },
@@ -55611,7 +55661,7 @@ var render = function() {
                     "b-button",
                     {
                       attrs: {
-                        to: "projects/delete/" + _vm.renderProject.id,
+                        to: { name: "project-delete" },
                         variant: "danger"
                       }
                     },
@@ -56603,6 +56653,8 @@ var render = function() {
         _vm._v("\n        Change Password\n    ")
       ]),
       _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
       _c(
         "b-form",
         {
@@ -56676,6 +56728,8 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -58419,10 +58473,7 @@ var render = function() {
                                         "background-color": "blueviolet"
                                       },
                                       attrs: {
-                                        to: {
-                                          path:
-                                            "messages/attachfiles/" + message.id
-                                        }
+                                        to: { name: "message-attach-files" }
                                       }
                                     },
                                     [_vm._v("Attach Files")]
@@ -59116,14 +59167,6 @@ function AxiosProcessResponse(response) {
         default: {
             break;
         }
-    }
-}
-function getErrorModalTitle(exceptionType) {
-    switch (exceptionType) {
-        case "InvalidFileException":
-            return "Error processing file";
-        default:
-            return "An unexpected error has occurred";
     }
 }
 function ConvertArrayBufferToJson(arrBuffer) {

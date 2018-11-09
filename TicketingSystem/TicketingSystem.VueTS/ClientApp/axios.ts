@@ -1,5 +1,4 @@
 ﻿import axios from 'axios'
-import root from './boot';
 
 import { store } from './store';
 import * as actions from './store/actions';
@@ -30,7 +29,7 @@ function AxiosProcessResponse(response: any) {
 
 			store.dispatch(actions.UNAUTHORIZED, payload);
 
-			router.push('/login');
+            router.push('/login');
 
 			break;
 		}
@@ -47,15 +46,6 @@ function AxiosProcessResponse(response: any) {
 		default: {
 			break;
 		}
-	}
-}
-
-function getErrorModalTitle(exceptionType: string): string {
-	switch (exceptionType) {
-		case "InvalidFileException":
-			return "Error processing file"
-		default:
-			return "An unexpected error has occurred";
 	}
 }
 

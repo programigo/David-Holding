@@ -23,7 +23,7 @@
                             </p>
                             <div style="text-align:center">
                                 <b-button v-if="message.attachedFiles" v-on:click="downloadMessageFile(message.id)" style="background-color:blue">Download Files</b-button>
-                                <b-button :to="{ path: 'messages/attachfiles/' + message.id }" style="background-color:blueviolet">Attach Files</b-button>
+                                <b-button v-bind:to="{name: 'message-attach-files'}" style="background-color:blueviolet">Attach Files</b-button>
                             </div>
                         </b-card>
 

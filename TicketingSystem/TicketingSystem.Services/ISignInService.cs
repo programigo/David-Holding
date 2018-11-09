@@ -5,7 +5,7 @@ namespace TicketingSystem.Services
 {
     public interface ISignInService
     {
-        Task<SignInResult> PasswordSignInAsync(string username, string password, bool rememberMe, bool lockoutOnFailure);
+        Task<SignInResult> PasswordSignInAsync(string username, string password, bool lockoutOnFailure);
 
         Task<User> GetTwoFactorAuthenticationUserAsync();
 

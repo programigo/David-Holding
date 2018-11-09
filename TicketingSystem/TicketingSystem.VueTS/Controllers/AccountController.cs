@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Common.Models;
+using TicketingSystem.VueTS.Models;
 using TicketingSystem.VueTS.Models.AccountViewModels;
 using DATA_MODELS = TicketingSystem.Data.Models;
 
@@ -38,53 +39,53 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                bool isApprovedUser = _users.IsApprovedUser(model.Username);
-
-                DATA_MODELS.User user = _users
-                    .GetUserByName(model.Username)
-                    .Select(u => new DATA_MODELS.User
-                    {
-                        Id = u.Id,
-                        UserName = u.UserName,
-                        Name = u.Name,
-                        Email = u.Email,
-                        IsApproved = u.IsApproved
-                    })
-                .FirstOrDefault();
-
-                if (user == null)
-                {
-                    ModelState.AddModelError(string.Empty, "No such user exists.");
-                    return BadRequest(model);
-                }
-                if (isApprovedUser == false)
-                {
-                    ModelState.AddModelError(string.Empty, "You must wait to be approved by administrator.");
-                    return BadRequest(model);
-                }
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded && isApprovedUser)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return Ok(user);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return BadRequest(model);
-                }
+                return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
-            // If we got this far, something failed, redisplay form
-            return Ok(model);
+            bool isApprovedUser = _users.IsApprovedUser(model.Username);
+
+            DATA_MODELS.User user = _users
+                .GetUserByName(model.Username)
+                .Select(u => new DATA_MODELS.User
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Name = u.Name,
+                    Email = u.Email,
+                    IsApproved = u.IsApproved
+                })
+            .FirstOrDefault();
+
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "No such user exists.");
+                return BadRequest(ModelState.ToBadRequestErrorModel());
+            }
+            if (isApprovedUser == false)
+            {
+                ModelState.AddModelError(string.Empty, "You must wait to be approved by administrator.");
+                return StatusCode(401, ModelState.ToUnauthorizedErrorModel());
+            }
+            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, lockoutOnFailure: false);
+            if (result.Succeeded && isApprovedUser)
+            {
+                _logger.LogInformation("User logged in.");
+                return Ok(user);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return BadRequest(ModelState.ToBadRequestErrorModel());
+            }
+
         }
 
         [HttpGet("getrole/{id}")]
         public async Task<string> GetRole(string id)
         {
-            var role =  await _userManager.GetUserRole(id);
+            var role = await _userManager.GetUserRole(id);
 
             return role.Name;
         }
@@ -93,14 +94,14 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpGet("isLoggedOn")]
         public IActionResult IsLoggedOn()
         {
-            
-                //bool isLoggedOn = _signInManager.IsSignedIn();
-                if (User.Identity.IsAuthenticated)
-                {
-                    return Ok();
-                }
 
-                return Unauthorized();
+            //bool isLoggedOn = _signInManager.IsSignedIn();
+            if (User.Identity.IsAuthenticated)
+            {
+                return Ok();
+            }
+
+            return Unauthorized();
         }
 
         [AllowAnonymous]

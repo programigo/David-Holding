@@ -8,9 +8,7 @@ import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-@Component({
-    
-})
+@Component
 
 export default class Login extends Vue {
     loginViewModel: LoginViewModel = {
@@ -18,26 +16,39 @@ export default class Login extends Vue {
         password: null
     };
 
+    error: string = null;
+
+    get hasError(): boolean {
+        return this.error !== null;
+    }
+
     private async login(): Promise<void> {
-        const request: api.LoginRequest = {
+        try {
+            const request: api.LoginRequest = {
 
-            username: this.loginViewModel.username,
-            password: this.loginViewModel.password
-        }
-
-        const response: api.LoginResult = await api.account.logIn(request);
-        const role: string = await api.account.getUserRole(response.id);
-
-        const payload: LoginActionPayload = {
-            sessionInfo: {
-                role: role,
-                userName: response.userName
+                username: this.loginViewModel.username,
+                password: this.loginViewModel.password
             }
+
+            const response: api.LoginResult = await api.account.logIn(request);
+            const role: string = await api.account.getUserRole(response.id);
+
+            const payload: LoginActionPayload = {
+                sessionInfo: {
+                    role: role,
+                    userName: response.userName
+                }
+            }
+
+            await this.$store.dispatch(actions.LOGIN, payload);
+
+            this.$router.push('/');
+
+        } catch (e) {
+            const error = <api.ErrorModel>e.response.data;
+            this.error = error.message;
         }
-
-        await this.$store.dispatch(actions.LOGIN, payload);
-
-        this.$router.push('/');
+        
     }
 
     private validateBeforeLogin(): void {

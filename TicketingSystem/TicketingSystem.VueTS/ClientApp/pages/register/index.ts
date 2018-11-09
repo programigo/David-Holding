@@ -8,9 +8,7 @@ import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-@Component({
-
-})
+@Component
 
 export default class Register extends Vue {
     registerViewModel: RegisterViewModel = {

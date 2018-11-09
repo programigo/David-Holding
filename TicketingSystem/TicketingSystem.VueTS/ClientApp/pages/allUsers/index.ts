@@ -6,9 +6,7 @@ import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-@Component({
-
-})
+@Component
 
 export default class AllUsers extends Vue {
     allUsers: UserListingViewModel = {

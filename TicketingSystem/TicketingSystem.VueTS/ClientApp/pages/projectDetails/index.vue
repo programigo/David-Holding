@@ -6,8 +6,8 @@
                 {{renderProject.description}}
             </p>
             <div v-if="userRole === 'Administrator'">
-                <b-button :to="'projects/edit/' + renderProject.id" variant="warning">Edit</b-button>
-                <b-button :to="'projects/delete/' + renderProject.id" variant="danger">Delete</b-button>
+                <b-button v-bind:to="{name: 'project-edit'}" variant="warning">Edit</b-button>
+                <b-button v-bind:to="{name: 'project-delete'}" variant="danger">Delete</b-button>
             </div>
         </b-card>
     </div>
