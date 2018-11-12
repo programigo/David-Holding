@@ -4,9 +4,9 @@
             Create Project
         </h1>
         <hr />
-        <b-form @submit.prevent="create" class="form-inline">
-            <fieldset id="login-fieldset" class="col-12">
-
+        <b-form @submit.prevent="validateBeforeCreate" class="form-inline">
+            <fieldset id="createProject-fieldset" class="col-12">
+                <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="name">Name</label>
                     <b-form-input type="text" class="form-control col-4" name="name" data-vv-as="Name" v-validate="'required'" v-model="addProjectViewModel.name" id="name">

@@ -2,9 +2,9 @@
     <div>
         <h1 class="text-center login-padding-top">Send Message</h1>
         <hr />
-        <b-form @submit.prevent="create" class="form-inline">
+        <b-form @submit.prevent="validateBeforeCreate" class="form-inline">
             <fieldset id="create-message-fieldset" class="col-md-12">
-
+                <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="content">Content</label>
                     <b-form-textarea :rows="5" class="form-control col-4" name="content" data-vv-as="Content" v-validate="'required'" v-model="createMessageViewModel.content" id="content">

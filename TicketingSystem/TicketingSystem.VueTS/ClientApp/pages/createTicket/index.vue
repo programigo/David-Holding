@@ -4,9 +4,9 @@
             Create Ticket
         </h1>
         <hr />
-        <b-form @submit.prevent="create" class="form-inline">
+        <b-form @submit.prevent="validateBeforeCreate" class="form-inline">
             <fieldset id="create-ticket-fieldset" class="col-12">
-
+                <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="title">Title</label>
                     <b-form-input type="text" class="form-control col-4" name="title" data-vv-as="Title" v-validate="'required'" v-model="createTicketViewModel.title" id="title">
@@ -26,6 +26,7 @@
                     <select v-model="createTicketViewModel.ticketType">
                         <option v-for="type in ticketTypes" v-bind:value="Number(type.value)">{{type.text}}</option>
                     </select>
+                    <span v-show="errors.has('ticketType')" class="text-danger col-12 text-center">{{ errors.first('ticketType') }}</span>
                 </div>
                 <br />
                 <div v-if="userRole === 'Administrator' || userRole === 'Support'" class="form-group col-12 row justify-content-center">
@@ -33,6 +34,7 @@
                     <select v-model="createTicketViewModel.ticketState">
                         <option v-for="state in ticketStates" v-bind:value="Number(state.value)">{{state.text}}</option>
                     </select>
+                    <span v-show="errors.has('ticketState')" class="text-danger col-12 text-center">{{ errors.first('ticketState') }}</span>
                 </div>
                 <br />
                 <div class="form-group col-12 row justify-content-center">
@@ -40,6 +42,7 @@
                     <select v-model="createTicketViewModel.projectId">
                         <option v-for="project in createTicketViewModel.projects" v-bind:value="project.value">{{project.text}}</option>
                     </select>
+                    <span v-show="errors.has('project')" class="text-danger col-12 text-center">{{ errors.first('project') }}</span>
                 </div>
                 <br />
                 <div class="form-group justify-content-center text-center col-12 row custom-margin-top">

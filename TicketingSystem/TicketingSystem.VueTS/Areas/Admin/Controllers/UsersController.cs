@@ -1,15 +1,12 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Admin.Models.Users;
-using TicketingSystem.VueTS.Common.Constants;
-using TicketingSystem.VueTS.Infrastructure.Extensions;
+using TicketingSystem.VueTS.Models;
 using TicketingSystem.VueTS.Models.AccountViewModels;
 using IdentityResult = TicketingSystem.Services.IdentityResult;
 
@@ -26,9 +23,9 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
 
         public UsersController(IAdminUserService users, IUserService userManager, IRoleService roleManager)
         {
-            this.users = users;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
+            this.users = users ?? throw new ArgumentNullException(nameof(users));
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
         }
 
         [HttpGet]
@@ -89,14 +86,14 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
 
                 return Ok();
             }
-            
+
             await this.userManager.AddToRoleAsync(user, model.Role);
 
             return Ok();
         }
 
         [HttpPost("approve/{id}")]
-        public async Task<IActionResult> Approve(string id)
+        public async Task<IActionResult> Approve([FromRoute(Name = "id")] string id)
         {
             User user = await this.userManager.FindByIdAsync(id);
 
@@ -105,36 +102,29 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
             return Ok();
         }
 
-        [HttpGet("register")]
-        public IActionResult Register(string returnUrl = null)
-        {
-            return Ok();
-        }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
         {
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                User user = new User
-                {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    Name = model.Name,
-                    IsApproved = true
-                };
-
-                await userManager.CreateAsync(user, model.Password);
-
-                return Ok();
+                return BadRequest(ModelState.ToBadRequestErrorModel());
             }
-           
-            return BadRequest(model);
+
+            User user = new User
+            {
+                UserName = model.Username,
+                Email = model.Email,
+                Name = model.Name,
+                IsApproved = true
+            };
+
+            await userManager.CreateAsync(user, model.Password);
+
+            return Ok();
         }
 
         [HttpPost("remove/{id}")]
-        public async Task<IActionResult> Remove(string id)
+        public async Task<IActionResult> Remove([FromRoute(Name = "id")] string id)
         {
             User user = await this.userManager.FindByIdAsync(id);
 
@@ -144,7 +134,7 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
         }
 
         [HttpGet("changeuserdata/{id}")]
-        public IActionResult ChangeUserData(string id)
+        public IActionResult ChangeUserData([FromRoute(Name = "id")] string id)
         {
             UserChangeDataModel user = this.users.Details(id)
                 .ProjectTo<UserChangeDataModel>().FirstOrDefault();
@@ -158,7 +148,7 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
         }
 
         [HttpPut("changeuserdata/{id}")]
-        public IActionResult ChangeUserData(string id, [FromBody]AdminChangeDataModel model)
+        public IActionResult ChangeUserData([FromRoute(Name = "id")] string id, [FromBody]AdminChangeDataModel model)
         {
             bool changedUser = this.users.ChangeData(id, model.Name, model.Email);
 
@@ -171,7 +161,7 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
         }
 
         [HttpGet("changeuserpassword/{id}")]
-        public async Task<IActionResult> ChangeUserPassword(string id)
+        public async Task<IActionResult> ChangeUserPassword([FromRoute(Name = "id")] string id)
         {
             User user = this.users.GetUser(id).FirstOrDefault();
 
@@ -188,7 +178,7 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
         }
 
         [HttpPut("changeuserpassword/{id}")]
-        public async Task<ActionResult> ChangeUserPassword(string id, [FromBody]AdminUserChangePasswordModel model)
+        public async Task<ActionResult> ChangeUserPassword([FromRoute(Name = "id")] string id, [FromBody]AdminUserChangePasswordModel model)
         {
             User user = this.users.GetUser(id).FirstOrDefault();
 

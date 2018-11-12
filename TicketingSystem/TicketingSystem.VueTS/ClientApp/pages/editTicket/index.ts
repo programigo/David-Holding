@@ -18,17 +18,17 @@ export default class EditTicket extends Vue {
     };
 
     ticketTypes: SelectListItem[] = [
-        { text: 'Bug Report', value: api.TicketType.BugReport.toString() },
-        { text: 'Feature Request', value: api.TicketType.FeatureRequest.toString() },
-        { text: 'Assistance Request', value: api.TicketType.AssistanceRequest.toString() },
-        { text: 'Other', value: api.TicketType.Other.toString() }
+        { text: 'Bug Report', value: TicketType.BugReport.toString() },
+        { text: 'Feature Request', value: TicketType.FeatureRequest.toString() },
+        { text: 'Assistance Request', value: TicketType.AssistanceRequest.toString() },
+        { text: 'Other', value: TicketType.Other.toString() }
     ];
 
     ticketStates: SelectListItem[] = [
-        { text: 'Draft', value: api.TicketState.Draft.toString() },
-        { text: 'New', value: api.TicketState.New.toString() },
-        { text: 'Running', value: api.TicketState.Running.toString() },
-        { text: 'Completed', value: api.TicketState.Completed.toString() }
+        { text: 'Draft', value: TicketState.Draft.toString() },
+        { text: 'New', value: TicketState.New.toString() },
+        { text: 'Running', value: TicketState.Running.toString() },
+        { text: 'Completed', value: TicketState.Completed.toString() }
     ];
 
     public async mounted(): Promise<void> {
@@ -71,6 +71,20 @@ export default class EditTicket extends Vue {
 interface EditTicketViewModel {
     title: string,
     description: string,
-    ticketType: api.TicketType,
-    ticketState: api.TicketState
+    ticketType: TicketType,
+    ticketState: TicketState
+}
+
+enum TicketType {
+    BugReport,
+    FeatureRequest,
+    AssistanceRequest,
+    Other
+}
+
+enum TicketState {
+    Draft,
+    New,
+    Running,
+    Completed
 }

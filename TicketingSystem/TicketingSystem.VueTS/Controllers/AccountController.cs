@@ -41,6 +41,7 @@ namespace TicketingSystem.VueTS.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var err = ModelState.ToBadRequestErrorModel();
                 return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
@@ -94,7 +95,7 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpGet("isLoggedOn")]
         public IActionResult IsLoggedOn()
         {
-
+            var ident = User.Identity;
             //bool isLoggedOn = _signInManager.IsSignedIn();
             if (User.Identity.IsAuthenticated)
             {
@@ -108,44 +109,44 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new User
+                return BadRequest(ModelState.ToBadRequestErrorModel());
+            }
+
+            var user = new User
+            {
+                UserName = model.Username,
+                Email = model.Email,
+                Name = model.Name
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            var returnResult = new Microsoft.AspNetCore.Identity.IdentityResult
+            {
+
+            };
+            if (result.Succeeded && user.IsApproved)
+            {
+                _logger.LogInformation("User created a new account with password.");
+
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                var signInUser = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
                     Name = model.Name
                 };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                var returnResult = new Microsoft.AspNetCore.Identity.IdentityResult
-                {
 
-                };
-                if (result.Succeeded && user.IsApproved)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                    var signInUser = new User
-                    {
-                        UserName = model.Username,
-                        Email = model.Email,
-                        Name = model.Name
-                    };
-
-                    await _signInManager.SignInAsync(signInUser, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
-                    return Ok();
-                }
-                else
-                {
-                    IdentityResultWeb res = new IdentityResultWeb(returnResult);
-                    return Ok();
-                }
+                await _signInManager.SignInAsync(signInUser, isPersistent: false);
+                _logger.LogInformation("User created a new account with password.");
+                return Ok();
             }
-
-            return BadRequest();
+            else
+            {
+                IdentityResultWeb res = new IdentityResultWeb(returnResult);
+                return Ok();
+            }
         }
 
         [Authorize]

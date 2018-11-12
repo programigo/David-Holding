@@ -17,7 +17,7 @@ export default class TicketsList extends Vue {
         nextPage: null
     };
 
-    public async mounted(): Promise<void> {
+    public async beforeMount(): Promise<void> {
         await this.getAllTickets();
     }
 

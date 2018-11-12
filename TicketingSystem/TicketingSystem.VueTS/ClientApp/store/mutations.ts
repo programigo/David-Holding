@@ -13,11 +13,13 @@ export const mutations: MutationTree<AppState> = {
 		return state;
 	},
 	[LOGIN](state: AppState, payload: LoginMutationPayload) {
-		state.sessionInfo = payload.sessionInfo;
+        state.sessionInfo = payload.sessionInfo;
+        state.isLoggedIn = true;
 		return state;
 	},
 	[LOGOUT](state: AppState) {
-		state.sessionInfo = null;
+        state.sessionInfo = null;
+        state.isLoggedIn = false;
 		return state;
     },
     [REGISTER](state: AppState, payload: RegisterMutationPayload) {

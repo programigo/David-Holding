@@ -1,6 +1,7 @@
 ﻿import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import TheNavMenu from './components/TheNavMenu';
+import * as actions from './store/actions';
 import * as api from './api';
 
 @Component({
@@ -11,7 +12,13 @@ import * as api from './api';
 
 export default class App extends Vue {
     public async beforeCreate(): Promise<void> {
-        await api.account.isLoggedOn()
+        
+        const payload: actions.LogoutActionPayload = {
+        };
+
+        await this.$store.dispatch(actions.LOGOUT, payload);
+
+        //await api.account.isLoggedOn()
     }
 
     hideModal() {

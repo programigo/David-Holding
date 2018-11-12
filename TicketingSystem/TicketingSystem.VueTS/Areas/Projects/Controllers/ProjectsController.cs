@@ -1,11 +1,11 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Projects.Models.Projects;
-using TicketingSystem.VueTS.Infrastructure.Extensions;
+using TicketingSystem.VueTS.Models;
 
 namespace TicketingSystem.VueTS.Areas.Projects.Controllers
 {
@@ -18,7 +18,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
 
         public ProjectsController(IAdminProjectService projects)
         {
-            this.projects = projects;
+            this.projects = projects ?? throw new ArgumentNullException(nameof(projects));
         }
 
         [HttpGet("")]
@@ -36,7 +36,8 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(model);
+                var err = ModelState.ToBadRequestErrorModel();
+                return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
             this.projects.Create(model.Name, model.Description);
@@ -45,7 +46,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
         }
 
         [HttpGet("details/{id}")]
-        public IActionResult Details(int id)
+        public IActionResult Details([FromRoute(Name = "id")] int id)
         {
             ProjectModel project = this.projects.Details(id)
                 .ProjectTo<ProjectModel>()
@@ -55,7 +56,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
         }
 
         [HttpGet("edit/{id}")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit([FromRoute(Name = "id")] int id)
         {
             ProjectModel project = this.projects.Details(id)
                 .ProjectTo<ProjectModel>()
@@ -70,7 +71,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
         }
 
         [HttpPut("edit/{id}")]
-        public IActionResult Edit(int id, [FromBody]AddProjectFormModel model)
+        public IActionResult Edit([FromRoute(Name = "id")] int id, [FromBody]AddProjectFormModel model)
         {
             bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
 
@@ -83,7 +84,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute(Name = "id")] int id)
         {
             this.projects.Delete(id);
 

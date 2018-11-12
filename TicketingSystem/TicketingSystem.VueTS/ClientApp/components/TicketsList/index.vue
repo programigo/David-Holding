@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div v-if="userRole === 'Administrator' || userRole === 'Support'">
-            <div v-if="allTickets.tickets.length">
+            <div v-if="allTickets.tickets.length" class="row">
                 <div v-for="ticket in allTickets.tickets">
                     <div>
                         <b-card style="max-width: 25rem;" class="mb-2">

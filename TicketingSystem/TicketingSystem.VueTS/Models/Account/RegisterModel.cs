@@ -10,8 +10,8 @@ namespace TicketingSystem.VueTS.Models.AccountViewModels
         public string Username { get; set; }
 
         [Required]
-        [MinLength(DataConstants.UserNameMinLength)]
-        [MaxLength(DataConstants.UserNameMaxLength)]
+        [MinLength(DataConstants.UserNameMinLength, ErrorMessage = "The Name must be at least {1} characters long.")]
+        [MaxLength(DataConstants.UserNameMaxLength, ErrorMessage = "The Name must be maximum {1} characters long.")]
         public string Name { get; set; }
 
         [Required]

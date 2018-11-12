@@ -4,8 +4,9 @@
             Register New User
         </h1>
         <hr />
-        <b-form @submit.prevent="register" class="form-inline">
+        <b-form @submit.prevent="validateBeforeRegister" class="form-inline">
             <fieldset id="register-fieldset" class="col-12">
+                <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="username">Username</label>
                     <b-form-input type="text" class="form-control col-4" name="username" data-vv-as="Username" v-validate="'required'" v-model="registerViewModel.username" id="username">

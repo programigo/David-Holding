@@ -12,12 +12,12 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Models.Tickets
         public int Id { get; set; }
 
         [Required]
-        [MinLength(DataConstants.TicketTitleMinLength)]
-        [MaxLength(DataConstants.TicketTitleMaxLength)]
+        [MinLength(DataConstants.TicketTitleMinLength, ErrorMessage = "The Title must be at least {1} characters long.")]
+        [MaxLength(DataConstants.TicketTitleMaxLength, ErrorMessage = "The Description must be maximum {1} characters long.")]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(DataConstants.TicketDescriptionMinLength)]
+        [MinLength(DataConstants.TicketDescriptionMinLength, ErrorMessage = "The Description must be at least {1} characters long.")]
         public string Description { get; set; }
 
         [DataType(DataType.Date)]

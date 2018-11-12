@@ -9,6 +9,7 @@ using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Messages;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Tickets;
 using TicketingSystem.VueTS.Infrastructure.Extensions;
+using TicketingSystem.VueTS.Models;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 using WEB_ENUMS = TicketingSystem.VueTS.Common.Enums;
 
@@ -25,17 +26,9 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
         public MessagesController(IMessageService messages, ITicketService tickets, IUserService userManager)
         {
-            this.messages = messages;
-            this.tickets = tickets;
-            this.userManager = userManager;
-        }
-
-        public IActionResult Create()
-        {
-            return Ok(new AddMessageFormModel
-            {
-                Tickets = GetTickets()
-            });
+            this.messages = messages ?? throw new ArgumentNullException(nameof(messages));
+            this.tickets = tickets ?? throw new ArgumentNullException(nameof(tickets));
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         [HttpPost("create")]
@@ -43,7 +36,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
             string authorId = this.userManager.GetUserId(User);
@@ -63,20 +56,14 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         public IActionResult AttachFiles(int id)
         {
             MessageViewModel message = this.messages.Details(id)
-                .Select(m => new MessageViewModel
-                {
-                    Id = m.Id,
-                    PostDate = m.PostDate,
-                    Author = m.Author,
-                    Content = m.Content
-                })
+                .Select(ConvertMessage)
                 .FirstOrDefault();
 
             return Ok(message);
         }
-        
+
         [HttpPost("attachfiles/{id}")]
-        public IActionResult AttachFiles(int id, IFormCollection files)
+        public IActionResult AttachFiles([FromRoute(Name = "id")] int id, IFormCollection files)
         {
             foreach (var file in files.Files)
             {
@@ -101,7 +88,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         }
 
         [HttpGet("downloadattached/{id}")]
-        public IActionResult DownloadAttached(int id)
+        public IActionResult DownloadAttached([FromRoute(Name = "id")] int id)
         {
             byte[] messageFiles = this.messages.GetAttachedFiles(id);
         
@@ -117,19 +104,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         public IEnumerable<SelectListItem> GetTickets()
         {
             List<TicketViewModel> tickets = this.tickets.DropdownAll()
-                .Select(t => new TicketViewModel
-                {
-                    Id = t.Id,
-                    PostTime = t.PostTime,
-                    Project = t.Project,
-                    Sender = t.Sender,
-                    SenderId = t.SenderId,
-                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
-                    Title = t.Title,
-                    Description = t.Description,
-                    AttachedFiles = t.AttachedFiles
-                })
+                .Select(ConvertTicket)
                 .ToList();
 
             var id = User.GetUserId();
@@ -164,6 +139,38 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             var result = ticketListItems.ToArray();
 
             return result;
+        }
+
+        private static MessageViewModel ConvertMessage(MessageListingServiceModel serviceMessage)
+        {
+            var message = new MessageViewModel
+            {
+                Id = serviceMessage.Id,
+                PostDate = serviceMessage.PostDate,
+                Author = serviceMessage.Author,
+                Content = serviceMessage.Content
+            };
+
+            return message;
+        }
+
+        private static TicketViewModel ConvertTicket(TicketListingServiceModel serviceTicket)
+        {
+            var ticket = new TicketViewModel
+            {
+                Id = serviceTicket.Id,
+                PostTime = serviceTicket.PostTime,
+                Project = serviceTicket.Project,
+                Sender = serviceTicket.Sender,
+                SenderId = serviceTicket.SenderId,
+                TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), serviceTicket.TicketType.ToString()),
+                TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), serviceTicket.TicketState.ToString()),
+                Title = serviceTicket.Title,
+                Description = serviceTicket.Description,
+                AttachedFiles = serviceTicket.AttachedFiles
+            };
+
+            return ticket;
         }
     }
 }

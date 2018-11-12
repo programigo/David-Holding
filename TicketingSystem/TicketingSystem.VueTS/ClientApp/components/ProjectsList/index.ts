@@ -11,7 +11,7 @@ import * as api from '../../api/projects';
 export default class ProjectsList extends Vue {
     renderProjects: ProjectViewModel[] = [];
 
-    public async mounted(): Promise<void> {
+    public async created(): Promise<void> {
         await this.getAllProjects();
     }
 
@@ -20,7 +20,7 @@ export default class ProjectsList extends Vue {
     }
 
     private async getAllProjects(): Promise<ProjectViewModel[]> {
-        const response: api.ProjectModel[] = await api.projects.getProjects();
+        const response: ProjectModel[] = await api.projects.getProjects();
 
         
 
@@ -34,7 +34,7 @@ export default class ProjectsList extends Vue {
         return projects;
     }
 
-    private createProjectViewModel(project: api.ProjectModel): ProjectViewModel {
+    private createProjectViewModel(project: ProjectModel): ProjectViewModel {
         const projectViewModel: ProjectViewModel = {
             id: project.id,
             name: project.name,
@@ -55,6 +55,12 @@ export default class ProjectsList extends Vue {
 //}
 
 interface ProjectViewModel {
+    id: number;
+    name: string;
+    description: string;
+}
+
+export interface ProjectModel {
     id: number;
     name: string;
     description: string;

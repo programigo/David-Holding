@@ -19,26 +19,41 @@ export default class Register extends Vue {
         confirmPassword: null
     };
 
+    error: string = null;
+
+    get hasError(): boolean {
+        return this.error !== null;
+    }
+
     private async register(): Promise<void> {
-        const request: api.RegisterRequest = {
-            username: this.registerViewModel.username,
-            name: this.registerViewModel.name,
-            email: this.registerViewModel.email,
-            password: this.registerViewModel.password,
-            confirmPassword: this.registerViewModel.confirmPassword
-        }
-
-        const response: api.RegisterResult = await api.account.register(request);
-        const role: string = await api.account.getUserRole(response.id);
-
-        const payload: RegisterActionPayload = {
-            sessionInfo: {
-                role: role,
-                userName: response.userName
+        try {
+            const request: api.RegisterRequest = {
+                username: this.registerViewModel.username,
+                name: this.registerViewModel.name,
+                email: this.registerViewModel.email,
+                password: this.registerViewModel.password,
+                confirmPassword: this.registerViewModel.confirmPassword
             }
-        }
 
-        await this.$store.dispatch(actions.REGISTER, payload);
+            const response: api.RegisterResult = await api.account.register(request);
+            const role: string = await api.account.getUserRole(response.id);
+
+            const payload: RegisterActionPayload = {
+                sessionInfo: {
+                    role: role,
+                    userName: response.userName
+                }
+            }
+
+            await this.$store.dispatch(actions.REGISTER, payload);
+
+            this.$router.push('/login');
+
+        } catch (e) {
+            const error = <api.ErrorModel>e.response.data;
+            this.error = error.message;
+        }
+        
     }
 
         private validateBeforeRegister(): void {

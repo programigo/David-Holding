@@ -9,6 +9,7 @@ using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Messages;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Tickets;
 using TicketingSystem.VueTS.Infrastructure.Extensions;
+using TicketingSystem.VueTS.Models;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 using WEB_ENUMS = TicketingSystem.VueTS.Common.Enums;
 
@@ -26,55 +27,39 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
         public TicketsController(IUserService userManager, IAdminProjectService projects, ITicketService tickets, IMessageService messages)
         {
-            this.userManager = userManager;
-            this.projects = projects;
-            this.tickets = tickets;
-            this.messages = messages;
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.projects = projects ?? throw new ArgumentNullException(nameof(projects));
+            this.tickets = tickets ?? throw new ArgumentNullException(nameof(tickets));
+            this.messages = messages ?? throw new ArgumentNullException(nameof(messages));
         }
 
         [HttpGet]
         public IActionResult Index(int page = 1)
         {
             var tickets = this.tickets.All(page)
-                .Select(t => new TicketViewModel
-                {
-                    Id = t.Id,
-                    PostTime = t.PostTime,
-                    ProjectId = t.ProjectId,
-                    Project = t.Project,
-                    Sender = t.Sender,
-                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
-                    Title = t.Title,
-                    Description = t.Description,
-                    AttachedFiles = t.AttachedFiles
-                })
+                .Select(ConvertTicket)
                 .ToArray();
 
-            return Ok(new TicketListingViewModel
-               {
-                   Tickets = tickets,
-                   TotalTickets = this.tickets.Total(),
-                   CurrentPage = page
-               });
-        }
-        
-
-        public IActionResult Create()
-        => Ok(new SubmitTicketFormModel
+            var ticketListingModel = new TicketListingViewModel
             {
-                Projects = GetProjects()
-            });
+                Tickets = tickets,
+                TotalTickets = this.tickets.Total(),
+                CurrentPage = page
+            };
+
+            return Ok(ticketListingModel);
+        }
 
         [HttpPost("create")]
         public IActionResult Create([FromBody]SubmitTicketFormModel model)
         {
             if (!ModelState.IsValid)
             {
-                model.Projects = GetProjects();
-                return Ok(model);
+                return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
+            model.Projects = GetProjects();
+            
             string senderId = this.userManager.GetUserId(User);
 
             TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
@@ -91,35 +76,18 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             return StatusCode(201);
         }
 
-        public IActionResult AttachFiles(int id)
-        {
-            TicketViewModel ticket = this.tickets.Details(id)
-                .Select(t => new TicketViewModel
-                {
-                    Id = t.Id,
-                    PostTime = t.PostTime,
-                    Project = t.Project,
-                    Sender = t.Sender,
-                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
-                    Title = t.Title,
-                    Description = t.Description,
-                    AttachedFiles = t.AttachedFiles
-                })
-                .FirstOrDefault();
-
-            return Ok(ticket);
-        }
+        
 
         [HttpPost("attachfiles/{id}")]
-        public IActionResult AttachFiles(int id, IFormCollection files)
+        public IActionResult AttachFiles([FromRoute(Name = "id")] int id, IFormCollection files)
         {
             foreach (var file in files.Files)
             {
                 if (!file.FileName.EndsWith(".zip")
                 || file.Length > DataConstants.AttachedFileLength)
                 {
-                    return BadRequest();
+                    ModelState.AddModelError(string.Empty, "Your file should be .zip with maximum size of 2 MB.");
+                    return BadRequest(ModelState.ToBadRequestErrorModel());
                 }
 
                 byte[] fileContents = file.ToByteArray();
@@ -136,7 +104,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         }
 
         [HttpGet("downloadattached/{id}")]
-        public IActionResult DownloadAttached(int id)
+        public IActionResult DownloadAttached([FromRoute(Name = "id")] int id)
         {
             byte[] ticketFiles = this.tickets.GetAttachedFiles(id);
 
@@ -148,33 +116,8 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             return File(ticketFiles, "application/zip");
         }
 
-        public IActionResult Edit(int id)
-        {
-            TicketViewModel ticket = this.tickets.Details(id)
-                .Select(t => new TicketViewModel
-                {
-                    Id = t.Id,
-                    PostTime = t.PostTime,
-                    Project = t.Project,
-                    Sender = t.Sender,
-                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
-                    Title = t.Title,
-                    Description = t.Description,
-                    AttachedFiles = t.AttachedFiles
-                })
-                .FirstOrDefault();
-
-            if (ticket == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(ticket);
-        }
-
         [HttpPost("edit/{id}")]
-        public IActionResult Edit(int id, [FromBody]SubmitTicketFormModel model)
+        public IActionResult Edit([FromRoute(Name = "id")] int id, [FromBody]SubmitTicketFormModel model)
         {
             TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
 
@@ -191,21 +134,10 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         }
 
         [HttpGet("details/{id}")]
-        public IActionResult Details(int id)
+        public IActionResult Details([FromRoute(Name = "id")] int id)
         {
             TicketViewModel ticket = this.tickets.Details(id)
-                .Select(t => new TicketViewModel
-                {
-                    Id = t.Id,
-                    PostTime = t.PostTime,
-                    Project = t.Project,
-                    Sender = t.Sender,
-                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
-                    Title = t.Title,
-                    Description = t.Description,
-                    AttachedFiles = t.AttachedFiles
-                })
+                .Select(CreateTicketViewModel)
                 .FirstOrDefault();
 
             List<MessageViewModel> messages = this.messages.All()
@@ -226,21 +158,10 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute(Name = "id")] int id)
         {
             TicketViewModel ticket = this.tickets.Details(id)
-                .Select(t => new TicketViewModel
-                {
-                    Id = t.Id,
-                    PostTime = t.PostTime,
-                    Project = t.Project,
-                    Sender = t.Sender,
-                    TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), t.TicketType.ToString()),
-                    TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), t.TicketState.ToString()),
-                    Title = t.Title,
-                    Description = t.Description,
-                    AttachedFiles = t.AttachedFiles
-                })
+                .Select(CreateTicketViewModel)
                 .FirstOrDefault();
 
             this.tickets.Delete(id);
@@ -262,6 +183,43 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
                 .ToArray();
 
             return projectListItems;
+        }
+
+        public static TicketViewModel CreateTicketViewModel(TicketListingServiceModel serviceTicket)
+        {
+            var model = new TicketViewModel
+            {
+                Id = serviceTicket.Id,
+                PostTime = serviceTicket.PostTime,
+                Project = serviceTicket.Project,
+                Sender = serviceTicket.Sender,
+                TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), serviceTicket.TicketType.ToString()),
+                TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), serviceTicket.TicketState.ToString()),
+                Title = serviceTicket.Title,
+                Description = serviceTicket.Description,
+                AttachedFiles = serviceTicket.AttachedFiles
+            };
+
+            return model;
+        }
+
+        private static TicketViewModel ConvertTicket(TicketListingServiceModel serviceTicket)
+        {
+            var ticket = new TicketViewModel
+            {
+                Id = serviceTicket.Id,
+                PostTime = serviceTicket.PostTime,
+                ProjectId = serviceTicket.ProjectId,
+                Project = serviceTicket.Project,
+                Sender = serviceTicket.Sender,
+                TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), serviceTicket.TicketType.ToString()),
+                TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), serviceTicket.TicketState.ToString()),
+                Title = serviceTicket.Title,
+                Description = serviceTicket.Description,
+                AttachedFiles = serviceTicket.AttachedFiles
+            };
+
+            return ticket;
         }
     }
 }

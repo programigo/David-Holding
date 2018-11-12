@@ -6,7 +6,7 @@
         <hr />
         <b-form @submit.prevent="validateBeforeLogin" class="form-inline">
             <fieldset id="login-fieldset" class="col-12">
-                <b-alert :show="2" variant="danger" fade v-if="hasError">{{error}}</b-alert>
+                <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="username">Username</label>
                     <b-form-input type="text" class="form-control col-4" name="username" data-vv-as="Username" v-validate="'required'" v-model="loginViewModel.username" id="username">

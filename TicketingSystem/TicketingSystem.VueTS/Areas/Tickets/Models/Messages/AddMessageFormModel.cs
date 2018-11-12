@@ -17,7 +17,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Models.Messages
         public MessageState? State { get; set; }
 
         [Required]
-        [MinLength(DataConstants.MessageContentMinLength)]
+        [MinLength(DataConstants.MessageContentMinLength, ErrorMessage = "The Content must be at least {1} characters long.")]
         public string Content { get; set; }
 
         [Display(Name = "Ticket")]

@@ -27,7 +27,6 @@ export default class TheNavMenu extends Vue {
 
 	public mounted(): void {
         this.populateData();
-        console.log(this.$store.getters.sessionInfo.role);
 	}
 
 	public updated(): void {
