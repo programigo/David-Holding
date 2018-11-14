@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
-        <div v-if="renderProjects.length" class="row">
-            <div v-for="project in renderProjects">
+        <div v-if="renderProjects.projects.length">
+            <div v-for="project in renderProjects.projects">
                 <div>
                     <b-card style="max-width: 25rem;" class="mb-2">
                         <b-link :to="{ path: 'projects/details/' + project.id }">
@@ -18,6 +18,7 @@
                     </b-card>
                 </div>
             </div>
+            <b-pagination-nav base-url="#" :number-of-pages="renderProjects.totalPages" v-model="currentPage" />
         </div>
         <p v-else><em>Loading...</em></p>
     </div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
@@ -26,10 +27,10 @@ namespace TicketingSystem.VueTS.Controllers
             ILogger<AccountController> logger,
             IAdminUserService users)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
-            _users = users;
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _users = users ?? throw new ArgumentNullException(nameof(users));
         }
 
         [TempData]
@@ -80,7 +81,6 @@ namespace TicketingSystem.VueTS.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return BadRequest(ModelState.ToBadRequestErrorModel());
             }
-
         }
 
         [HttpGet("getrole/{id}")]
@@ -95,8 +95,6 @@ namespace TicketingSystem.VueTS.Controllers
         [HttpGet("isLoggedOn")]
         public IActionResult IsLoggedOn()
         {
-            var ident = User.Identity;
-            //bool isLoggedOn = _signInManager.IsSignedIn();
             if (User.Identity.IsAuthenticated)
             {
                 return Ok();

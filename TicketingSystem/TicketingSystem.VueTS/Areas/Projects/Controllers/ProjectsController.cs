@@ -21,14 +21,19 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
             this.projects = projects ?? throw new ArgumentNullException(nameof(projects));
         }
 
-        [HttpGet("")]
-        public IActionResult Index()
+        [HttpGet("{page}")]
+        public IActionResult Index(int page = 1)
         {
-            var projects = this.projects.All()
-                //.ProjectTo<ProjectModel>()
+            var projects = this.projects.All(page)
+                .ProjectTo<ProjectModel>()
                 .ToArray();
 
-            return Ok(projects);
+            return Ok(new ProjectListingModel
+            {
+                Projects = projects,
+                TotalProjects = this.projects.Total(),
+                CurrentPage = page
+            });
         }
 
         [HttpPost("create")]

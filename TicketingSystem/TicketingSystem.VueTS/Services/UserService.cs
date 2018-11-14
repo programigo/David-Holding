@@ -24,7 +24,7 @@ namespace TicketingSystem.VueTS.Services
 
         public UserService(DATA.TicketingSystemDbContext db, IUserStore<DATA_MODELS.User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<DATA_MODELS.User> passwordHasher, IEnumerable<IUserValidator<DATA_MODELS.User>> userValidators, IEnumerable<IPasswordValidator<DATA_MODELS.User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<DATA_MODELS.User>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
-            this.db = db;
+            this.db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
         IdentityOptionsModel IUserService.Options { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

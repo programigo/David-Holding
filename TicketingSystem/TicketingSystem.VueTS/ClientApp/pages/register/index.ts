@@ -35,19 +35,11 @@ export default class Register extends Vue {
                 confirmPassword: this.registerViewModel.confirmPassword
             }
 
-            const response: api.RegisterResult = await api.account.register(request);
-            const role: string = await api.account.getUserRole(response.id);
-
-            const payload: RegisterActionPayload = {
-                sessionInfo: {
-                    role: role,
-                    userName: response.userName
-                }
-            }
-
-            await this.$store.dispatch(actions.REGISTER, payload);
-
+            const response: void = await api.account.register(request);
+            
             this.$router.push('/login');
+
+            return response;
 
         } catch (e) {
             const error = <api.ErrorModel>e.response.data;

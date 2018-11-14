@@ -8,8 +8,8 @@ export class TicketsController extends ControllerBase {
         super("api/tickets");
     }
 
-    public async getTickets(): Promise<TicketListingModel> {
-        const response = await super.ajaxGet<void, TicketListingModel>("");
+    public async getTickets(page: number): Promise<TicketListingModel> {
+        const response = await super.ajaxGet<number, TicketListingModel>(`${page}`);
 
         return response.data;
     }

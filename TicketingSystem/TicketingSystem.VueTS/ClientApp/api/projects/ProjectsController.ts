@@ -6,8 +6,8 @@ export class ProjectsController extends ControllerBase {
         super("api/projects");
     }
 
-    public async getProjects(): Promise<ProjectModel[]> {
-        const response = await super.ajaxGet<void, ProjectModel[]>("");
+    public async getProjects(page: number): Promise<ProjectListingModel> {
+        const response = await super.ajaxGet<number, ProjectListingModel>(`${page}`);
 
         return response.data;
     }

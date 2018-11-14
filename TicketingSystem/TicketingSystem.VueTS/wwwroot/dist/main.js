@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fda932cf8a1d362ad45e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7029fa16478a657ac5d2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18980,12 +18980,12 @@ var ControllerBase = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UNAUTHORIZED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UNAUTHORIZED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return REGISTER; });
+/* unused harmony export REGISTER */
 /* unused harmony export UPDATE */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return actions; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutations__ = __webpack_require__(66);
 var _a;
 
@@ -22408,7 +22408,7 @@ var APP_STATE_KEY = "APP_STATE";
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: __WEBPACK_IMPORTED_MODULE_3__state__["a" /* state */],
     getters: __WEBPACK_IMPORTED_MODULE_4__getters__["a" /* getters */],
-    actions: __WEBPACK_IMPORTED_MODULE_5__actions__["e" /* actions */],
+    actions: __WEBPACK_IMPORTED_MODULE_5__actions__["d" /* actions */],
     mutations: __WEBPACK_IMPORTED_MODULE_6__mutations__["b" /* mutations */],
     plugins: [Object(__WEBPACK_IMPORTED_MODULE_2_vuex_persistedstate__["a" /* default */])({
             key: APP_STATE_KEY
@@ -28534,14 +28534,31 @@ var ProjectsList = /** @class */ (function (_super) {
     __extends(ProjectsList, _super);
     function ProjectsList() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.renderProjects = [];
+        _this.renderProjects = {
+            projects: null,
+            totalProjects: null,
+            totalPages: null
+        };
+        _this.currentPage = 1;
         return _this;
     }
     ProjectsList.prototype.created = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getAllProjects()];
+                    case 0: return [4 /*yield*/, this.getAllProjects(this.currentPage)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProjectsList.prototype.updated = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getAllProjects(this.currentPage)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -28556,21 +28573,23 @@ var ProjectsList = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    ProjectsList.prototype.getAllProjects = function () {
+    ProjectsList.prototype.getAllProjects = function (page) {
         return __awaiter(this, void 0, void 0, function () {
             var response, projects;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].getProjects()];
+                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].getProjects(page)];
                     case 1:
                         response = _a.sent();
-                        projects = response
+                        projects = response.projects
                             .map(function (project) {
                             return _this.createProjectViewModel(project);
                         });
-                        this.renderProjects = projects;
-                        return [2 /*return*/, projects];
+                        this.renderProjects.projects = projects;
+                        this.renderProjects.totalProjects = response.totalProjects;
+                        this.renderProjects.totalPages = response.totalPages;
+                        return [2 /*return*/, this.renderProjects];
                 }
             });
         });
@@ -28655,12 +28674,12 @@ var ProjectsController = /** @class */ (function (_super) {
     function ProjectsController() {
         return _super.call(this, "api/projects") || this;
     }
-    ProjectsController.prototype.getProjects = function () {
+    ProjectsController.prototype.getProjects = function (page) {
         return __awaiter(this, void 0, void 0, function () {
             var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "")];
+                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "" + page)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response.data];
@@ -28879,8 +28898,7 @@ var Login = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_actions__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vee_validate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vee_validate__ = __webpack_require__(9);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28939,8 +28957,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
-
-__WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_4_vee_validate__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["a" /* default */]);
 var Register = /** @class */ (function (_super) {
     __extends(Register, _super);
     function Register() {
@@ -28964,11 +28981,11 @@ var Register = /** @class */ (function (_super) {
     });
     Register.prototype.register = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, role, payload, e_1, error;
+            var request, response, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
+                        _a.trys.push([0, 2, , 3]);
                         request = {
                             username: this.registerViewModel.username,
                             name: this.registerViewModel.name,
@@ -28979,26 +28996,14 @@ var Register = /** @class */ (function (_super) {
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].register(request)];
                     case 1:
                         response = _a.sent();
-                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].getUserRole(response.id)];
-                    case 2:
-                        role = _a.sent();
-                        payload = {
-                            sessionInfo: {
-                                role: role,
-                                userName: response.userName
-                            }
-                        };
-                        return [4 /*yield*/, this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_3__store_actions__["c" /* REGISTER */], payload)];
-                    case 3:
-                        _a.sent();
                         this.$router.push('/login');
-                        return [3 /*break*/, 5];
-                    case 4:
+                        return [2 /*return*/, response];
+                    case 2:
                         e_1 = _a.sent();
                         error = e_1.response.data;
                         this.error = error.message;
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
@@ -30567,17 +30572,15 @@ var TicketsList = /** @class */ (function (_super) {
             tickets: null,
             totalTickets: null,
             totalPages: null,
-            currentPage: null,
-            previousPage: null,
-            nextPage: null
         };
+        _this.currentPage = 1;
         return _this;
     }
-    TicketsList.prototype.beforeMount = function () {
+    TicketsList.prototype.created = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getAllTickets()];
+                    case 0: return [4 /*yield*/, this.getAllTickets(this.currentPage)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -30589,7 +30592,7 @@ var TicketsList = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getAllTickets()];
+                    case 0: return [4 /*yield*/, this.getAllTickets(this.currentPage)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -30604,21 +30607,24 @@ var TicketsList = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TicketsList.prototype, "myTickets", {
+    Object.defineProperty(TicketsList.prototype, "myTicketsTotalPages", {
         get: function () {
-            var _this = this;
-            return this.allTickets.tickets.filter(function (t) { return t.sender === _this.$store.getters.sessionInfo.userName; });
+            return Math.ceil(this.myTickets().length / 10);
         },
         enumerable: true,
         configurable: true
     });
-    TicketsList.prototype.getAllTickets = function () {
+    TicketsList.prototype.myTickets = function () {
+        var _this = this;
+        return this.allTickets.tickets.filter(function (t) { return t.sender === _this.$store.getters.sessionInfo.userName; });
+    };
+    TicketsList.prototype.getAllTickets = function (page) {
         return __awaiter(this, void 0, void 0, function () {
             var response, tickets;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_tickets__["a" /* tickets */].getTickets()];
+                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_tickets__["a" /* tickets */].getTickets(page)];
                     case 1:
                         response = _a.sent();
                         tickets = response.tickets.map(function (ticket) {
@@ -30627,9 +30633,9 @@ var TicketsList = /** @class */ (function (_super) {
                         this.allTickets.tickets = tickets;
                         this.allTickets.totalTickets = response.totalTickets;
                         this.allTickets.totalPages = response.totalPages;
-                        this.allTickets.currentPage = response.currentPage;
-                        this.allTickets.previousPage = response.previousPage;
-                        this.allTickets.nextPage = response.nextPage;
+                        //this.allTickets.currentPage = response.currentPage;
+                        //this.allTickets.previousPage = response.previousPage;
+                        //this.allTickets.nextPage = response.nextPage;
                         return [2 /*return*/, this.allTickets];
                 }
             });
@@ -30745,12 +30751,12 @@ var TicketsController = /** @class */ (function (_super) {
     function TicketsController() {
         return _super.call(this, "api/tickets") || this;
     }
-    TicketsController.prototype.getTickets = function () {
+    TicketsController.prototype.getTickets = function (page) {
         return __awaiter(this, void 0, void 0, function () {
             var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "")];
+                    case 0: return [4 /*yield*/, _super.prototype.ajaxGet.call(this, "" + page)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response.data];
@@ -54255,88 +54261,106 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.renderProjects.length
+    _vm.renderProjects.projects.length
       ? _c(
           "div",
-          { staticClass: "row" },
-          _vm._l(_vm.renderProjects, function(project) {
-            return _c("div", [
-              _c(
-                "div",
-                [
-                  _c(
-                    "b-card",
-                    {
-                      staticClass: "mb-2",
-                      staticStyle: { "max-width": "25rem" }
-                    },
-                    [
-                      _c(
-                        "b-link",
-                        {
-                          attrs: {
-                            to: { path: "projects/details/" + project.id }
-                          }
-                        },
-                        [
-                          _c(
-                            "h3",
-                            { staticStyle: { "text-align": "center" } },
-                            [_vm._v(_vm._s(project.name))]
+          [
+            _vm._l(_vm.renderProjects.projects, function(project) {
+              return _c("div", [
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "b-card",
+                      {
+                        staticClass: "mb-2",
+                        staticStyle: { "max-width": "25rem" }
+                      },
+                      [
+                        _c(
+                          "b-link",
+                          {
+                            attrs: {
+                              to: { path: "projects/details/" + project.id }
+                            }
+                          },
+                          [
+                            _c(
+                              "h3",
+                              { staticStyle: { "text-align": "center" } },
+                              [_vm._v(_vm._s(project.name))]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(project.description) +
+                              "\n                    "
                           )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(project.description) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.userRole === "Administrator"
-                        ? _c(
-                            "div",
-                            { staticStyle: { "text-align": "center" } },
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    to: { path: "projects/edit/" + project.id },
-                                    variant: "warning"
-                                  }
-                                },
-                                [_vm._v("Edit")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    to: {
-                                      path: "projects/delete/" + project.id
-                                    },
-                                    variant: "danger"
-                                  }
-                                },
-                                [_vm._v("Delete")]
-                              )
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
-          })
+                        ]),
+                        _vm._v(" "),
+                        _vm.userRole === "Administrator"
+                          ? _c(
+                              "div",
+                              { staticStyle: { "text-align": "center" } },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        path: "projects/edit/" + project.id
+                                      },
+                                      variant: "warning"
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        path: "projects/delete/" + project.id
+                                      },
+                                      variant: "danger"
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            }),
+            _vm._v(" "),
+            _c("b-pagination-nav", {
+              attrs: {
+                "base-url": "#",
+                "number-of-pages": _vm.renderProjects.totalPages
+              },
+              model: {
+                value: _vm.currentPage,
+                callback: function($$v) {
+                  _vm.currentPage = $$v
+                },
+                expression: "currentPage"
+              }
+            })
+          ],
+          2
         )
       : _c("p", [_c("em", [_vm._v("Loading...")])])
   ])
@@ -54362,7 +54386,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("projects-list")], 1)
+  return _c(
+    "div",
+    [
+      _c("h1", { staticStyle: { "text-align": "center" } }, [
+        _vm._v("All Projects")
+      ]),
+      _vm._v(" "),
+      _c("projects-list")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57281,7 +57315,6 @@ var MessageState;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
 var render = function() {
-  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -57291,181 +57324,197 @@ var render = function() {
           _vm.allTickets.tickets.length
             ? _c(
                 "div",
-                { staticClass: "row" },
-                _vm._l(_vm.allTickets.tickets, function(ticket) {
-                  return _c("div", [
-                    _c(
-                      "div",
-                      [
-                        _c(
-                          "b-card",
-                          {
-                            staticClass: "mb-2",
-                            staticStyle: { "max-width": "25rem" }
-                          },
-                          [
-                            _c(
-                              "b-link",
-                              {
-                                attrs: {
-                                  to: { path: "tickets/details/" + ticket.id }
-                                }
-                              },
-                              [
-                                _c(
-                                  "h3",
-                                  { staticStyle: { "text-align": "center" } },
-                                  [_vm._v(_vm._s(ticket.title))]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              { staticStyle: { "text-align": "center" } },
-                              [
-                                _vm._v(
-                                  "Published on " +
-                                    _vm._s(ticket.postTime) +
-                                    " by " +
-                                    _vm._s(ticket.sender)
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              { staticStyle: { "text-align": "center" } },
-                              [
-                                _vm._v("Project: "),
-                                _c(
-                                  "b-link",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        path:
-                                          "projects/details/" + ticket.projectId
+                [
+                  _vm._l(_vm.allTickets.tickets, function(ticket) {
+                    return _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        [
+                          _c(
+                            "b-card",
+                            {
+                              staticClass: "mb-2",
+                              staticStyle: { "max-width": "25rem" }
+                            },
+                            [
+                              _c(
+                                "b-link",
+                                {
+                                  attrs: {
+                                    to: { path: "tickets/details/" + ticket.id }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "h3",
+                                    { staticStyle: { "text-align": "center" } },
+                                    [_vm._v(_vm._s(ticket.title))]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  _vm._v(
+                                    "Published on " +
+                                      _vm._s(ticket.postTime) +
+                                      " by " +
+                                      _vm._s(ticket.sender)
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  _vm._v("Project: "),
+                                  _c(
+                                    "b-link",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          path:
+                                            "projects/details/" +
+                                            ticket.projectId
+                                        }
                                       }
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(ticket.project))]
+                                    },
+                                    [_vm._v(_vm._s(ticket.project))]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "card-text" }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(ticket.description) +
+                                    "\n                        "
                                 )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("hr"),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(ticket.description) +
-                                  "\n                        "
+                              ]),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  ticket.attachedFiles
+                                    ? _c(
+                                        "b-button",
+                                        {
+                                          staticStyle: {
+                                            "background-color": "blue"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.downloadFile(ticket.id)
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Download Files")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  ticket.sender ===
+                                  _vm.$store.getters.sessionInfo.userName
+                                    ? _c(
+                                        "b-button",
+                                        {
+                                          staticStyle: {
+                                            "background-color": "blueviolet"
+                                          },
+                                          attrs: {
+                                            to: {
+                                              path:
+                                                "tickets/attachfiles/" +
+                                                ticket.id
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Attach Files")]
+                                      )
+                                    : _vm._e()
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticStyle: { "text-align": "center" } },
+                                [
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          path: "tickets/edit/" + ticket.id
+                                        },
+                                        variant: "warning"
+                                      }
+                                    },
+                                    [_vm._v("Edit")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          path: "tickets/delete/" + ticket.id
+                                        },
+                                        variant: "danger"
+                                      }
+                                    },
+                                    [_vm._v("Delete")]
+                                  )
+                                ],
+                                1
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("hr"),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticStyle: { "text-align": "center" } },
-                              [
-                                ticket.attachedFiles
-                                  ? _c(
-                                      "b-button",
-                                      {
-                                        staticStyle: {
-                                          "background-color": "blue"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.downloadFile(ticket.id)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Download Files")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                ticket.sender ===
-                                _vm.$store.getters.sessionInfo.userName
-                                  ? _c(
-                                      "b-button",
-                                      {
-                                        staticStyle: {
-                                          "background-color": "blueviolet"
-                                        },
-                                        attrs: {
-                                          to: {
-                                            path:
-                                              "tickets/attachfiles/" + ticket.id
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Attach Files")]
-                                    )
-                                  : _vm._e()
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticStyle: { "text-align": "center" } },
-                              [
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      to: { path: "tickets/edit/" + ticket.id },
-                                      variant: "warning"
-                                    }
-                                  },
-                                  [_vm._v("Edit")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        path: "tickets/delete/" + ticket.id
-                                      },
-                                      variant: "danger"
-                                    }
-                                  },
-                                  [_vm._v("Delete")]
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("b-pagination-nav", {
+                    attrs: {
+                      "base-url": "tickets#",
+                      "number-of-pages": _vm.allTickets.totalPages
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage"
+                    }
+                  })
+                ],
+                2
               )
-            : _c("p", [_c("em", [_vm._v("Loading...")])])
+            : _c("p", { staticStyle: { "text-align": "center" } }, [
+                _c("em", [_vm._v("No active tickets.")])
+              ])
         ])
       : _c("div", [
-          _vm.allTickets.tickets.filter(function(t) {
-            return t.sender === this$1.$store.getters.sessionInfo.userName
-          }).length
+          _vm.myTickets().length
             ? _c(
                 "div",
-                _vm._l(
-                  _vm.allTickets.tickets.filter(function(t) {
-                    return (
-                      t.sender === this$1.$store.getters.sessionInfo.userName
-                    )
-                  }),
-                  function(ticket) {
-                    return _c("div", [
+                _vm._l(_vm.myTickets(), function(ticket) {
+                  return _c(
+                    "div",
+                    [
                       _c(
                         "div",
                         [
@@ -57609,12 +57658,29 @@ var render = function() {
                           )
                         ],
                         1
-                      )
-                    ])
-                  }
-                )
+                      ),
+                      _vm._v(" "),
+                      _c("b-pagination-nav", {
+                        attrs: {
+                          "base-url": "tickets#",
+                          "number-of-pages": _vm.myTicketsTotalPages
+                        },
+                        model: {
+                          value: _vm.currentPage,
+                          callback: function($$v) {
+                            _vm.currentPage = $$v
+                          },
+                          expression: "currentPage"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                })
               )
-            : _c("p", [_c("em", [_vm._v("Loading...")])])
+            : _c("p", { staticStyle: { "text-align": "center" } }, [
+                _c("em", [_vm._v("You have no active tickets.")])
+              ])
         ])
   ])
 }
@@ -57642,9 +57708,14 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", { staticStyle: { "text-align": "center" } }, [
-        _vm._v("All Tickets")
-      ]),
+      _vm.$store.getters.sessionInfo.role === "Administrator" ||
+      _vm.$store.getters.sessionInfo.role === "Support"
+        ? _c("h1", { staticStyle: { "text-align": "center" } }, [
+            _vm._v("All Tickets")
+          ])
+        : _c("h1", { staticStyle: { "text-align": "center" } }, [
+            _vm._v("My Tickets")
+          ]),
       _vm._v(" "),
       _c("tickets-list")
     ],
@@ -59474,7 +59545,7 @@ function AxiosProcessResponse(response) {
     switch (response.status) {
         case 401: {
             var payload = {};
-            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].dispatch(__WEBPACK_IMPORTED_MODULE_2__store_actions__["d" /* UNAUTHORIZED */], payload);
+            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].dispatch(__WEBPACK_IMPORTED_MODULE_2__store_actions__["c" /* UNAUTHORIZED */], payload);
             __WEBPACK_IMPORTED_MODULE_3__router__["a" /* router */].push('/login');
             break;
         }

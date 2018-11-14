@@ -1,8 +1,8 @@
 ﻿<template>
     <div>
         <div v-if="userRole === 'Administrator' || userRole === 'Support'">
-            <div v-if="allTickets.tickets.length" class="row">
-                <div v-for="ticket in allTickets.tickets">
+            <div v-if="allTickets.tickets.length">
+                <div v-for="ticket in allTickets.tickets" class="row">
                     <div>
                         <b-card style="max-width: 25rem;" class="mb-2">
                             <b-link :to="{ path: 'tickets/details/' + ticket.id }">
@@ -28,12 +28,13 @@
                         </b-card>
                     </div>
                 </div>
+                <b-pagination-nav base-url="tickets#" :number-of-pages="allTickets.totalPages" v-model="currentPage" />
             </div>
-            <p v-else><em>Loading...</em></p>
+            <p v-else style="text-align:center"><em>No active tickets.</em></p>
         </div>
         <div v-else>
-        <div v-if="allTickets.tickets.filter(t => t.sender === this.$store.getters.sessionInfo.userName).length">
-            <div v-for="ticket in allTickets.tickets.filter(t => t.sender === this.$store.getters.sessionInfo.userName)">
+        <div v-if="myTickets().length">
+            <div v-for="ticket in myTickets()">
                 <div>
                     <b-card style="max-width: 25rem;" class="mb-2">
                         <b-link :to="{ path: 'tickets/details/' + ticket.id }">
@@ -54,12 +55,12 @@
                         <div style="text-align:center">
                             <b-button :to="{ path: 'tickets/edit/' + ticket.id }" variant="warning">Edit</b-button>
                         </div>
-
                     </b-card>
                 </div>
+                <b-pagination-nav base-url="tickets#" :number-of-pages="myTicketsTotalPages" v-model="currentPage" />
             </div>
         </div>
-        <p v-else><em>Loading...</em></p>
+        <p v-else style="text-align:center"><em>You have no active tickets.</em></p>
     </div>
     </div>
 </template>

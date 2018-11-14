@@ -12,29 +12,35 @@ export default class TicketsList extends Vue {
         tickets: null,
         totalTickets: null,
         totalPages: null,
-        currentPage: null,
-        previousPage: null,
-        nextPage: null
+        //currentPage: null,
+        //previousPage: null,
+        //nextPage: null
     };
 
-    public async beforeMount(): Promise<void> {
-        await this.getAllTickets();
+    currentPage: number = 1;
+
+    public async created(): Promise<void> {
+        await this.getAllTickets(this.currentPage);
     }
 
     public async updated(): Promise<void> {
-        await this.getAllTickets();
+        await this.getAllTickets(this.currentPage);
     }
 
     private get userRole(): string {
         return this.$store.getters.sessionInfo.role;
     }
 
-    private get myTickets(): TicketViewModel[] {
+    private get myTicketsTotalPages(): number {
+        return Math.ceil(this.myTickets().length / 10);
+    }
+
+    private myTickets(): TicketViewModel[] {
         return this.allTickets.tickets.filter(t => t.sender === this.$store.getters.sessionInfo.userName);
     }
 
-    private async getAllTickets(): Promise<TicketListingViewModel> {
-        const response: api.TicketListingModel = await api.tickets.getTickets();
+    private async getAllTickets(page: number): Promise<TicketListingViewModel> {
+        const response: api.TicketListingModel = await api.tickets.getTickets(page);
 
         const tickets: TicketViewModel[] = response.tickets.map(ticket => {
             return this.createTicketViewModel(ticket);
@@ -43,9 +49,9 @@ export default class TicketsList extends Vue {
         this.allTickets.tickets = tickets;
         this.allTickets.totalTickets = response.totalTickets;
         this.allTickets.totalPages = response.totalPages;
-        this.allTickets.currentPage = response.currentPage;
-        this.allTickets.previousPage = response.previousPage;
-        this.allTickets.nextPage = response.nextPage;
+        //this.allTickets.currentPage = response.currentPage;
+        //this.allTickets.previousPage = response.previousPage;
+        //this.allTickets.nextPage = response.nextPage;
 
         return this.allTickets;
     }
@@ -82,8 +88,6 @@ export default class TicketsList extends Vue {
             attachedFiles: ticket.attachedFiles
         }
 
-        
-
         return ticketViewModel;
     }
 }
@@ -92,9 +96,9 @@ interface TicketListingViewModel {
     tickets: TicketViewModel[],
     totalTickets: number,
     totalPages: number,
-    currentPage: number,
-    previousPage: number,
-    nextPage: number
+    //currentPage: number,
+    //previousPage: number,
+    //nextPage: number
 }
 
 interface TicketViewModel {

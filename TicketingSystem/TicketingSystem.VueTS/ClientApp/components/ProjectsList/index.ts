@@ -9,32 +9,42 @@ import * as api from '../../api/projects';
 })
 
 export default class ProjectsList extends Vue {
-    renderProjects: ProjectViewModel[] = [];
+    renderProjects: ProjectListingViewModel = {
+        projects: null,
+        totalProjects: null,
+        totalPages: null
+    };
+
+    currentPage: number = 1;
 
     public async created(): Promise<void> {
-        await this.getAllProjects();
+        await this.getAllProjects(this.currentPage);
+    }
+
+    public async updated(): Promise<void> {
+        await this.getAllProjects(this.currentPage);
     }
 
     private get userRole(): string {
         return this.$store.getters.sessionInfo.role;
     }
 
-    private async getAllProjects(): Promise<ProjectViewModel[]> {
-        const response: ProjectModel[] = await api.projects.getProjects();
+    private async getAllProjects(page: number): Promise<ProjectListingViewModel> {
+        const response: ProjectListingViewModel = await api.projects.getProjects(page);
 
-        
-
-        const projects: ProjectViewModel[] = response
+        const projects: ProjectViewModel[] = response.projects
             .map(project => {
                 return this.createProjectViewModel(project);
             });
 
-        this.renderProjects = projects;
+        this.renderProjects.projects = projects;
+        this.renderProjects.totalProjects = response.totalProjects;
+        this.renderProjects.totalPages = response.totalPages;
 
-        return projects;
+        return this.renderProjects;
     }
 
-    private createProjectViewModel(project: ProjectModel): ProjectViewModel {
+    private createProjectViewModel(project: ProjectViewModel): ProjectViewModel {
         const projectViewModel: ProjectViewModel = {
             id: project.id,
             name: project.name,
@@ -45,22 +55,13 @@ export default class ProjectsList extends Vue {
     }
 }
 
-//interface ProjectListingViewModel {
-//    projects: ProjectModel[];
-//    totalProjects: number;
-//    totalPages: number;
-//    currentPage: number;
-//    previousPage: number;
-//    nextPage: number;
-//}
-
-interface ProjectViewModel {
-    id: number;
-    name: string;
-    description: string;
+interface ProjectListingViewModel {
+    projects: ProjectViewModel[];
+    totalProjects: number;
+    totalPages: number;
 }
 
-export interface ProjectModel {
+interface ProjectViewModel {
     id: number;
     name: string;
     description: string;

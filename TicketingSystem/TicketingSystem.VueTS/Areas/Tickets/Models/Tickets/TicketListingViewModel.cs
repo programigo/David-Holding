@@ -1,20 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace TicketingSystem.VueTS.Areas.Tickets.Models.Tickets
 {
     public class TicketListingViewModel
     {
+        [JsonProperty("tickets")]
         public IEnumerable<TicketViewModel> Tickets { get; set; }
 
+        [JsonProperty("totalTickets")]
         public int TotalTickets { get; set; }
 
+        [JsonProperty("totalPages")]
         public int TotalPages => (int)Math.Ceiling((double)this.TotalTickets / 10);
 
+        [JsonProperty("currentPage")]
         public int CurrentPage { get; set; }
-
-        public int PreviousPage => this.CurrentPage <= 1 ? 1 : this.CurrentPage - 1;
-
-        public int NextPage => this.CurrentPage == this.TotalPages ? this.TotalPages : this.CurrentPage + 1;
     }
 }

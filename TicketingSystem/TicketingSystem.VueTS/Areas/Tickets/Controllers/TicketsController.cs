@@ -33,7 +33,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             this.messages = messages ?? throw new ArgumentNullException(nameof(messages));
         }
 
-        [HttpGet]
+        [HttpGet("{page}")]
         public IActionResult Index(int page = 1)
         {
             var tickets = this.tickets.All(page)
@@ -55,6 +55,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var er = ModelState.ToBadRequestErrorModel();
                 return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 

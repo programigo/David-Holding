@@ -126,9 +126,9 @@ namespace TicketingSystem.Web.Services
             return returnUser;
         }
 
-        async Task<SignInResult> ISignInService.PasswordSignInAsync(string username, string password, bool rememberMe, bool lockoutOnFailure)
+        async Task<SignInResult> ISignInService.PasswordSignInAsync(string username, string password, bool lockoutOnFailure)
         {
-            var res = await base.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure);
+            var res = await base.PasswordSignInAsync(username, password, false, lockoutOnFailure);
 
             var returnRes = new SignInResult
             {

@@ -20,8 +20,8 @@ export class AccountController extends ControllerBase {
         await super.ajaxPost<void, void>("logout");
     }
 
-    public async register(request?: RegisterRequest): Promise<RegisterResult> {
-        const result = await super.ajaxPost<RegisterRequest, RegisterResult>("register", request);
+    public async register(request?: RegisterRequest): Promise<void> {
+        const result = await super.ajaxPost<RegisterRequest, void>("register", request);
 
         return result.data;
     }

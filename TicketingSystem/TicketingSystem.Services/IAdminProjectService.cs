@@ -5,7 +5,7 @@ namespace TicketingSystem.Services
 {
     public interface IAdminProjectService
     {
-        IQueryable<ProjectListingServiceModel> All();
+        IQueryable<ProjectListingServiceModel> All(int page = 1);
 
         IEnumerable<ProjectListingServiceModel> DropdownAll();
 

@@ -14,7 +14,7 @@ namespace TicketingSystem.VueTS.Services
         
         public AdminUserService(DATA.TicketingSystemDbContext db)
         {
-            this.db = db;
+            this.db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
         public IEnumerable<AdminUserListingServiceModel> All()
