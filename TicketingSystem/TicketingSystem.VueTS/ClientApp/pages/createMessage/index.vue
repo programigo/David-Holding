@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-center login-padding-top">Send Message</h1>
         <hr />
-        <b-form @submit.prevent="validateBeforeCreate" class="form-inline">
+        <b-form v-if="createMessageViewModel.tickets.length" @submit.prevent="validateBeforeCreate" class="form-inline">
             <fieldset id="create-message-fieldset" class="col-md-12">
                 <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
                 <div class="form-group col-12 row justify-content-center">
@@ -31,6 +31,7 @@
                 </div>
             </fieldset>
         </b-form>
+        <p v-else style="text-align:center">You have no active tickets.</p>
     </div>
 </template>
 

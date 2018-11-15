@@ -8,6 +8,7 @@ using TicketingSystem.Data.Constants;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Messages;
 using TicketingSystem.VueTS.Areas.Tickets.Models.Tickets;
+using TicketingSystem.VueTS.Common.Constants;
 using TicketingSystem.VueTS.Infrastructure.Extensions;
 using TicketingSystem.VueTS.Models;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
@@ -36,16 +37,30 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         [HttpGet("{page}")]
         public IActionResult Index(int page = 1)
         {
-            var tickets = this.tickets.All(page)
+            var ticketListingModel = new TicketListingViewModel();
+
+            if (User.IsInRole(WebConstants.AdministratorRole) || User.IsInRole(WebConstants.SuportRole))
+            {
+                var tickets = this.tickets.All(page)
+               .Select(ConvertTicket)
+               .ToArray();
+
+                ticketListingModel.Tickets = tickets;
+                ticketListingModel.TotalTickets = this.tickets.Total();
+            }
+            else
+            {
+                var tickets = this.tickets
+                .GetAllTickets()
+                .Where(t => t.Sender == User.Identity.Name)
                 .Select(ConvertTicket)
                 .ToArray();
 
-            var ticketListingModel = new TicketListingViewModel
-            {
-                Tickets = tickets,
-                TotalTickets = this.tickets.Total(),
-                CurrentPage = page
-            };
+                var result = All(tickets, page);
+
+                ticketListingModel.Tickets = result;
+                ticketListingModel.TotalTickets = tickets.Count();
+            }
 
             return Ok(ticketListingModel);
         }
@@ -60,7 +75,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             }
 
             model.Projects = GetProjects();
-            
+
             string senderId = this.userManager.GetUserId(User);
 
             TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
@@ -77,8 +92,6 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             return StatusCode(201);
         }
 
-        
-
         [HttpPost("attachfiles/{id}")]
         public IActionResult AttachFiles([FromRoute(Name = "id")] int id, IFormCollection files)
         {
@@ -92,9 +105,9 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
                 }
 
                 byte[] fileContents = file.ToByteArray();
-        
+
                 bool success = this.tickets.SaveFiles(id, fileContents);
-        
+
                 if (!success)
                 {
                     return BadRequest();
@@ -204,7 +217,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             return model;
         }
 
-        private static TicketViewModel ConvertTicket(TicketListingServiceModel serviceTicket)
+        public static TicketViewModel ConvertTicket(TicketListingServiceModel serviceTicket)
         {
             var ticket = new TicketViewModel
             {
@@ -222,5 +235,11 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
             return ticket;
         }
+
+        private TicketViewModel[] All(TicketViewModel[] collection, int page = 1)
+            => collection
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .ToArray();
     }
 }

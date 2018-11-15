@@ -82,10 +82,56 @@ interface TicketViewModel {
     project: string,
     sender: string,
     senderId: string,
-    ticketType: ticketsApi.TicketType,
-    ticketState: ticketsApi.TicketState,
+    ticketType: TicketType,
+    ticketState: TicketState,
     title: string,
     description: string,
     attachedFiles: [],
-    messages: ticketsApi.MessageModel[]
+    messages: MessageModel[]
+}
+
+export interface TicketModel {
+    id: number,
+    postTime: Date,
+    projectId: number,
+    project: string,
+    sender: string,
+    senderId: string,
+    ticketType: TicketType,
+    ticketState: TicketState,
+    title: string,
+    description: string,
+    attachedFiles: [],
+    messages: MessageModel[]
+}
+
+interface MessageModel {
+    id: number,
+    postDate: string,
+    authorId: string,
+    author: string,
+    ticketId: number,
+    ticket: TicketModel,
+    state: MessageState,
+    content: string,
+    attachedFiles: []
+}
+
+enum TicketType {
+    BugReport,
+    FeatureRequest,
+    AssistanceRequest,
+    Other
+}
+
+enum TicketState {
+    Draft,
+    New,
+    Running,
+    Completed
+}
+
+enum MessageState {
+    Draft,
+    Published
 }

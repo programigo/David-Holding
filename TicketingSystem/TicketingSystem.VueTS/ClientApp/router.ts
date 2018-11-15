@@ -25,7 +25,6 @@ import TicketDetails from './pages/ticketDetails';
 import TicketAttachFiles from './pages/ticketAttachFiles';
 import CreateMessage from './pages/createMessage';
 import MessageAttachFiles from './pages/messageAttachFiles';
-import { SessionInfo } from './store/types';
 
 const routes = [
     { name: 'home', path: '/', component: Home, meta: { requiresAuth: true } },

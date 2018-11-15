@@ -38,7 +38,24 @@ namespace TicketingSystem.Implementations
             })
             .AsQueryable();
 
-        
+        public IQueryable<TicketListingServiceModel> GetAllTickets()
+            => this.db
+            .Tickets
+            .Select(t => new TicketListingServiceModel
+            {
+                Id = t.Id,
+                PostTime = t.PostTime,
+                ProjectId = t.ProjectId,
+                Project = t.Project.Name,
+                SenderId = t.SenderId,
+                Sender = t.Sender.UserName,
+                TicketType = (TicketType)Enum.Parse(typeof(TicketType), t.TicketType.ToString()),
+                TicketState = (TicketState)Enum.Parse(typeof(TicketState), t.TicketState.ToString()),
+                Title = t.Title,
+                Description = t.Description,
+                AttachedFiles = t.AttachedFiles
+            })
+            .AsQueryable();
 
         public void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState? ticketState, string senderId, int projectId)
         {

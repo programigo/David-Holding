@@ -1,8 +1,6 @@
 ﻿import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import * as api from '../../api';
-import * as actions from '../../store/actions';
-import { RegisterActionPayload } from '../../store/actions';
 
 import VeeValidate from 'vee-validate';
 

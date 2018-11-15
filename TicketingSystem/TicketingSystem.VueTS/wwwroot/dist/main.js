@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7029fa16478a657ac5d2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dd376f728cfd1f115d9b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18980,55 +18980,6 @@ var ControllerBase = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UNAUTHORIZED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOGIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOGOUT; });
-/* unused harmony export REGISTER */
-/* unused harmony export UPDATE */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return actions; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutations__ = __webpack_require__(66);
-var _a;
-
-var UNAUTHORIZED = "UNAUTHORIZED";
-var LOGIN = "LOGIN";
-var LOGOUT = "LOGOUT";
-var REGISTER = "REGISTER";
-var UPDATE = "UPDATE";
-var actions = (_a = {},
-    _a[UNAUTHORIZED] = function (context, payload) {
-        var mutationPayload = {};
-        context.commit(__WEBPACK_IMPORTED_MODULE_0__mutations__["a" /* UNAUTHORIZED */], mutationPayload);
-    },
-    _a[LOGIN] = function (context, payload) {
-        var mutationPayload = {
-            sessionInfo: payload.sessionInfo
-        };
-        context.commit(LOGIN, mutationPayload);
-    },
-    _a[LOGOUT] = function (context, payload) {
-        var mutationPayload = {};
-        context.commit(LOGOUT, mutationPayload);
-    },
-    _a[REGISTER] = function (context, payload) {
-        var mutationPayload = {
-            sessionInfo: payload.sessionInfo
-        };
-        context.commit(REGISTER, mutationPayload);
-    },
-    _a[UPDATE] = function (context, payload) {
-        var mutationPayload = {
-            sessionInfo: payload.sessionInfo
-        };
-        context.commit(UPDATE, mutationPayload);
-    },
-    _a);
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = pluckProps;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(6);
@@ -19055,7 +19006,7 @@ function pluckProps(keysToPluck, objToPluck) {
 }
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19077,7 +19028,7 @@ function pluckProps(keysToPluck, objToPluck) {
 });
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /*
@@ -19159,7 +19110,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -19541,7 +19492,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22082,6 +22033,55 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
 
 /***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UNAUTHORIZED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOGOUT; });
+/* unused harmony export REGISTER */
+/* unused harmony export UPDATE */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return actions; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutations__ = __webpack_require__(66);
+var _a;
+
+var UNAUTHORIZED = "UNAUTHORIZED";
+var LOGIN = "LOGIN";
+var LOGOUT = "LOGOUT";
+var REGISTER = "REGISTER";
+var UPDATE = "UPDATE";
+var actions = (_a = {},
+    _a[UNAUTHORIZED] = function (context, payload) {
+        var mutationPayload = {};
+        context.commit(__WEBPACK_IMPORTED_MODULE_0__mutations__["a" /* UNAUTHORIZED */], mutationPayload);
+    },
+    _a[LOGIN] = function (context, payload) {
+        var mutationPayload = {
+            sessionInfo: payload.sessionInfo
+        };
+        context.commit(LOGIN, mutationPayload);
+    },
+    _a[LOGOUT] = function (context, payload) {
+        var mutationPayload = {};
+        context.commit(LOGOUT, mutationPayload);
+    },
+    _a[REGISTER] = function (context, payload) {
+        var mutationPayload = {
+            sessionInfo: payload.sessionInfo
+        };
+        context.commit(REGISTER, mutationPayload);
+    },
+    _a[UPDATE] = function (context, payload) {
+        var mutationPayload = {
+            sessionInfo: payload.sessionInfo
+        };
+        context.commit(UPDATE, mutationPayload);
+    },
+    _a);
+
+
+/***/ }),
 /* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22394,7 +22394,7 @@ function copyProps(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex_persistedstate__ = __webpack_require__(286);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mutations__ = __webpack_require__(66);
 
 
@@ -22427,7 +22427,7 @@ window.addEventListener("storage", function (ev) {
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(22)(false);
 // imports
 
 
@@ -22816,7 +22816,7 @@ var props = {
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(22)(false);
 // imports
 
 
@@ -22833,7 +22833,7 @@ exports.push([module.i, ".fade-enter-active, .fade-leave-active {\n    transitio
 "use strict";
 /* unused harmony export props */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_functional_data_merge__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_array__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_dom__ = __webpack_require__(7);
@@ -23316,7 +23316,7 @@ var BvEvent = function () {
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(22)(false);
 // imports
 
 
@@ -23474,7 +23474,7 @@ function isObject(obj) {
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(22)(false);
 // imports
 
 
@@ -23489,7 +23489,7 @@ exports.push([module.i, "/* Special styling for type=range and type=color input 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bv_event_class__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__array__ = __webpack_require__(6);
@@ -24608,7 +24608,7 @@ var ToolTip = function () {
 /* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(22)(false);
 // imports
 
 
@@ -24822,7 +24822,7 @@ module.exports = Html5Entities;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_TheNavMenu__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_actions__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_actions__ = __webpack_require__(25);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -24925,7 +24925,7 @@ var App = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_actions__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_actions__ = __webpack_require__(25);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -25552,7 +25552,7 @@ var props = Object(__WEBPACK_IMPORTED_MODULE_1__utils_object__["a" /* assign */]
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return props; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_functional_data_merge__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__link_link__ = __webpack_require__(14);
 
@@ -26030,7 +26030,7 @@ var unbindTargets = function unbindTargets(vnode, binding, listenTypes) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__clickout__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__listen_on_root__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_array__ = __webpack_require__(6);
@@ -26647,7 +26647,7 @@ var props = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_radio_check__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_array__ = __webpack_require__(6);
@@ -28752,7 +28752,7 @@ var ProjectsController = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_property_decorator__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_actions__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_actions__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vee_validate__ = __webpack_require__(9);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30607,13 +30607,6 @@ var TicketsList = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TicketsList.prototype, "myTicketsTotalPages", {
-        get: function () {
-            return Math.ceil(this.myTickets().length / 10);
-        },
-        enumerable: true,
-        configurable: true
-    });
     TicketsList.prototype.myTickets = function () {
         var _this = this;
         return this.allTickets.tickets.filter(function (t) { return t.sender === _this.$store.getters.sessionInfo.userName; });
@@ -30633,9 +30626,6 @@ var TicketsList = /** @class */ (function (_super) {
                         this.allTickets.tickets = tickets;
                         this.allTickets.totalTickets = response.totalTickets;
                         this.allTickets.totalPages = response.totalPages;
-                        //this.allTickets.currentPage = response.currentPage;
-                        //this.allTickets.previousPage = response.previousPage;
-                        //this.allTickets.nextPage = response.nextPage;
                         return [2 /*return*/, this.allTickets];
                 }
             });
@@ -31498,6 +31488,25 @@ var TicketDetails = /** @class */ (function (_super) {
     return TicketDetails;
 }(__WEBPACK_IMPORTED_MODULE_0_vue__["default"]));
 /* harmony default export */ __webpack_exports__["a"] = (TicketDetails);
+var TicketType;
+(function (TicketType) {
+    TicketType[TicketType["BugReport"] = 0] = "BugReport";
+    TicketType[TicketType["FeatureRequest"] = 1] = "FeatureRequest";
+    TicketType[TicketType["AssistanceRequest"] = 2] = "AssistanceRequest";
+    TicketType[TicketType["Other"] = 3] = "Other";
+})(TicketType || (TicketType = {}));
+var TicketState;
+(function (TicketState) {
+    TicketState[TicketState["Draft"] = 0] = "Draft";
+    TicketState[TicketState["New"] = 1] = "New";
+    TicketState[TicketState["Running"] = 2] = "Running";
+    TicketState[TicketState["Completed"] = 3] = "Completed";
+})(TicketState || (TicketState = {}));
+var MessageState;
+(function (MessageState) {
+    MessageState[MessageState["Draft"] = 0] = "Draft";
+    MessageState[MessageState["Published"] = 1] = "Published";
+})(MessageState || (MessageState = {}));
 
 
 /***/ }),
@@ -34033,7 +34042,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(24)(content, options);
+var update = __webpack_require__(23)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -34169,7 +34178,7 @@ module.exports = function (css) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(146), __webpack_require__(25)) :
+   true ? factory(exports, __webpack_require__(146), __webpack_require__(24)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -42663,7 +42672,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(24)(content, options);
+var update = __webpack_require__(23)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -42725,7 +42734,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 "use strict";
 /* unused harmony export props */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_functional_data_merge__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__link_link__ = __webpack_require__(14);
 
@@ -43295,7 +43304,7 @@ Object(__WEBPACK_IMPORTED_MODULE_6__utils_plugins__["c" /* vueUse */])(VuePlugin
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_prefix_prop_name__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_unprefix_prop_name__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_copyProps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_pluck_props__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_pluck_props__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_card_mixin__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__card_body__ = __webpack_require__(73);
@@ -44802,7 +44811,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(24)(content, options);
+var update = __webpack_require__(23)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -45451,7 +45460,7 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["c" /* vueUse */])(VuePlugin
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_options__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__form_checkbox__ = __webpack_require__(86);
@@ -45600,7 +45609,7 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["c" /* vueUse */])(VuePlugin
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_options__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__form_radio__ = __webpack_require__(88);
@@ -45744,7 +45753,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_size__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_size__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_state__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_array__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__form_input_css__ = __webpack_require__(226);
@@ -45918,7 +45927,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(24)(content, options);
+var update = __webpack_require__(23)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -45981,7 +45990,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_size__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_size__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_state__ = __webpack_require__(15);
 
 
@@ -46446,7 +46455,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_options__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_array__ = __webpack_require__(6);
@@ -47000,7 +47009,7 @@ var props = {
 "use strict";
 /* unused harmony export props */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_functional_data_merge__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_pluck_props__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_array__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__link_link__ = __webpack_require__(14);
@@ -48350,7 +48359,7 @@ var props = {
 /* unused harmony export props */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__link_link__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_functional_data_merge__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_pluck_props__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_pluck_props__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_object__ = __webpack_require__(4);
 
 
@@ -51411,7 +51420,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(24)(content, options);
+var update = __webpack_require__(23)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -52733,7 +52742,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_tooltip_class__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_warn__ = __webpack_require__(13);
@@ -52932,7 +52941,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_popover_class__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_object__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_warn__ = __webpack_require__(13);
@@ -57511,10 +57520,9 @@ var render = function() {
           _vm.myTickets().length
             ? _c(
                 "div",
-                _vm._l(_vm.myTickets(), function(ticket) {
-                  return _c(
-                    "div",
-                    [
+                [
+                  _vm._l(_vm.myTickets(), function(ticket) {
+                    return _c("div", [
                       _c(
                         "div",
                         [
@@ -57580,9 +57588,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("p", { staticClass: "card-text" }, [
                                 _vm._v(
-                                  "\n                        " +
+                                  "\n                            " +
                                     _vm._s(ticket.description) +
-                                    "\n                    "
+                                    "\n                        "
                                 )
                               ]),
                               _vm._v(" "),
@@ -57630,53 +57638,31 @@ var render = function() {
                                     : _vm._e()
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          path: "tickets/edit/" + ticket.id
-                                        },
-                                        variant: "warning"
-                                      }
-                                    },
-                                    [_vm._v("Edit")]
-                                  )
-                                ],
-                                1
                               )
                             ],
                             1
                           )
                         ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c("b-pagination-nav", {
-                        attrs: {
-                          "base-url": "tickets#",
-                          "number-of-pages": _vm.myTicketsTotalPages
-                        },
-                        model: {
-                          value: _vm.currentPage,
-                          callback: function($$v) {
-                            _vm.currentPage = $$v
-                          },
-                          expression: "currentPage"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                })
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("b-pagination-nav", {
+                    attrs: {
+                      "base-url": "tickets#",
+                      "number-of-pages": _vm.allTickets.totalPages
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage"
+                    }
+                  })
+                ],
+                2
               )
             : _c("p", { staticStyle: { "text-align": "center" } }, [
                 _c("em", [_vm._v("You have no active tickets.")])
@@ -59080,98 +59066,42 @@ var render = function() {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _c(
-        "b-form",
-        {
-          staticClass: "form-inline",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.validateBeforeCreate($event)
-            }
-          }
-        },
-        [
-          _c(
-            "fieldset",
+      _vm.createMessageViewModel.tickets.length
+        ? _c(
+            "b-form",
             {
-              staticClass: "col-md-12",
-              attrs: { id: "create-message-fieldset" }
+              staticClass: "form-inline",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.validateBeforeCreate($event)
+                }
+              }
             },
             [
-              _vm.hasError
-                ? _c(
-                    "b-alert",
-                    {
-                      attrs: {
-                        show: "",
-                        dismissible: "",
-                        variant: "danger",
-                        fade: ""
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm.error))]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "form-group col-12 row justify-content-center" },
+                "fieldset",
+                {
+                  staticClass: "col-md-12",
+                  attrs: { id: "create-message-fieldset" }
+                },
                 [
-                  _c(
-                    "label",
-                    { staticClass: "col-12", attrs: { for: "content" } },
-                    [_vm._v("Content")]
-                  ),
-                  _vm._v(" "),
-                  _c("b-form-textarea", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      }
-                    ],
-                    staticClass: "form-control col-4",
-                    attrs: {
-                      rows: 5,
-                      name: "content",
-                      "data-vv-as": "Content",
-                      id: "content"
-                    },
-                    model: {
-                      value: _vm.createMessageViewModel.content,
-                      callback: function($$v) {
-                        _vm.$set(_vm.createMessageViewModel, "content", $$v)
-                      },
-                      expression: "createMessageViewModel.content"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
+                  _vm.hasError
+                    ? _c(
+                        "b-alert",
                         {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.errors.has("content"),
-                          expression: "errors.has('content')"
-                        }
-                      ],
-                      staticClass: "text-danger col-12 text-center"
-                    },
-                    [_vm._v(_vm._s(_vm.errors.first("content")))]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _vm.userRole === "Administrator" || _vm.userRole === "Support"
-                ? _c(
+                          attrs: {
+                            show: "",
+                            dismissible: "",
+                            variant: "danger",
+                            fade: ""
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.error))]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
                     "div",
                     {
                       staticClass:
@@ -59180,11 +59110,130 @@ var render = function() {
                     [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-12",
-                          attrs: { for: "messageState" }
+                        { staticClass: "col-12", attrs: { for: "content" } },
+                        [_vm._v("Content")]
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-textarea", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "form-control col-4",
+                        attrs: {
+                          rows: 5,
+                          name: "content",
+                          "data-vv-as": "Content",
+                          id: "content"
                         },
-                        [_vm._v("Message State")]
+                        model: {
+                          value: _vm.createMessageViewModel.content,
+                          callback: function($$v) {
+                            _vm.$set(_vm.createMessageViewModel, "content", $$v)
+                          },
+                          expression: "createMessageViewModel.content"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("content"),
+                              expression: "errors.has('content')"
+                            }
+                          ],
+                          staticClass: "text-danger col-12 text-center"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("content")))]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm.userRole === "Administrator" || _vm.userRole === "Support"
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "form-group col-12 row justify-content-center"
+                        },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-12",
+                              attrs: { for: "messageState" }
+                            },
+                            [_vm._v("Message State")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.createMessageViewModel.state,
+                                  expression: "createMessageViewModel.state"
+                                }
+                              ],
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.createMessageViewModel,
+                                    "state",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.messageStates, function(state) {
+                              return _c(
+                                "option",
+                                { domProps: { value: Number(state.value) } },
+                                [_vm._v(_vm._s(state.text))]
+                              )
+                            })
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "form-group col-12 row justify-content-center"
+                    },
+                    [
+                      _c(
+                        "label",
+                        { staticClass: "col-12", attrs: { for: "ticket" } },
+                        [_vm._v("Ticket")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -59194,8 +59243,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.createMessageViewModel.state,
-                              expression: "createMessageViewModel.state"
+                              value: _vm.createMessageViewModel.ticketId,
+                              expression: "createMessageViewModel.ticketId"
                             }
                           ],
                           on: {
@@ -59210,7 +59259,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 _vm.createMessageViewModel,
-                                "state",
+                                "ticketId",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -59218,103 +59267,51 @@ var render = function() {
                             }
                           }
                         },
-                        _vm._l(_vm.messageStates, function(state) {
+                        _vm._l(_vm.createMessageViewModel.tickets, function(
+                          ticket
+                        ) {
                           return _c(
                             "option",
-                            { domProps: { value: Number(state.value) } },
-                            [_vm._v(_vm._s(state.text))]
+                            { domProps: { value: ticket.value } },
+                            [_vm._v(_vm._s(ticket.text))]
                           )
                         })
                       )
                     ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group col-12 row justify-content-center" },
-                [
-                  _c(
-                    "label",
-                    { staticClass: "col-12", attrs: { for: "ticket" } },
-                    [_vm._v("Ticket")]
                   ),
                   _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
                   _c(
-                    "select",
+                    "div",
                     {
-                      directives: [
+                      staticClass:
+                        "form-group justify-content-center text-center col-12 row custom-margin-top"
+                    },
+                    [
+                      _c(
+                        "b-button",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.createMessageViewModel.ticketId,
-                          expression: "createMessageViewModel.ticketId"
-                        }
-                      ],
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.createMessageViewModel,
-                            "ticketId",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    _vm._l(_vm.createMessageViewModel.tickets, function(
-                      ticket
-                    ) {
-                      return _c(
-                        "option",
-                        { domProps: { value: ticket.value } },
-                        [_vm._v(_vm._s(ticket.text))]
+                          staticClass: "col-2",
+                          attrs: {
+                            id: "button-send",
+                            type: "submit",
+                            variant: "secondary"
+                          }
+                        },
+                        [_vm._v("Send")]
                       )
-                    })
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "form-group justify-content-center text-center col-12 row custom-margin-top"
-                },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      staticClass: "col-2",
-                      attrs: {
-                        id: "button-send",
-                        type: "submit",
-                        variant: "secondary"
-                      }
-                    },
-                    [_vm._v("Send")]
+                    ],
+                    1
                   )
                 ],
                 1
               )
-            ],
-            1
+            ]
           )
-        ]
-      )
+        : _c("p", { staticStyle: { "text-align": "center" } }, [
+            _vm._v("You have no active tickets.")
+          ])
     ],
     1
   )
@@ -59521,7 +59518,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].mixin({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_actions__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_actions__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(97);
 
 

@@ -12,9 +12,6 @@ export default class TicketsList extends Vue {
         tickets: null,
         totalTickets: null,
         totalPages: null,
-        //currentPage: null,
-        //previousPage: null,
-        //nextPage: null
     };
 
     currentPage: number = 1;
@@ -31,10 +28,6 @@ export default class TicketsList extends Vue {
         return this.$store.getters.sessionInfo.role;
     }
 
-    private get myTicketsTotalPages(): number {
-        return Math.ceil(this.myTickets().length / 10);
-    }
-
     private myTickets(): TicketViewModel[] {
         return this.allTickets.tickets.filter(t => t.sender === this.$store.getters.sessionInfo.userName);
     }
@@ -49,9 +42,6 @@ export default class TicketsList extends Vue {
         this.allTickets.tickets = tickets;
         this.allTickets.totalTickets = response.totalTickets;
         this.allTickets.totalPages = response.totalPages;
-        //this.allTickets.currentPage = response.currentPage;
-        //this.allTickets.previousPage = response.previousPage;
-        //this.allTickets.nextPage = response.nextPage;
 
         return this.allTickets;
     }
@@ -96,9 +86,6 @@ interface TicketListingViewModel {
     tickets: TicketViewModel[],
     totalTickets: number,
     totalPages: number,
-    //currentPage: number,
-    //previousPage: number,
-    //nextPage: number
 }
 
 interface TicketViewModel {

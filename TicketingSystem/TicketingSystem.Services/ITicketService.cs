@@ -7,20 +7,22 @@ namespace TicketingSystem.Services
     {
         IQueryable<TicketListingServiceModel> All(int page = 1);
 
+        IQueryable<TicketListingServiceModel> GetAllTickets();
+
         IQueryable<TicketListingServiceModel> DropdownAll();
 
-        int Total();
+        IQueryable<TicketListingServiceModel> Details(int id);
 
         void Create(string title, string description, DateTime postTime, TicketType ticketType, TicketState? ticketState, string senderId, int projectId);
 
-        bool SaveFiles(int ticketId, byte[] attachedFiles);
-
         bool Edit(int id, string title, string description, TicketType ticketType, TicketState ticketState);
 
-        IQueryable<TicketListingServiceModel> Details(int id);
+        bool SaveFiles(int ticketId, byte[] attachedFiles);
 
         byte[] GetAttachedFiles(int id);
 
         void Delete(int id);
+
+        int Total();
     }
 }
