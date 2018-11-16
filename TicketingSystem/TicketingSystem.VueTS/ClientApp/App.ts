@@ -13,12 +13,12 @@ import * as api from './api';
 export default class App extends Vue {
     public async beforeCreate(): Promise<void> {
         
-        const payload: actions.LogoutActionPayload = {
-        };
+        //const payload: actions.LogoutActionPayload = {
+        //};
+        //
+        //await this.$store.dispatch(actions.LOGOUT, payload);
 
-        await this.$store.dispatch(actions.LOGOUT, payload);
-
-        //await api.account.isLoggedOn()
+        await api.account.isLoggedOn();
     }
 
     hideModal() {

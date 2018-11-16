@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h1 class="text-center login-padding-top">
+        <h1 class="form-title">
             Log in
         </h1>
         <hr />

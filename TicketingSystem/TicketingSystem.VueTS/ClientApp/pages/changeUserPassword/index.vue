@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h1 class="text-center">
+        <h1 class="form-title">
             Change Password
         </h1>
         <hr />

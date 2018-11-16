@@ -36,17 +36,13 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var error = ModelState.ToBadRequestErrorModel();
                 return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
             string authorId = this.userManager.GetUserId(User);
 
-            MessageState? messageState = null;
-
-            if (model.State != null)
-            {
-                messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
-            }
+            MessageState messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
 
             this.messages.Create(model.Content, DateTime.UtcNow, messageState, model.TicketId, authorId);
         

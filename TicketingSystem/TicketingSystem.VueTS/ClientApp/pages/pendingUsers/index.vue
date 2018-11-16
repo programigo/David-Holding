@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div v-if="pendingUsers.users.length">
-            <h1 style="text-align:center">Pending user registrations</h1>
+            <h1 class="form-title">Pending user registrations</h1>
             <br />
             <table class="table table-hover table-bordered">
                 <thead>
@@ -16,16 +16,16 @@
                         <th>{{user.username}}</th>
                         <th>{{user.email}}</th>
                         <th>
-                            <div class="row">
-                                <b-button  v-on:click="approveUser(user.id)" variant="success">Approve</b-button>
-                            </div>
+
+                            <b-button class="approve-button" v-on:click="approveUser(user.id)" variant="success">Approve</b-button>
+
                         </th>
                     </tr>
                 </tbody>
             </table>
         </div>
         <p v-else>There are no pending requests.</p>
-        </div>
+    </div>
 </template>
 
 <script src="./index.ts"></script>

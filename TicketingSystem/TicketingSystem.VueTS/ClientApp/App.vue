@@ -8,4 +8,9 @@
     </div>
 </template>
 
+<style lang="scss">
+    @import "./styles/custom-styles.css";
+    @import "./styles/bootstrap";
+</style>
+
 <script src="./App.ts"></script>

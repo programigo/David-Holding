@@ -1,109 +1,36 @@
-﻿.modal-content {
-	background-color: #f8d7da !important;
-	border: 1px solid #f5c6cb;
-	color: #721c24;
+﻿.approve-button {
+    margin: auto;
 }
 
-#error-modal-button {
-	color: #721c24;
+.user-actions {
+    margin: auto;
 }
 
-/*styles which remove the buttons shadow*/
-.btn:focus, .btn:active {
-	box-shadow: none !important;
+.add-to-role {
+    margin: auto;
 }
 
-/*styles which make "tag" look like a "link"*/
-.link-visualize {
-	cursor: pointer;
-	color: #007bff;
-	text-decoration: underline;
+.form-title {
+    text-align: center;
+    margin-top: 10px;
 }
 
-	.link-visualize:hover {
-		text-decoration: none;
-	}
-
-ul li {
-	list-style-type: none;
+.pagination-buttons {
+    margin: auto;
 }
 
-ul.dashed {
-	list-style-type: none;
+.details-card {
+    margin: auto;
 }
 
-	ul.dashed > li:before {
-		content: "-";
-		text-indent: -5px;
-	}
-
-/*table rows*/
-.custom-stripped-style tr:nth-child(4n - 1) {
-	background-color: #f2f2f2;
+.file-buttons {
+    text-align: center;
 }
 
-i#icon_hide:hover, i#icon_show:hover {
-	cursor: pointer;
+.download-button {
+    background-color: blue;
 }
 
-.custom-margin-top {
-	margin-top: 1.5em;
-}
-
-.files-retreat {
-	margin-left: 20px;
-}
-
-.color-green {
-	color: green;
-}
-
-.damage-spin-size {
-	font-size: 20px;
-}
-
-.login-spin-size {
-	font-size: 35px;
-}
-
-.login-spin-size-big {
-	font-size: 70px;
-}
-
-.damages-information-bar {
-	background-color: #f2f2f2;
-	padding-top: 1em;
-}
-
-.files-information-bar {
-	margin-top: 1em;
-	padding: 0.5em
-}
-
-.filter-button-group {
-	margin-bottom: 1em;
-}
-
-.export-button {
-	padding-left: 1em;
-}
-
-.cursor-pointer {
-	cursor: pointer;
-}
-
-.display-none {
-	display: none;
-}
-
-.margin-bottom-null {
-	margin-bottom: -0em;
-}
-
-.login-padding-top {
-	padding-top: 0.5em;
-}
-
-.login-spinner-big-margin {
-	margin-top: 10em;
+.attach-files-button {
+    background-color: blueviolet
 }

@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <div class="modal-body" style="text-align:center">
+        <div class="form-title">
             Are you sure you want to delete this project ?
         </div>
         <div style="text-align:center">

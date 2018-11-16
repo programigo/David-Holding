@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Projects.Models.Projects;
+using TicketingSystem.VueTS.Common.Constants;
 using TicketingSystem.VueTS.Models;
 
 namespace TicketingSystem.VueTS.Areas.Projects.Controllers
@@ -36,6 +37,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
             });
         }
 
+        [Authorize(Roles = WebConstants.AdministratorRole)]
         [HttpPost("create")]
         public IActionResult Create([FromBody]AddProjectFormModel model)
         {
@@ -60,6 +62,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
             return Ok(project);
         }
 
+        [Authorize(Roles = WebConstants.AdministratorRole)]
         [HttpGet("edit/{id}")]
         public IActionResult Edit([FromRoute(Name = "id")] int id)
         {
@@ -75,6 +78,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
             return Ok(project);
         }
 
+        [Authorize(Roles = WebConstants.AdministratorRole)]
         [HttpPut("edit/{id}")]
         public IActionResult Edit([FromRoute(Name = "id")] int id, [FromBody]AddProjectFormModel model)
         {
@@ -88,6 +92,7 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = WebConstants.AdministratorRole)]
         [HttpDelete("delete/{id}")]
         public IActionResult Delete([FromRoute(Name = "id")] int id)
         {

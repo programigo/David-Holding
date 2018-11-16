@@ -30,6 +30,10 @@ export default class TicketDetails extends Vue {
         return Number(this.$route.params.ticketId);
     }
 
+    private get userRole(): string {
+        return this.$store.getters.sessionInfo.role;
+    }
+
     private async getTicket(): Promise<TicketViewModel> {
         const request: number = this.id;
 

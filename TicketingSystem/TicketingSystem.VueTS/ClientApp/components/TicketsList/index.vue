@@ -28,7 +28,7 @@
                         </b-card>
                     </div>
                 </div>
-                <b-pagination-nav base-url="tickets#" :number-of-pages="allTickets.totalPages" v-model="currentPage" />
+                <b-pagination-nav class="pagination-buttons" base-url="tickets#" :number-of-pages="allTickets.totalPages" v-model="currentPage" />
             </div>
             <p v-else style="text-align:center"><em>No active tickets.</em></p>
         </div>
@@ -47,14 +47,14 @@
                                 {{ticket.description}}
                             </p>
                             <hr />
-                            <div style="text-align:center">
-                                <b-button v-if="ticket.attachedFiles" v-on:click="downloadFile(ticket.id)" style="background-color:blue">Download Files</b-button>
-                                <b-button v-if="ticket.sender === $store.getters.sessionInfo.userName" :to="{ path: 'tickets/attachfiles/' + ticket.id }" style="background-color:blueviolet">Attach Files</b-button>
+                            <div class="file-buttons">
+                                <b-button class="download-button" v-if="ticket.attachedFiles" v-on:click="downloadFile(ticket.id)">Download Files</b-button>
+                                <b-button class="attach-files-button" v-if="ticket.sender === $store.getters.sessionInfo.userName" :to="{ path: 'tickets/attachfiles/' + ticket.id }">Attach Files</b-button>
                             </div>
                         </b-card>
                     </div>
                 </div>
-                <b-pagination-nav base-url="tickets#" :number-of-pages="allTickets.totalPages" v-model="currentPage" />
+                <b-pagination-nav class="pagination-buttons" base-url="tickets#" :number-of-pages="allTickets.totalPages" v-model="currentPage" />
             </div>
         <p v-else style="text-align:center"><em>You have no active tickets.</em></p>
     </div>

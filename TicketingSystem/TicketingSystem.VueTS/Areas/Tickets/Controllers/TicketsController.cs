@@ -70,7 +70,6 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var er = ModelState.ToBadRequestErrorModel();
                 return BadRequest(ModelState.ToBadRequestErrorModel());
             }
 
@@ -80,12 +79,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
             TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
 
-            TicketState? ticketState = null;
-
-            if (model.TicketState != null)
-            {
-                ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
-            }
+            TicketState ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
 
             this.tickets.Create(model.Title, model.Description, DateTime.UtcNow, ticketType, ticketState, senderId, model.ProjectId);
 
@@ -130,6 +124,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             return File(ticketFiles, "application/zip");
         }
 
+        [Authorize(Roles = WebConstants.AdministratorRole + ", " + WebConstants.SuportRole)]
         [HttpPost("edit/{id}")]
         public IActionResult Edit([FromRoute(Name = "id")] int id, [FromBody]SubmitTicketFormModel model)
         {
@@ -171,6 +166,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
             return Ok(ticket);
         }
 
+        [Authorize(Roles = WebConstants.AdministratorRole + ", " + WebConstants.SuportRole)]
         [HttpDelete("delete/{id}")]
         public IActionResult Delete([FromRoute(Name = "id")] int id)
         {

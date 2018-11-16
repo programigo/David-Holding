@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h1 style="text-align:center">All Projects</h1>
+        <h1 class="form-title">All Projects</h1>
         <projects-list />
     </div>
 </template>

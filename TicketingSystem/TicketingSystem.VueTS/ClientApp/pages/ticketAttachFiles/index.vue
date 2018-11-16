@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h3 style="text-align:center">Attach file</h3>
+        <h3 class="form-title">Attach file</h3>
         <b-form @submit.prevent="validateBeforeUpload" enctype="multipart/form-data">
             <b-alert show dismissible variant="danger" fade v-if="hasError">{{error}}</b-alert>
             <input type="file" @change="fileChange($event.target.files)" accept="application/zip" />

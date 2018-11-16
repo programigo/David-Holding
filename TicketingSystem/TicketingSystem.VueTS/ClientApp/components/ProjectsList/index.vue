@@ -18,7 +18,7 @@
                     </b-card>
                 </div>
             </div>
-            <b-pagination-nav base-url="#" :number-of-pages="renderProjects.totalPages" v-model="currentPage" />
+            <b-pagination-nav class="pagination-buttons" base-url="#" :number-of-pages="renderProjects.totalPages" v-model="currentPage" />
         </div>
         <p v-else><em>Loading...</em></p>
     </div>

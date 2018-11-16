@@ -6,13 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
 using TicketingSystem.VueTS.Areas.Admin.Models.Users;
+using TicketingSystem.VueTS.Common.Constants;
 using TicketingSystem.VueTS.Models;
 using TicketingSystem.VueTS.Models.AccountViewModels;
 using IdentityResult = TicketingSystem.Services.IdentityResult;
 
 namespace TicketingSystem.VueTS.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = WebConstants.AdministratorRole)]
     [Route("api/users")]
 
     public class UsersController : ControllerBase

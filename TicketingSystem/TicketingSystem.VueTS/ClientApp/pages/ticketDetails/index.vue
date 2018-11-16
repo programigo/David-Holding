@@ -1,13 +1,15 @@
 ﻿<template>
-    <div style="text-align:center">
+    <div class="form-title">
         <b-card :title="renderTicket.title" tag="article" style="max-width: 45rem;" class="mb-2">
             <p>Published on {{renderTicket.postTime}} by {{renderTicket.sender}}</p>
             <hr />
             <p class="card-text">
                 {{renderTicket.description}}
             </p>
-            <b-button v-bind:to="{ name: 'ticket-edit'}" variant="warning">Edit</b-button>
-            <b-button v-bind:to="{ name: 'ticket-delete'}" variant="danger">Delete</b-button>
+            <div v-if="userRole === 'Administrator' || userRole === 'Support'">
+                <b-button v-bind:to="{ name: 'ticket-edit'}" variant="warning">Edit</b-button>
+                <b-button v-bind:to="{ name: 'ticket-delete'}" variant="danger">Delete</b-button>
+            </div>
         </b-card>
 
         <div>

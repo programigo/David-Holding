@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h1 class="text-center login-padding-top">Send Message</h1>
+        <h1 class="form-title">Send Message</h1>
         <hr />
         <b-form v-if="createMessageViewModel.tickets.length" @submit.prevent="validateBeforeCreate" class="form-inline">
             <fieldset id="create-message-fieldset" class="col-md-12">
@@ -14,14 +14,14 @@
                 <br />
                 <div v-if="userRole === 'Administrator' || userRole === 'Support'" class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="messageState">Message State</label>
-                    <select v-model="createMessageViewModel.state">
+                    <select v-model="createMessageViewModel.state" required>
                         <option v-for="state in messageStates" v-bind:value="Number(state.value)">{{state.text}}</option>
                     </select>
                 </div>
                 <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticket">Ticket</label>
-                    <select v-model="createMessageViewModel.ticketId">
+                    <select v-model="createMessageViewModel.ticketId" required>
                         <option v-for="ticket in createMessageViewModel.tickets" v-bind:value="ticket.value">{{ticket.text}}</option>
                     </select>
                 </div>

@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h1 class="text-center login-padding-top">
+        <h1 class="form-title">
             Create Ticket
         </h1>
         <hr />
@@ -23,7 +23,7 @@
                 <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticketType">Ticket Type</label>
-                    <select v-model="createTicketViewModel.ticketType">
+                    <select v-model="createTicketViewModel.ticketType" required>
                         <option v-for="type in ticketTypes" v-bind:value="Number(type.value)">{{type.text}}</option>
                     </select>
                     <span v-show="errors.has('ticketType')" class="text-danger col-12 text-center">{{ errors.first('ticketType') }}</span>
@@ -31,7 +31,7 @@
                 <br />
                 <div v-if="userRole === 'Administrator' || userRole === 'Support'" class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="ticketState">Ticket State</label>
-                    <select v-model="createTicketViewModel.ticketState">
+                    <select v-model="createTicketViewModel.ticketState" required>
                         <option v-for="state in ticketStates" v-bind:value="Number(state.value)">{{state.text}}</option>
                     </select>
                     <span v-show="errors.has('ticketState')" class="text-danger col-12 text-center">{{ errors.first('ticketState') }}</span>
@@ -39,7 +39,7 @@
                 <br />
                 <div class="form-group col-12 row justify-content-center">
                     <label class="col-12" for="project">Project</label>
-                    <select v-model="createTicketViewModel.projectId">
+                    <select v-model="createTicketViewModel.projectId" required>
                         <option v-for="project in createTicketViewModel.projects" v-bind:value="project.value">{{project.text}}</option>
                     </select>
                     <span v-show="errors.has('project')" class="text-danger col-12 text-center">{{ errors.first('project') }}</span>
