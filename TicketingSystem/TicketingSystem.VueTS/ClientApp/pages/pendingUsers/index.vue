@@ -1,6 +1,6 @@
 ﻿<template>
 	<div>
-		<div v-if="pendingUsers.users.length">
+		<div v-if="hasPendingUsers">
 			<h1 class="form-title">Pending user registrations</h1>
 			<br />
 			<table class="table table-hover table-bordered">

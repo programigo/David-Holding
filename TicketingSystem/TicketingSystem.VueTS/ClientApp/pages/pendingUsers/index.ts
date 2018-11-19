@@ -21,6 +21,10 @@ export default class PendingUsers extends Vue {
 		return await this.getPendingUsers();
 	}
 
+	private get hasPendingUsers(): boolean {
+		return this.pendingUsers !== null;
+	}
+
 	private async getPendingUsers(): Promise<api.UserPendingModel> {
 		const response: api.UserPendingModel = await api.users.pending();
 

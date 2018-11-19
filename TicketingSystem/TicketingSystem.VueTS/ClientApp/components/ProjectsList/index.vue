@@ -1,6 +1,6 @@
 ﻿<template>
 	<div>
-		<div v-if="renderProjects.projects.length">
+		<div v-if="hasProjects">
 			<div v-for="project in renderProjects.projects">
 				<div>
 					<b-card style="max-width: 25rem;" class="mb-2">

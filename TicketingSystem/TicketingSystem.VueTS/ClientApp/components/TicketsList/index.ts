@@ -24,12 +24,12 @@ export default class TicketsList extends Vue {
 		await this.getAllTickets(this.currentPage);
 	}
 
-	private get userRole(): string {
-		return this.$store.getters.sessionInfo.role;
+	private get hasTickets(): boolean {
+		return this.allTickets !== null;
 	}
 
-	private myTickets(): TicketViewModel[] {
-		return this.allTickets.tickets.filter(t => t.sender === this.$store.getters.sessionInfo.userName);
+	private get userRole(): string {
+		return this.$store.getters.sessionInfo.role;
 	}
 
 	private async getAllTickets(page: number): Promise<TicketListingViewModel> {

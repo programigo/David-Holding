@@ -27,6 +27,10 @@ export default class AllUsers extends Vue {
 		return await this.getAllUsers();
 	}
 
+	private get hasUsers(): boolean {
+		return this.allUsers !== null;
+	}
+
 	private async getAllUsers(): Promise<UserListingViewModel> {
 		const response: api.UserListingModel = await api.users.getUsers();
 

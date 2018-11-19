@@ -15,7 +15,7 @@ export default class ProjectsList extends Vue {
 
 	currentPage: number = 1;
 
-	public async created(): Promise<void> {
+	public async mounted(): Promise<void> {
 		await this.getAllProjects(this.currentPage);
 	}
 
@@ -25,6 +25,10 @@ export default class ProjectsList extends Vue {
 
 	private get userRole(): string {
 		return this.$store.getters.sessionInfo.role;
+	}
+
+	private get hasProjects(): boolean {
+		return this.renderProjects !== null;
 	}
 
 	private async getAllProjects(page: number): Promise<ProjectListingViewModel> {

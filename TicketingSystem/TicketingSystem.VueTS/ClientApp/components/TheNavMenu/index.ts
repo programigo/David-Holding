@@ -1,10 +1,7 @@
 ﻿import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-
 import messages from './messages';
-
 import * as api from '../../api';
-
 import * as actions from '../../store/actions';
 import { AppState, SessionInfo } from '../../store/types';
 

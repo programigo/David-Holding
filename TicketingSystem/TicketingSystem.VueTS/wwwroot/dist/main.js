@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "833aa49e11deba92b3b3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2b4372892c9ae490ddc2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28548,7 +28548,7 @@ var ProjectsList = /** @class */ (function (_super) {
         _this.currentPage = 1;
         return _this;
     }
-    ProjectsList.prototype.created = function () {
+    ProjectsList.prototype.mounted = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -28575,6 +28575,13 @@ var ProjectsList = /** @class */ (function (_super) {
     Object.defineProperty(ProjectsList.prototype, "userRole", {
         get: function () {
             return this.$store.getters.sessionInfo.role;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ProjectsList.prototype, "hasProjects", {
+        get: function () {
+            return this.renderProjects !== null;
         },
         enumerable: true,
         configurable: true
@@ -29693,6 +29700,13 @@ var AllUsers = /** @class */ (function (_super) {
             });
         });
     };
+    Object.defineProperty(AllUsers.prototype, "hasUsers", {
+        get: function () {
+            return this.allUsers !== null;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AllUsers.prototype.getAllUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, users, roles, result;
@@ -30420,6 +30434,13 @@ var PendingUsers = /** @class */ (function (_super) {
             });
         });
     };
+    Object.defineProperty(PendingUsers.prototype, "hasPendingUsers", {
+        get: function () {
+            return this.pendingUsers !== null;
+        },
+        enumerable: true,
+        configurable: true
+    });
     PendingUsers.prototype.getPendingUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response;
@@ -30605,6 +30626,13 @@ var TicketsList = /** @class */ (function (_super) {
             });
         });
     };
+    Object.defineProperty(TicketsList.prototype, "hasTickets", {
+        get: function () {
+            return this.allTickets !== null;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TicketsList.prototype, "userRole", {
         get: function () {
             return this.$store.getters.sessionInfo.role;
@@ -30612,10 +30640,6 @@ var TicketsList = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    TicketsList.prototype.myTickets = function () {
-        var _this = this;
-        return this.allTickets.tickets.filter(function (t) { return t.sender === _this.$store.getters.sessionInfo.userName; });
-    };
     TicketsList.prototype.getAllTickets = function (page) {
         return __awaiter(this, void 0, void 0, function () {
             var response, tickets;
@@ -31831,6 +31855,13 @@ var CreateMessage = /** @class */ (function (_super) {
     Object.defineProperty(CreateMessage.prototype, "hasError", {
         get: function () {
             return this.error !== null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CreateMessage.prototype, "hasTickets", {
+        get: function () {
+            return this.createMessageViewModel.tickets !== null;
         },
         enumerable: true,
         configurable: true
@@ -54527,7 +54558,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.renderProjects.projects.length
+    _vm.hasProjects
       ? _c(
           "div",
           [
@@ -56250,7 +56281,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.allUsers.users.length
+    _vm.hasUsers
       ? _c("div", [
           _c("h1", { staticClass: "form-title" }, [
             _vm._v("User Administration")
@@ -57352,7 +57383,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.pendingUsers.users.length
+    _vm.hasPendingUsers
       ? _c("div", [
           _c("h1", { staticClass: "form-title" }, [
             _vm._v("Pending user registrations")
@@ -57574,343 +57605,182 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.userRole === "Administrator" || _vm.userRole === "Support"
-      ? _c("div", [
-          _vm.allTickets.tickets.length
-            ? _c(
-                "div",
-                [
-                  _vm._l(_vm.allTickets.tickets, function(ticket) {
-                    return _c("div", { staticClass: "row" }, [
-                      _c(
-                        "div",
-                        [
-                          _c(
-                            "b-card",
-                            {
-                              staticClass: "mb-2",
-                              staticStyle: { "max-width": "25rem" }
-                            },
-                            [
-                              _c(
-                                "b-link",
-                                {
-                                  attrs: {
-                                    to: { path: "tickets/details/" + ticket.id }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "h3",
-                                    { staticStyle: { "text-align": "center" } },
-                                    [_vm._v(_vm._s(ticket.title))]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "p",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  _vm._v(
-                                    "Published on " +
-                                      _vm._s(ticket.postTime) +
-                                      " by " +
-                                      _vm._s(ticket.sender)
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "p",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  _vm._v("Project: "),
-                                  _c(
-                                    "b-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          path:
-                                            "projects/details/" +
-                                            ticket.projectId
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(ticket.project))]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("hr"),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "card-text" }, [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t" +
-                                    _vm._s(ticket.description) +
-                                    "\n\t\t\t\t\t\t"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("hr"),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  ticket.attachedFiles
-                                    ? _c(
-                                        "b-button",
-                                        {
-                                          staticStyle: {
-                                            "background-color": "blue"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.downloadFile(ticket.id)
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Download Files")]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  ticket.sender ===
-                                  _vm.$store.getters.sessionInfo.userName
-                                    ? _c(
-                                        "b-button",
-                                        {
-                                          staticStyle: {
-                                            "background-color": "blueviolet"
-                                          },
-                                          attrs: {
-                                            to: {
-                                              path:
-                                                "tickets/attachfiles/" +
-                                                ticket.id
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Attach Files")]
-                                      )
-                                    : _vm._e()
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          path: "tickets/edit/" + ticket.id
-                                        },
-                                        variant: "warning"
-                                      }
-                                    },
-                                    [_vm._v("Edit")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          path: "tickets/delete/" + ticket.id
-                                        },
-                                        variant: "danger"
-                                      }
-                                    },
-                                    [_vm._v("Delete")]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("b-pagination-nav", {
-                    staticClass: "pagination-buttons",
-                    attrs: {
-                      "base-url": "tickets#",
-                      "number-of-pages": _vm.allTickets.totalPages
-                    },
-                    model: {
-                      value: _vm.currentPage,
-                      callback: function($$v) {
-                        _vm.currentPage = $$v
+    _vm.hasTickets
+      ? _c(
+          "div",
+          [
+            _vm._l(_vm.allTickets.tickets, function(ticket) {
+              return _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "b-card",
+                      {
+                        staticClass: "mb-2",
+                        staticStyle: { "max-width": "25rem" }
                       },
-                      expression: "currentPage"
-                    }
-                  })
-                ],
-                2
-              )
-            : _c("p", { staticStyle: { "text-align": "center" } }, [
-                _c("em", [_vm._v("No active tickets.")])
-              ])
-        ])
-      : _c("div", [
-          _vm.myTickets().length
-            ? _c(
-                "div",
-                [
-                  _vm._l(_vm.myTickets(), function(ticket) {
-                    return _c("div", [
-                      _c(
-                        "div",
-                        [
-                          _c(
-                            "b-card",
-                            {
-                              staticClass: "mb-2",
-                              staticStyle: { "max-width": "25rem" }
-                            },
-                            [
-                              _c(
-                                "b-link",
-                                {
-                                  attrs: {
-                                    to: { path: "tickets/details/" + ticket.id }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "h3",
-                                    { staticStyle: { "text-align": "center" } },
-                                    [_vm._v(_vm._s(ticket.title))]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "p",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  _vm._v(
-                                    "Published on " +
-                                      _vm._s(ticket.postTime) +
-                                      " by " +
-                                      _vm._s(ticket.sender)
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "p",
-                                { staticStyle: { "text-align": "center" } },
-                                [
-                                  _vm._v("Project: "),
-                                  _c(
-                                    "b-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          path:
-                                            "projects/details/" +
-                                            ticket.projectId
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(ticket.project))]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("hr"),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "card-text" }, [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t" +
-                                    _vm._s(ticket.description) +
-                                    "\n\t\t\t\t\t\t"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("hr"),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "file-buttons" },
-                                [
-                                  ticket.attachedFiles
-                                    ? _c(
-                                        "b-button",
-                                        {
-                                          staticClass: "download-button",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.downloadFile(ticket.id)
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Download Files")]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  ticket.sender ===
-                                  _vm.$store.getters.sessionInfo.userName
-                                    ? _c(
-                                        "b-button",
-                                        {
-                                          staticClass: "attach-files-button",
-                                          attrs: {
-                                            to: {
-                                              path:
-                                                "tickets/attachfiles/" +
-                                                ticket.id
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Attach Files")]
-                                      )
-                                    : _vm._e()
-                                ],
-                                1
-                              )
-                            ],
-                            1
+                      [
+                        _c(
+                          "b-link",
+                          {
+                            attrs: {
+                              to: { path: "tickets/details/" + ticket.id }
+                            }
+                          },
+                          [
+                            _c(
+                              "h3",
+                              { staticStyle: { "text-align": "center" } },
+                              [_vm._v(_vm._s(ticket.title))]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticStyle: { "text-align": "center" } }, [
+                          _vm._v(
+                            "Published on " +
+                              _vm._s(ticket.postTime) +
+                              " by " +
+                              _vm._s(ticket.sender)
                           )
-                        ],
-                        1
-                      )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("b-pagination-nav", {
-                    staticClass: "pagination-buttons",
-                    attrs: {
-                      "base-url": "tickets#",
-                      "number-of-pages": _vm.allTickets.totalPages
-                    },
-                    model: {
-                      value: _vm.currentPage,
-                      callback: function($$v) {
-                        _vm.currentPage = $$v
-                      },
-                      expression: "currentPage"
-                    }
-                  })
-                ],
-                2
-              )
-            : _c("p", { staticStyle: { "text-align": "center" } }, [
-                _c("em", [_vm._v("You have no active tickets.")])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { staticStyle: { "text-align": "center" } },
+                          [
+                            _vm._v("Project: "),
+                            _c(
+                              "b-link",
+                              {
+                                attrs: {
+                                  to: {
+                                    path: "projects/details/" + ticket.projectId
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(ticket.project))]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t" +
+                              _vm._s(ticket.description) +
+                              "\n\t\t\t\t\t"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticStyle: { "text-align": "center" } },
+                          [
+                            ticket.attachedFiles
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    staticStyle: { "background-color": "blue" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.downloadFile(ticket.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Download Files")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            ticket.sender ===
+                            _vm.$store.getters.sessionInfo.userName
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    staticStyle: {
+                                      "background-color": "blueviolet"
+                                    },
+                                    attrs: {
+                                      to: {
+                                        path: "tickets/attachfiles/" + ticket.id
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Attach Files")]
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm.userRole === "Administrator" ||
+                        _vm.userRole === "Support"
+                          ? _c(
+                              "div",
+                              { staticStyle: { "text-align": "center" } },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      to: { path: "tickets/edit/" + ticket.id },
+                                      variant: "warning"
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        path: "tickets/delete/" + ticket.id
+                                      },
+                                      variant: "danger"
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
               ])
+            }),
+            _vm._v(" "),
+            _c("b-pagination-nav", {
+              staticClass: "pagination-buttons",
+              attrs: {
+                "base-url": "tickets#",
+                "number-of-pages": _vm.allTickets.totalPages
+              },
+              model: {
+                value: _vm.currentPage,
+                callback: function($$v) {
+                  _vm.currentPage = $$v
+                },
+                expression: "currentPage"
+              }
+            })
+          ],
+          2
+        )
+      : _c("p", { staticStyle: { "text-align": "center" } }, [
+          _c("em", [_vm._v("No active tickets.")])
         ])
   ])
 }
@@ -59313,7 +59183,7 @@ var render = function() {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _vm.createMessageViewModel.tickets.length
+      _vm.hasTickets
         ? _c(
             "b-form",
             {

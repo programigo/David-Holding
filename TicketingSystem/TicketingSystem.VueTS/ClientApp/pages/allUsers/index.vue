@@ -1,6 +1,6 @@
 ﻿<template>
 	<div>
-		<div v-if="allUsers.users.length">
+		<div v-if="hasUsers">
 			<h1 class="form-title">User Administration</h1>
 			<br />
 			<table id="all-users" class="table table-hover table-bordered">
@@ -37,7 +37,6 @@
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
 		<p v-else>There are no registered users.</p>
 	</div>

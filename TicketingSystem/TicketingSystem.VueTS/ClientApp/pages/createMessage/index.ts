@@ -26,8 +26,12 @@ export default class CreateMessage extends Vue {
 		{ text: 'Published', value: MessageState.Published.toString() }
 	];
 
-	get hasError(): boolean {
+	private get hasError(): boolean {
 		return this.error !== null;
+	}
+
+	private get hasTickets(): boolean {
+		return this.createMessageViewModel.tickets !== null;
 	}
 
 	private get userRole(): string {
