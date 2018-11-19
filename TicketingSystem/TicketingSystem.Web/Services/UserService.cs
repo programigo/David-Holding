@@ -16,6 +16,7 @@ using UserLoginInfo = TicketingSystem.Services.UserLoginInfo;
 using System.Linq;
 using DATA = TicketingSystem.Data;
 using Microsoft.EntityFrameworkCore;
+using IdentityRole = TicketingSystem.Services.IdentityRole;
 
 namespace TicketingSystem.Web.Services
 {
@@ -314,13 +315,18 @@ namespace TicketingSystem.Web.Services
             return returnRes;
         }
 
-        public async Task<Microsoft.AspNetCore.Identity.IdentityRole> GetUserRole(string id)
+        public async Task<IdentityRole> GetUserRole(string id)
         {
             var roleId = await this.db.UserRoles.Where(r => r.UserId == id).FirstOrDefaultAsync();
 
             var role = await this.db.Roles.Where(r => r.Id == roleId.RoleId).FirstOrDefaultAsync();
 
-            return role;
+            var result = new IdentityRole
+            {
+                Name = role.Name
+            };
+
+            return result;
         }
     }
 }

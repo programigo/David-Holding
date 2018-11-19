@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -9,7 +8,7 @@ namespace TicketingSystem.Services
     {
         IdentityOptionsModel Options { get; set; }
 
-        Task<Microsoft.AspNetCore.Identity.IdentityRole> GetUserRole(string id);
+        Task<IdentityRole> GetUserRole(string id);
 
         Task<User> FindByIdAsync(string userId);
 
