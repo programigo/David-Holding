@@ -3,12 +3,12 @@ using System;
 
 namespace TicketingSystem.VueTS.Models
 {
-    public class ErrorViewModel
-    {
-        [JsonProperty("requestId")]
-        public string RequestId { get; set; }
+	public class ErrorViewModel
+	{
+		[JsonProperty("requestId")]
+		public string RequestId { get; set; }
 
-        [JsonProperty("showRequestId")]
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+		[JsonProperty("showRequestId")]
+		public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+	}
 }

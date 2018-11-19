@@ -15,160 +15,160 @@ using SignInResult = TicketingSystem.Services.SignInResult;
 
 namespace TicketingSystem.VueTS.Services
 {
-    public class SignInService : SignInManager<DATA_MODELS.User>, ISignInService
-    {
-        public SignInService(UserManager<DATA_MODELS.User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<DATA_MODELS.User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<DATA_MODELS.User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
-        {
-        }
+	public class SignInService : SignInManager<DATA_MODELS.User>, ISignInService
+	{
+		public SignInService(UserManager<DATA_MODELS.User> userManager, IHttpContextAccessor contextAccessor, IUserClaimsPrincipalFactory<DATA_MODELS.User> claimsFactory, IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<DATA_MODELS.User>> logger, IAuthenticationSchemeProvider schemes) : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
+		{
+		}
 
-        public AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl)
-        {
-            var res = base.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+		public AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl)
+		{
+			var res = base.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
 
-            var returnRes = new AuthenticationProperties
-            {
-                IsPersistent = res.IsPersistent,
-                RedirectUri = res.RedirectUri,
-                Items = res.Items
-            };
+			var returnRes = new AuthenticationProperties
+			{
+				IsPersistent = res.IsPersistent,
+				RedirectUri = res.RedirectUri,
+				Items = res.Items
+			};
 
-            return returnRes;
-        }
-        
+			return returnRes;
+		}
 
-        public async Task<ExternalLoginInfo> GetExternalLoginInfoAsync()
-        {
-            var res = await base.GetExternalLoginInfoAsync();
 
-            var returnRes = new ExternalLoginInfo(res.Principal, res.LoginProvider, res.ProviderKey, res.ProviderDisplayName);
+		public async Task<ExternalLoginInfo> GetExternalLoginInfoAsync()
+		{
+			var res = await base.GetExternalLoginInfoAsync();
 
-            return returnRes;
-        }
+			var returnRes = new ExternalLoginInfo(res.Principal, res.LoginProvider, res.ProviderKey, res.ProviderDisplayName);
 
-        public bool IsSignedIn()
-        {
-            return base.IsSignedIn(ClaimsPrincipal.Current);
-        }
+			return returnRes;
+		}
 
-        public async Task SignInAsync(User signInUser, bool isPersistent)
-        {
-            DATA_MODELS.User returnUser = await UserManager.FindByIdAsync(signInUser.Id);
-        }
+		public bool IsSignedIn()
+		{
+			return base.IsSignedIn(ClaimsPrincipal.Current);
+		}
 
-        AuthenticationProperties ISignInService.ConfigureExternalAuthenticationProperties(string provider, string redirectUrl, string userId)
-        {
-            var res = base.ConfigureExternalAuthenticationProperties(provider, redirectUrl, userId);
+		public async Task SignInAsync(User signInUser, bool isPersistent)
+		{
+			DATA_MODELS.User returnUser = await UserManager.FindByIdAsync(signInUser.Id);
+		}
 
-            var returnRes = new AuthenticationProperties
-            {
-                IsPersistent = res.IsPersistent,
-                RedirectUri = res.RedirectUri,
-                Items = res.Items
-            };
+		AuthenticationProperties ISignInService.ConfigureExternalAuthenticationProperties(string provider, string redirectUrl, string userId)
+		{
+			var res = base.ConfigureExternalAuthenticationProperties(provider, redirectUrl, userId);
 
-            return returnRes;
-        }
+			var returnRes = new AuthenticationProperties
+			{
+				IsPersistent = res.IsPersistent,
+				RedirectUri = res.RedirectUri,
+				Items = res.Items
+			};
 
-        async Task<SignInResult> ISignInService.ExternalLoginSignInAsync(string loginProvider, string providerKey, bool isPersistent, bool bypassTwoFactor)
-        {
-            var res = await base.ExternalLoginSignInAsync(loginProvider, providerKey, isPersistent, bypassTwoFactor);
+			return returnRes;
+		}
 
-            var returnRes = new SignInResult
-            {
-                Succeeded = res.Succeeded,
-                IsLockedOut = res.IsLockedOut,
-                IsNotAllowed = res.IsNotAllowed,
-                RequiresTwoFactor = res.RequiresTwoFactor
-            };
+		async Task<SignInResult> ISignInService.ExternalLoginSignInAsync(string loginProvider, string providerKey, bool isPersistent, bool bypassTwoFactor)
+		{
+			var res = await base.ExternalLoginSignInAsync(loginProvider, providerKey, isPersistent, bypassTwoFactor);
 
-            return returnRes;
-        }
+			var returnRes = new SignInResult
+			{
+				Succeeded = res.Succeeded,
+				IsLockedOut = res.IsLockedOut,
+				IsNotAllowed = res.IsNotAllowed,
+				RequiresTwoFactor = res.RequiresTwoFactor
+			};
 
-        async Task<IEnumerable<AuthenticationScheme>> ISignInService.GetExternalAuthenticationSchemesAsync()
-        {
-            var res = await base.GetExternalAuthenticationSchemesAsync();
+			return returnRes;
+		}
 
-            var returnRes = new List<AuthenticationScheme>();
+		async Task<IEnumerable<AuthenticationScheme>> ISignInService.GetExternalAuthenticationSchemesAsync()
+		{
+			var res = await base.GetExternalAuthenticationSchemesAsync();
 
-            foreach (var scheme in res)
-            {
-                var systemScheme = new AuthenticationScheme(scheme.Name, scheme.DisplayName, scheme.HandlerType);
+			var returnRes = new List<AuthenticationScheme>();
 
-                returnRes.Add(systemScheme);
-            }
+			foreach (var scheme in res)
+			{
+				var systemScheme = new AuthenticationScheme(scheme.Name, scheme.DisplayName, scheme.HandlerType);
 
-            return returnRes;
-        }
+				returnRes.Add(systemScheme);
+			}
 
-        async Task<ExternalLoginInfo> ISignInService.GetExternalLoginInfoAsync(string id)
-        {
-            var res = await base.GetExternalLoginInfoAsync(id);
+			return returnRes;
+		}
 
-            var returnRes = new ExternalLoginInfo(res.Principal, res.LoginProvider, res.ProviderKey, res.ProviderDisplayName);
+		async Task<ExternalLoginInfo> ISignInService.GetExternalLoginInfoAsync(string id)
+		{
+			var res = await base.GetExternalLoginInfoAsync(id);
 
-            return returnRes;
-        }
+			var returnRes = new ExternalLoginInfo(res.Principal, res.LoginProvider, res.ProviderKey, res.ProviderDisplayName);
 
-        async Task<User> ISignInService.GetTwoFactorAuthenticationUserAsync()
-        {
-            var dataUser = await base.GetTwoFactorAuthenticationUserAsync();
+			return returnRes;
+		}
 
-            var returnUser = new User
-            {
-                Id = dataUser.Id,
-                UserName = dataUser.UserName,
-                Name = dataUser.Name,
-                Email = dataUser.Email,
-                IsApproved = dataUser.IsApproved,
-                SecurityStamp = dataUser.SecurityStamp
-            };
+		async Task<User> ISignInService.GetTwoFactorAuthenticationUserAsync()
+		{
+			var dataUser = await base.GetTwoFactorAuthenticationUserAsync();
 
-            return returnUser;
-        }
+			var returnUser = new User
+			{
+				Id = dataUser.Id,
+				UserName = dataUser.UserName,
+				Name = dataUser.Name,
+				Email = dataUser.Email,
+				IsApproved = dataUser.IsApproved,
+				SecurityStamp = dataUser.SecurityStamp
+			};
 
-        async Task<SignInResult> ISignInService.PasswordSignInAsync(string username, string password, bool lockoutOnFailure)
-        {
-            var res = await base.PasswordSignInAsync(username, password, false, lockoutOnFailure);
+			return returnUser;
+		}
 
-            var returnRes = new SignInResult
-            {
-                Succeeded = res.Succeeded,
-                IsLockedOut = res.IsLockedOut,
-                IsNotAllowed = res.IsNotAllowed,
-                RequiresTwoFactor = res.RequiresTwoFactor
-            };
+		async Task<SignInResult> ISignInService.PasswordSignInAsync(string username, string password, bool lockoutOnFailure)
+		{
+			var res = await base.PasswordSignInAsync(username, password, false, lockoutOnFailure);
 
-            return returnRes;
-        }
+			var returnRes = new SignInResult
+			{
+				Succeeded = res.Succeeded,
+				IsLockedOut = res.IsLockedOut,
+				IsNotAllowed = res.IsNotAllowed,
+				RequiresTwoFactor = res.RequiresTwoFactor
+			};
 
-        async Task<SignInResult> ISignInService.TwoFactorAuthenticatorSignInAsync(string authenticatorCode, bool rememberMe, bool rememberMachine)
-        {
-            var res = await base.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, rememberMachine);
+			return returnRes;
+		}
 
-            var returnRes = new SignInResult
-            {
-                Succeeded = res.Succeeded,
-                IsLockedOut = res.IsLockedOut,
-                IsNotAllowed = res.IsNotAllowed,
-                RequiresTwoFactor = res.RequiresTwoFactor
-            };
+		async Task<SignInResult> ISignInService.TwoFactorAuthenticatorSignInAsync(string authenticatorCode, bool rememberMe, bool rememberMachine)
+		{
+			var res = await base.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, rememberMachine);
 
-            return returnRes;
-        }
+			var returnRes = new SignInResult
+			{
+				Succeeded = res.Succeeded,
+				IsLockedOut = res.IsLockedOut,
+				IsNotAllowed = res.IsNotAllowed,
+				RequiresTwoFactor = res.RequiresTwoFactor
+			};
 
-        async Task<SignInResult> ISignInService.TwoFactorRecoveryCodeSignInAsync(string recoveryCode)
-        {
-            var res = await base.TwoFactorRecoveryCodeSignInAsync(recoveryCode);
+			return returnRes;
+		}
 
-            var returnRes = new SignInResult
-            {
-                Succeeded = res.Succeeded,
-                IsLockedOut = res.IsLockedOut,
-                IsNotAllowed = res.IsNotAllowed,
-                RequiresTwoFactor = res.RequiresTwoFactor
-            };
+		async Task<SignInResult> ISignInService.TwoFactorRecoveryCodeSignInAsync(string recoveryCode)
+		{
+			var res = await base.TwoFactorRecoveryCodeSignInAsync(recoveryCode);
 
-            return returnRes;
-        }
-    }
+			var returnRes = new SignInResult
+			{
+				Succeeded = res.Succeeded,
+				IsLockedOut = res.IsLockedOut,
+				IsNotAllowed = res.IsNotAllowed,
+				RequiresTwoFactor = res.RequiresTwoFactor
+			};
+
+			return returnRes;
+		}
+	}
 }

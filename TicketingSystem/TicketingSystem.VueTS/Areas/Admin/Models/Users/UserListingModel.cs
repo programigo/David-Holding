@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace TicketingSystem.VueTS.Areas.Admin.Models.Users
 {
-    public class UserListingModel
-    {
-        [JsonProperty("users")]
-        public IEnumerable<AdminUserListingModel> Users { get; set; }
+	public class UserListingModel
+	{
+		[JsonProperty("users")]
+		public IEnumerable<AdminUserListingModel> Users { get; set; }
 
-        [JsonProperty("roles")]
-        public IEnumerable<SelectListItem> Roles { get; set; }
-    }
+		[JsonProperty("roles")]
+		public IEnumerable<SelectListItem> Roles { get; set; }
+	}
 }

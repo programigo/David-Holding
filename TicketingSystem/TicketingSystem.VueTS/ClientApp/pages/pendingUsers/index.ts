@@ -9,40 +9,40 @@ Vue.use(VeeValidate);
 @Component
 
 export default class PendingUsers extends Vue {
-    pendingUsers: UserPendingViewModel = {
-        users: null
-    }
+	pendingUsers: UserPendingViewModel = {
+		users: null
+	}
 
-    public async mounted(): Promise<api.UserPendingModel> {
-        return await this.getPendingUsers();
-    }
+	public async mounted(): Promise<api.UserPendingModel> {
+		return await this.getPendingUsers();
+	}
 
-    public async updated(): Promise<api.UserPendingModel> {
-        return await this.getPendingUsers();
-    }
+	public async updated(): Promise<api.UserPendingModel> {
+		return await this.getPendingUsers();
+	}
 
-    private async getPendingUsers(): Promise<api.UserPendingModel> {
-        const response: api.UserPendingModel = await api.users.pending();
+	private async getPendingUsers(): Promise<api.UserPendingModel> {
+		const response: api.UserPendingModel = await api.users.pending();
 
-        this.pendingUsers.users = response.users;
+		this.pendingUsers.users = response.users;
 
-        return response;
-    }
+		return response;
+	}
 
-    private async approveUser(id: string): Promise<void> {
-        const result = await api.users.approve(id);
+	private async approveUser(id: string): Promise<void> {
+		const result = await api.users.approve(id);
 
-        return result;
-    }
+		return result;
+	}
 }
 
 interface UserPendingViewModel {
-    users: AdminUserListingViewModel[];
+	users: AdminUserListingViewModel[];
 }
 
 interface AdminUserListingViewModel {
-    id: string;
-    username: string;
-    email: string;
-    isApproved: boolean;
+	id: string;
+	username: string;
+	email: string;
+	isApproved: boolean;
 }

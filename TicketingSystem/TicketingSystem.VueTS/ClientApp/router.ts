@@ -27,54 +27,54 @@ import CreateMessage from './pages/createMessage';
 import MessageAttachFiles from './pages/messageAttachFiles';
 
 const routes = [
-    { name: 'home', path: '/', component: Home, meta: { requiresAuth: true } },
-    { name: 'login', path: '/login', component: Login, meta: { requiresAuth: false } },
-    { name: 'register', path: '/register', component: Register, meta: { requiresAuth: false } },
-    { name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
-    { name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true } },
-    { name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },
-    { name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
-    { name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
-    { name: 'users', path: '/users', component: AllUsers, meta: { requiresAuth: true } },
-    { name: 'users-addToRole', path: '/users/addtorole', component: AllUsers, meta: { requiresAuth: true } },
-    { name: 'register-user', path: '/users/register', component: RegisterUser, meta: { requiresAuth: true } },
-    { name: 'user-changeData', path: '/users/changeuserdata/:userId', component: ChangeUserData, meta: { requiresAuth: true } },
-    { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true } },
-    { name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
-    { name: 'tickets', path: '/tickets', component: Tickets, meta: { requiresAuth: true } },
-    { name: 'ticket-create', path: '/tickets/create', component: CreateTicket, meta: { requiresAuth: true } },
-    { name: 'ticket-details', path: '/tickets/details/:ticketId', component: TicketDetails, meta: { requiresAuth: true } },
-    { name: 'ticket-edit', path: '/tickets/edit/:ticketId', component: EditTicket, meta: { requiresAuth: true } },
-    { name: 'ticket-delete', path: '/tickets/delete/:ticketId', component: DeleteTicket, meta: { requiresAuth: true } },
-    { name: 'ticket-attach-files', path: '/tickets/attachfiles/:ticketId', component: TicketAttachFiles, meta: { requiresAuth: true } },
-    { name: 'message-create', path: '/messages/create', component: CreateMessage, meta: { requiresAuth: true } },
-    { name: 'message-attach-files', path: '/messages/attachfiles/:messageId', component: MessageAttachFiles, meta: { requiresAuth: true } },
+	{ name: 'home', path: '/', component: Home, meta: { requiresAuth: true } },
+	{ name: 'login', path: '/login', component: Login, meta: { requiresAuth: false } },
+	{ name: 'register', path: '/register', component: Register, meta: { requiresAuth: false } },
+	{ name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
+	{ name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true } },
+	{ name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },
+	{ name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
+	{ name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
+	{ name: 'users', path: '/users', component: AllUsers, meta: { requiresAuth: true } },
+	{ name: 'users-addToRole', path: '/users/addtorole', component: AllUsers, meta: { requiresAuth: true } },
+	{ name: 'register-user', path: '/users/register', component: RegisterUser, meta: { requiresAuth: true } },
+	{ name: 'user-changeData', path: '/users/changeuserdata/:userId', component: ChangeUserData, meta: { requiresAuth: true } },
+	{ name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true } },
+	{ name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
+	{ name: 'tickets', path: '/tickets', component: Tickets, meta: { requiresAuth: true } },
+	{ name: 'ticket-create', path: '/tickets/create', component: CreateTicket, meta: { requiresAuth: true } },
+	{ name: 'ticket-details', path: '/tickets/details/:ticketId', component: TicketDetails, meta: { requiresAuth: true } },
+	{ name: 'ticket-edit', path: '/tickets/edit/:ticketId', component: EditTicket, meta: { requiresAuth: true } },
+	{ name: 'ticket-delete', path: '/tickets/delete/:ticketId', component: DeleteTicket, meta: { requiresAuth: true } },
+	{ name: 'ticket-attach-files', path: '/tickets/attachfiles/:ticketId', component: TicketAttachFiles, meta: { requiresAuth: true } },
+	{ name: 'message-create', path: '/messages/create', component: CreateMessage, meta: { requiresAuth: true } },
+	{ name: 'message-attach-files', path: '/messages/attachfiles/:messageId', component: MessageAttachFiles, meta: { requiresAuth: true } },
 ];
 
 export const router = new VueRouter({
-    mode: 'history',
-    routes: routes
+	mode: 'history',
+	routes: routes
 });
 
 router.beforeEach((to: Route, from: Route, next) => {
-    const authRequired: boolean = to.matched.some((route) => route.meta.auth);
+	const authRequired: boolean = to.matched.some((route) => route.meta.auth);
 
-    if (store.state.sessionInfo) {
-        if (to.name === "login") {
-            next({
-                path: "home"
-            });
-        } else {
-            next();
-        }
-    } else if (authRequired) {
-        next({
-            path: "login",
-            query: {
-                redirectUrl: to.path
-            }
-        });
-    } else {
-        next();
-    }
+	if (store.state.sessionInfo) {
+		if (to.name === "login") {
+			next({
+				path: "home"
+			});
+		} else {
+			next();
+		}
+	} else if (authRequired) {
+		next({
+			path: "login",
+			query: {
+				redirectUrl: to.path
+			}
+		});
+	} else {
+		next();
+	}
 });

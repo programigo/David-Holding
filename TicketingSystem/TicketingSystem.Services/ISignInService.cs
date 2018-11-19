@@ -3,32 +3,32 @@ using System.Threading.Tasks;
 
 namespace TicketingSystem.Services
 {
-    public interface ISignInService
-    {
-        Task<SignInResult> PasswordSignInAsync(string username, string password, bool lockoutOnFailure);
+	public interface ISignInService
+	{
+		Task<SignInResult> PasswordSignInAsync(string username, string password, bool lockoutOnFailure);
 
-        Task<User> GetTwoFactorAuthenticationUserAsync();
+		Task<User> GetTwoFactorAuthenticationUserAsync();
 
-        Task<SignInResult> TwoFactorAuthenticatorSignInAsync(string authenticatorCode, bool rememberMe, bool rememberMachine);
+		Task<SignInResult> TwoFactorAuthenticatorSignInAsync(string authenticatorCode, bool rememberMe, bool rememberMachine);
 
-        Task<SignInResult> TwoFactorRecoveryCodeSignInAsync(string recoveryCode);
+		Task<SignInResult> TwoFactorRecoveryCodeSignInAsync(string recoveryCode);
 
-        Task SignInAsync(User signInUser, bool isPersistent);
+		Task SignInAsync(User signInUser, bool isPersistent);
 
-        Task SignOutAsync();
+		Task SignOutAsync();
 
-        bool IsSignedIn();
+		bool IsSignedIn();
 
-        AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
+		AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
 
-        Task<ExternalLoginInfo> GetExternalLoginInfoAsync();
+		Task<ExternalLoginInfo> GetExternalLoginInfoAsync();
 
-        Task<SignInResult> ExternalLoginSignInAsync(string loginProvider, string providerKey, bool isPersistent, bool bypassTwoFactor);
+		Task<SignInResult> ExternalLoginSignInAsync(string loginProvider, string providerKey, bool isPersistent, bool bypassTwoFactor);
 
-        Task<IEnumerable<AuthenticationScheme>> GetExternalAuthenticationSchemesAsync();
+		Task<IEnumerable<AuthenticationScheme>> GetExternalAuthenticationSchemesAsync();
 
-        AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl, string userId);
+		AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl, string userId);
 
-        Task<ExternalLoginInfo> GetExternalLoginInfoAsync(string id);
-    }
+		Task<ExternalLoginInfo> GetExternalLoginInfoAsync(string id);
+	}
 }

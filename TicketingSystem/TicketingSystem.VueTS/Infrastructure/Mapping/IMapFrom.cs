@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem.VueTS.Infrastructure.Mapping
 {
-    public interface IMapFrom<TModel>
-    {
-    }
+	public interface IMapFrom<TModel>
+	{
+	}
 }

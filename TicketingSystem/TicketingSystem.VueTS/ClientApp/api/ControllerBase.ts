@@ -7,11 +7,11 @@ export abstract class ControllerBase {
 		this._baseUrl = baseUrl;
 	}
 
-    protected async ajaxGet<TRequest, TResponse>(relativeUrl: string, query?: TRequest, responseType?: string): Promise<AxiosResponse<TResponse>> {
+	protected async ajaxGet<TRequest, TResponse>(relativeUrl: string, query?: TRequest, responseType?: string): Promise<AxiosResponse<TResponse>> {
 		const url: string = `${this._baseUrl}/${relativeUrl}`;
 		const config: AxiosRequestConfig = {
-            params: query,
-            responseType: responseType
+			params: query,
+			responseType: responseType
 		};
 
 		const response: AxiosResponse<TResponse> = await axios.get<TResponse>(url, config);

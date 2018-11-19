@@ -8,89 +8,89 @@ using TicketingSystem.Web.Infrastructure.Extensions;
 
 namespace TicketingSystem.Web.Areas.Projects.Controllers
 {
-    [Area("Projects")]
-    public class ProjectsController : Controller
-    {
-        private readonly IAdminProjectService projects;
+	[Area("Projects")]
+	public class ProjectsController : Controller
+	{
+		private readonly IAdminProjectService projects;
 
-        public ProjectsController(IAdminProjectService projects)
-        {
-            this.projects = projects;
-        }
+		public ProjectsController(IAdminProjectService projects)
+		{
+			this.projects = projects;
+		}
 
-        public IActionResult Index(int page = 1)
-        {
-            List<ProjectViewModel> projects = this.projects.All(page)
-                .ProjectTo<ProjectViewModel>().ToList();
+		public IActionResult Index(int page = 1)
+		{
+			List<ProjectViewModel> projects = this.projects.All(page)
+				.ProjectTo<ProjectViewModel>().ToList();
 
-            return View(new ProjectListingViewModel
-            {
-                Projects = projects,
-                TotalProjects = this.projects.Total(),
-                CurrentPage = page
-            });
-        }
-        
-        public IActionResult Create() => View();
+			return View(new ProjectListingViewModel
+			{
+				Projects = projects,
+				TotalProjects = this.projects.Total(),
+				CurrentPage = page
+			});
+		}
 
-        [HttpPost]
-        public IActionResult Create(AddProjectFormModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+		public IActionResult Create() => View();
 
-            this.projects.Create(model.Name, model.Description);
+		[HttpPost]
+		public IActionResult Create(AddProjectFormModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
 
-            TempData.AddSuccessMessage($"Project {model.Name} created successfully");
+			this.projects.Create(model.Name, model.Description);
 
-            return RedirectToAction(nameof(Index));
-        }
+			TempData.AddSuccessMessage($"Project {model.Name} created successfully");
 
-        public IActionResult Details(int id)
-        {
-            ProjectViewModel project = this.projects.Details(id)
-                .ProjectTo<ProjectViewModel>()
-                .FirstOrDefault();
+			return RedirectToAction(nameof(Index));
+		}
 
-            return View(project);
-        }
+		public IActionResult Details(int id)
+		{
+			ProjectViewModel project = this.projects.Details(id)
+				.ProjectTo<ProjectViewModel>()
+				.FirstOrDefault();
 
-        public IActionResult Edit(int id)
-        {
-            ProjectViewModel project = this.projects.Details(id)
-                .ProjectTo<ProjectViewModel>()
-                .FirstOrDefault();
-        
-            if (project == null)
-            {
-                return NotFound();
-            }
+			return View(project);
+		}
 
-            return View(project);
-        }
+		public IActionResult Edit(int id)
+		{
+			ProjectViewModel project = this.projects.Details(id)
+				.ProjectTo<ProjectViewModel>()
+				.FirstOrDefault();
 
-        [HttpPost]
-        public IActionResult Edit(int id, AddProjectFormModel model)
-        {
-            bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
+			if (project == null)
+			{
+				return NotFound();
+			}
 
-            if (!updatedProject)
-            {
-                return NotFound();
-            }
+			return View(project);
+		}
 
-            TempData.AddSuccessMessage($"Project {model.Name} edited successfully");
+		[HttpPost]
+		public IActionResult Edit(int id, AddProjectFormModel model)
+		{
+			bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
 
-            return RedirectToAction(nameof(Index));
-        }
+			if (!updatedProject)
+			{
+				return NotFound();
+			}
 
-        public IActionResult Delete(int id)
-        {
-            this.projects.Delete(id);
+			TempData.AddSuccessMessage($"Project {model.Name} edited successfully");
 
-            return RedirectToAction(nameof(Index));
-        }
-    }
+			return RedirectToAction(nameof(Index));
+		}
+
+		public IActionResult Delete(int id)
+		{
+			this.projects.Delete(id);
+
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }

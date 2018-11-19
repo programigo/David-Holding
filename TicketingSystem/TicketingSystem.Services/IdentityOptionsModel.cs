@@ -1,7 +1,7 @@
 ﻿namespace TicketingSystem.Services
 {
-    public class IdentityOptionsModel
-    {
-        public TokenOptions Tokens { get; set; }
-    }
+	public class IdentityOptionsModel
+	{
+		public TokenOptions Tokens { get; set; }
+	}
 }

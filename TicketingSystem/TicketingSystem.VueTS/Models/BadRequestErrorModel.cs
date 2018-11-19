@@ -2,10 +2,10 @@
 
 namespace TicketingSystem.VueTS.Models
 {
-    [JsonObject("BadRequestErrorModel")]
-    public class BadRequestErrorModel : ErrorModel
-    {
-        [JsonProperty("type")]
-        public BadRequestErrorType Type { get; set; }
-    }
+	[JsonObject("BadRequestErrorModel")]
+	public class BadRequestErrorModel : ErrorModel
+	{
+		[JsonProperty("type")]
+		public BadRequestErrorType Type { get; set; }
+	}
 }

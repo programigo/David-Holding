@@ -1,10 +1,10 @@
 ﻿namespace TicketingSystem.Services
 {
-    public enum TicketType
-    {
-        BugReport,
-        FeatureRequest,
-        AssistanceRequest,
-        Other
-    }
+	public enum TicketType
+	{
+		BugReport,
+		FeatureRequest,
+		AssistanceRequest,
+		Other
+	}
 }

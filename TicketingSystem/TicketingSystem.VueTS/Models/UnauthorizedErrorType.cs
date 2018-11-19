@@ -3,25 +3,25 @@ using Newtonsoft.Json.Converters;
 
 namespace TicketingSystem.VueTS.Models
 {
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum UnauthorizedErrorType
-    {
-        [JsonProperty("noSuchUser")]
-        NoSuchUser,
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum UnauthorizedErrorType
+	{
+		[JsonProperty("noSuchUser")]
+		NoSuchUser,
 
-        [JsonProperty("notApproved")]
-        NotApproved,
+		[JsonProperty("notApproved")]
+		NotApproved,
 
-        [JsonProperty("wrongPassword")]
-        WrongPassword,
+		[JsonProperty("wrongPassword")]
+		WrongPassword,
 
-        [JsonProperty("mustChangePassword")]
-        MustChangePassword,
+		[JsonProperty("mustChangePassword")]
+		MustChangePassword,
 
-        [JsonProperty("passwordHasExpired")]
-        PasswordHasExpired,
+		[JsonProperty("passwordHasExpired")]
+		PasswordHasExpired,
 
-        [JsonProperty("invalidLogOnCredentials")]
-        InvalidLogOnCredentials,
-    }
+		[JsonProperty("invalidLogOnCredentials")]
+		InvalidLogOnCredentials,
+	}
 }

@@ -9,58 +9,58 @@ Vue.use(VeeValidate);
 @Component
 
 export default class Register extends Vue {
-    registerViewModel: RegisterViewModel = {
-        username: null,
-        name: null,
-        email: null,
-        password: null,
-        confirmPassword: null
-    };
+	registerViewModel: RegisterViewModel = {
+		username: null,
+		name: null,
+		email: null,
+		password: null,
+		confirmPassword: null
+	};
 
-    error: string = null;
+	error: string = null;
 
-    get hasError(): boolean {
-        return this.error !== null;
-    }
+	get hasError(): boolean {
+		return this.error !== null;
+	}
 
-    private async register(): Promise<void> {
-        try {
-            const request: api.RegisterRequest = {
-                username: this.registerViewModel.username,
-                name: this.registerViewModel.name,
-                email: this.registerViewModel.email,
-                password: this.registerViewModel.password,
-                confirmPassword: this.registerViewModel.confirmPassword
-            }
+	private async register(): Promise<void> {
+		try {
+			const request: api.RegisterRequest = {
+				username: this.registerViewModel.username,
+				name: this.registerViewModel.name,
+				email: this.registerViewModel.email,
+				password: this.registerViewModel.password,
+				confirmPassword: this.registerViewModel.confirmPassword
+			}
 
-            const response: void = await api.account.register(request);
-            
-            this.$router.push('/login');
+			const response: void = await api.account.register(request);
 
-            return response;
+			this.$router.push('/login');
 
-        } catch (e) {
-            const error = <api.ErrorModel>e.response.data;
-            this.error = error.message;
-        }
-        
-    }
+			return response;
 
-        private validateBeforeRegister(): void {
-        this.$validator.validateAll(this.registerViewModel)
-            .then(result => {
-                if (!result) {
-                } else {
-                    this.register();
-                }
-            });
-    }
+		} catch (e) {
+			const error = <api.ErrorModel>e.response.data;
+			this.error = error.message;
+		}
+
+	}
+
+	private validateBeforeRegister(): void {
+		this.$validator.validateAll(this.registerViewModel)
+			.then(result => {
+				if (!result) {
+				} else {
+					this.register();
+				}
+			});
+	}
 }
 
 interface RegisterViewModel {
-    username: string;
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+	username: string;
+	name: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
 };

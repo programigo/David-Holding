@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "084f1292c2b47242b0f6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "833aa49e11deba92b3b3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -42428,9 +42428,7 @@ var render = function() {
                   [
                     _c("b-nav-item", { attrs: { to: "/login" } }, [
                       _vm._v(
-                        "\n                    " +
-                          _vm._s(_vm.$t("login")) +
-                          "\n                "
+                        "\n\t\t\t\t\t" + _vm._s(_vm.$t("login")) + "\n\t\t\t\t"
                       )
                     ])
                   ],
@@ -42441,19 +42439,15 @@ var render = function() {
                   { staticClass: "form-inline" },
                   [
                     _c("b-nav-text", [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(_vm.$t("hello")) +
-                          ", "
-                      ),
+                      _vm._v("\n\t\t\t\t\t" + _vm._s(_vm.$t("hello")) + ", "),
                       _c("em", [_vm._v(_vm._s(_vm.userName) + " !")])
                     ]),
                     _vm._v(" "),
                     _c("b-nav-item", { on: { click: _vm.logout } }, [
                       _vm._v(
-                        "\n\n                    " +
+                        "\n\n\t\t\t\t\t" +
                           _vm._s(_vm.$t("logout")) +
-                          "\n                "
+                          "\n\t\t\t\t"
                       )
                     ])
                   ],
@@ -54569,9 +54563,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", { staticClass: "card-text" }, [
                           _vm._v(
-                            "\n                        " +
+                            "\n\t\t\t\t\t\t" +
                               _vm._s(project.description) +
-                              "\n                    "
+                              "\n\t\t\t\t\t"
                           )
                         ]),
                         _vm._v(" "),
@@ -54746,9 +54740,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Log in\n    ")
-      ]),
+      _c("h1", { staticClass: "form-title" }, [_vm._v("\n\t\tLog in\n\t")]),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
@@ -55017,9 +55009,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Register\n    ")
-      ]),
+      _c("h1", { staticClass: "form-title" }, [_vm._v("\n\t\tRegister\n\t")]),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
@@ -55530,7 +55520,7 @@ var render = function() {
     "div",
     [
       _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Create Project\n    ")
+        _vm._v("\n\t\tCreate Project\n\t")
       ]),
       _vm._v(" "),
       _c("hr"),
@@ -55787,7 +55777,7 @@ var render = function() {
     "div",
     [
       _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Edit Project\n    ")
+        _vm._v("\n\t\tEdit Project\n\t")
       ]),
       _vm._v(" "),
       _c("hr"),
@@ -56026,7 +56016,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "form-title" }, [
-      _vm._v("\n        Are you sure you want to delete this project ?\n    ")
+      _vm._v("\n\t\tAre you sure you want to delete this project ?\n\t")
     ]),
     _vm._v(" "),
     _c(
@@ -56146,9 +56136,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "card-text" }, [
             _vm._v(
-              "\n            " +
-                _vm._s(_vm.renderProject.description) +
-                "\n        "
+              "\n\t\t\t" + _vm._s(_vm.renderProject.description) + "\n\t\t"
             )
           ]),
           _vm._v(" "),
@@ -56507,7 +56495,7 @@ var render = function() {
     "div",
     [
       _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Register New User\n    ")
+        _vm._v("\n\t\tRegister New User\n\t")
       ]),
       _vm._v(" "),
       _c("hr"),
@@ -56936,9 +56924,7 @@ var render = function() {
     [
       _c("h1", { staticClass: "form-title" }, [
         _vm._v(
-          "\n        User " +
-            _vm._s(_vm.changeDataViewModel.username) +
-            "\n    "
+          "\n\t\tUser " + _vm._s(_vm.changeDataViewModel.username) + "\n\t"
         )
       ]),
       _vm._v(" "),
@@ -57180,7 +57166,7 @@ var render = function() {
     "div",
     [
       _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Change Password\n    ")
+        _vm._v("\n\t\tChange Password\n\t")
       ]),
       _vm._v(" "),
       _c("hr"),
@@ -57661,9 +57647,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("p", { staticClass: "card-text" }, [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n\t\t\t\t\t\t\t" +
                                     _vm._s(ticket.description) +
-                                    "\n                        "
+                                    "\n\t\t\t\t\t\t"
                                 )
                               ]),
                               _vm._v(" "),
@@ -57849,9 +57835,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("p", { staticClass: "card-text" }, [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n\t\t\t\t\t\t\t" +
                                     _vm._s(ticket.description) +
-                                    "\n                        "
+                                    "\n\t\t\t\t\t\t"
                                 )
                               ]),
                               _vm._v(" "),
@@ -58040,7 +58026,7 @@ var render = function() {
     "div",
     [
       _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Create Ticket\n    ")
+        _vm._v("\n\t\tCreate Ticket\n\t")
       ]),
       _vm._v(" "),
       _c("hr"),
@@ -58520,7 +58506,7 @@ var render = function() {
     "div",
     [
       _c("h1", { staticClass: "form-title" }, [
-        _vm._v("\n        Edit Ticket\n    ")
+        _vm._v("\n\t\tEdit Ticket\n\t")
       ]),
       _vm._v(" "),
       _c("hr"),
@@ -58821,7 +58807,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "form-title" }, [
-      _vm._v("\n        Are you sure you want to delete this ticket ?\n    ")
+      _vm._v("\n\t\tAre you sure you want to delete this ticket ?\n\t")
     ]),
     _vm._v(" "),
     _c(
@@ -58962,11 +58948,7 @@ var render = function() {
           _c("hr"),
           _vm._v(" "),
           _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "\n            " +
-                _vm._s(_vm.renderTicket.description) +
-                "\n        "
-            )
+            _vm._v("\n\t\t\t" + _vm._s(_vm.renderTicket.description) + "\n\t\t")
           ]),
           _vm._v(" "),
           _vm.userRole === "Administrator" || _vm.userRole === "Support"
@@ -59053,9 +59035,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("p", { staticClass: "card-text" }, [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n\t\t\t\t\t\t\t" +
                                     _vm._s(message.content) +
-                                    "\n                        "
+                                    "\n\t\t\t\t\t\t"
                                 )
                               ]),
                               _vm._v(" "),

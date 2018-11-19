@@ -10,81 +10,81 @@ Vue.use(VeeValidate);
 @Component
 
 export default class EditTicket extends Vue {
-    editTicketModel: EditTicketViewModel = {
-        title: null,
-        description: null,
-        ticketType: null,
-        ticketState: null
-    };
+	editTicketModel: EditTicketViewModel = {
+		title: null,
+		description: null,
+		ticketType: null,
+		ticketState: null
+	};
 
-    ticketTypes: SelectListItem[] = [
-        { text: 'Bug Report', value: TicketType.BugReport.toString() },
-        { text: 'Feature Request', value: TicketType.FeatureRequest.toString() },
-        { text: 'Assistance Request', value: TicketType.AssistanceRequest.toString() },
-        { text: 'Other', value: TicketType.Other.toString() }
-    ];
+	ticketTypes: SelectListItem[] = [
+		{ text: 'Bug Report', value: TicketType.BugReport.toString() },
+		{ text: 'Feature Request', value: TicketType.FeatureRequest.toString() },
+		{ text: 'Assistance Request', value: TicketType.AssistanceRequest.toString() },
+		{ text: 'Other', value: TicketType.Other.toString() }
+	];
 
-    ticketStates: SelectListItem[] = [
-        { text: 'Draft', value: TicketState.Draft.toString() },
-        { text: 'New', value: TicketState.New.toString() },
-        { text: 'Running', value: TicketState.Running.toString() },
-        { text: 'Completed', value: TicketState.Completed.toString() }
-    ];
+	ticketStates: SelectListItem[] = [
+		{ text: 'Draft', value: TicketState.Draft.toString() },
+		{ text: 'New', value: TicketState.New.toString() },
+		{ text: 'Running', value: TicketState.Running.toString() },
+		{ text: 'Completed', value: TicketState.Completed.toString() }
+	];
 
-    public async mounted(): Promise<void> {
-        await this.getTicketInfo();
-    }
+	public async mounted(): Promise<void> {
+		await this.getTicketInfo();
+	}
 
-    private get id(): number {
-        return Number(this.$route.params.ticketId);
-    }
+	private get id(): number {
+		return Number(this.$route.params.ticketId);
+	}
 
-    private async getTicketInfo(): Promise<api.TicketModel> {
-        const request: number = this.id;
+	private async getTicketInfo(): Promise<api.TicketModel> {
+		const request: number = this.id;
 
-        const response: api.TicketModel = await api.tickets.details(request);
+		const response: api.TicketModel = await api.tickets.details(request);
 
-        this.editTicketModel.title = response.title;
-        this.editTicketModel.description = response.description;
-        this.editTicketModel.ticketType = response.ticketType;
-        this.editTicketModel.ticketState = response.ticketState;
+		this.editTicketModel.title = response.title;
+		this.editTicketModel.description = response.description;
+		this.editTicketModel.ticketType = response.ticketType;
+		this.editTicketModel.ticketState = response.ticketState;
 
-        return response;
-    }
+		return response;
+	}
 
-    private async editTicket(): Promise<void> {
-        const request: api.EditTicketFormModel = {
-            title: this.editTicketModel.title,
-            description: this.editTicketModel.description,
-            ticketType: this.editTicketModel.ticketType,
-            ticketState: this.editTicketModel.ticketState
-        };
+	private async editTicket(): Promise<void> {
+		const request: api.EditTicketFormModel = {
+			title: this.editTicketModel.title,
+			description: this.editTicketModel.description,
+			ticketType: this.editTicketModel.ticketType,
+			ticketState: this.editTicketModel.ticketState
+		};
 
-        const response: void = await api.tickets.edit(this.id, request);
+		const response: void = await api.tickets.edit(this.id, request);
 
-        this.$router.push('/tickets');
+		this.$router.push('/tickets');
 
-        return response;
-    }
+		return response;
+	}
 }
 
 interface EditTicketViewModel {
-    title: string,
-    description: string,
-    ticketType: TicketType,
-    ticketState: TicketState
+	title: string,
+	description: string,
+	ticketType: TicketType,
+	ticketState: TicketState
 }
 
 enum TicketType {
-    BugReport,
-    FeatureRequest,
-    AssistanceRequest,
-    Other
+	BugReport,
+	FeatureRequest,
+	AssistanceRequest,
+	Other
 }
 
 enum TicketState {
-    Draft,
-    New,
-    Running,
-    Completed
+	Draft,
+	New,
+	Running,
+	Completed
 }

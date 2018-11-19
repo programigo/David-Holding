@@ -9,24 +9,24 @@ import * as actions from '../../store/actions';
 import { AppState, SessionInfo } from '../../store/types';
 
 @Component({
-    name: "the-nav-menu",
-    i18n: {
-        messages: messages
-    }
+	name: "the-nav-menu",
+	i18n: {
+		messages: messages
+	}
 })
 export default class TheNavMenu extends Vue {
 	private userName: string = null;
 
-    private get isLoggedIn(): boolean {
+	private get isLoggedIn(): boolean {
 		return this.$store.getters.isLoggedIn;
-    }
+	}
 
-    private get userRole(): string {
-        return this.$store.getters.sessionInfo.role;
-    }
+	private get userRole(): string {
+		return this.$store.getters.sessionInfo.role;
+	}
 
 	public mounted(): void {
-        this.populateData();
+		this.populateData();
 	}
 
 	public updated(): void {

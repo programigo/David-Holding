@@ -13,8 +13,8 @@ Vue.use(VueI18n);
 Vue.use(BootstrapVue);
 
 export default new Vue({
-    el: '#app-root',
-    store: store,
-    router: router,
-    render: h => h(App)
+	el: '#app-root',
+	store: store,
+	router: router,
+	render: h => h(App)
 });

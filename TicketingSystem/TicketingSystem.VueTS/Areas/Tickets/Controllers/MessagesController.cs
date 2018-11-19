@@ -15,158 +15,158 @@ using WEB_ENUMS = TicketingSystem.VueTS.Common.Enums;
 
 namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 {
-    [Authorize]
-    [Route("api/messages")]
+	[Authorize]
+	[Route("api/messages")]
 
-    public class MessagesController : ControllerBase
-    {
-        private readonly IMessageService messages;
-        private readonly ITicketService tickets;
-        private readonly IUserService userManager;
+	public class MessagesController : ControllerBase
+	{
+		private readonly IMessageService messages;
+		private readonly ITicketService tickets;
+		private readonly IUserService userManager;
 
-        public MessagesController(IMessageService messages, ITicketService tickets, IUserService userManager)
-        {
-            this.messages = messages ?? throw new ArgumentNullException(nameof(messages));
-            this.tickets = tickets ?? throw new ArgumentNullException(nameof(tickets));
-            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-        }
+		public MessagesController(IMessageService messages, ITicketService tickets, IUserService userManager)
+		{
+			this.messages = messages ?? throw new ArgumentNullException(nameof(messages));
+			this.tickets = tickets ?? throw new ArgumentNullException(nameof(tickets));
+			this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+		}
 
-        [HttpPost("create")]
-        public IActionResult Create([FromBody]AddMessageFormModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                var error = ModelState.ToBadRequestErrorModel();
-                return BadRequest(ModelState.ToBadRequestErrorModel());
-            }
+		[HttpPost("create")]
+		public IActionResult Create([FromBody]AddMessageFormModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				var error = ModelState.ToBadRequestErrorModel();
+				return BadRequest(ModelState.ToBadRequestErrorModel());
+			}
 
-            string authorId = this.userManager.GetUserId(User);
+			string authorId = this.userManager.GetUserId(User);
 
-            MessageState messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
+			MessageState messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
 
-            this.messages.Create(model.Content, DateTime.UtcNow, messageState, model.TicketId, authorId);
-        
-            return StatusCode(201);
-        }
+			this.messages.Create(model.Content, DateTime.UtcNow, messageState, model.TicketId, authorId);
 
-        public IActionResult AttachFiles(int id)
-        {
-            MessageViewModel message = this.messages.Details(id)
-                .Select(ConvertMessage)
-                .FirstOrDefault();
+			return StatusCode(201);
+		}
 
-            return Ok(message);
-        }
+		public IActionResult AttachFiles(int id)
+		{
+			MessageViewModel message = this.messages.Details(id)
+				.Select(ConvertMessage)
+				.FirstOrDefault();
 
-        [HttpPost("attachfiles/{id}")]
-        public IActionResult AttachFiles([FromRoute(Name = "id")] int id, IFormCollection files)
-        {
-            foreach (var file in files.Files)
-            {
-                if (!file.FileName.EndsWith(".zip")
-                || file.Length > DataConstants.AttachedFileLength)
-                {
-        
-                    return BadRequest();
-                }
-        
-                byte[] fileContents = file.ToByteArray();
-        
-                bool success = this.messages.SaveFiles(id, fileContents);
-        
-                if (!success)
-                {
-                    return BadRequest();
-                }
-            }
-        
-            return Ok();
-        }
+			return Ok(message);
+		}
 
-        [HttpGet("downloadattached/{id}")]
-        public IActionResult DownloadAttached([FromRoute(Name = "id")] int id)
-        {
-            byte[] messageFiles = this.messages.GetAttachedFiles(id);
-        
-            if (messageFiles == null)
-            {
-                return BadRequest();
-            }
-        
-            return File(messageFiles, "application/zip");
-        }
+		[HttpPost("attachfiles/{id}")]
+		public IActionResult AttachFiles([FromRoute(Name = "id")] int id, IFormCollection files)
+		{
+			foreach (var file in files.Files)
+			{
+				if (!file.FileName.EndsWith(".zip")
+				|| file.Length > DataConstants.AttachedFileLength)
+				{
 
-        [HttpGet("tickets")]
-        public IEnumerable<SelectListItem> GetTickets()
-        {
-            List<TicketViewModel> tickets = this.tickets.DropdownAll()
-                .Select(ConvertTicket)
-                .ToList();
+					return BadRequest();
+				}
 
-            var id = User.GetUserId();
+				byte[] fileContents = file.ToByteArray();
 
-            List<SelectListItem> ticketListItems = new List<SelectListItem>();
+				bool success = this.messages.SaveFiles(id, fileContents);
 
-            bool isAuthorized = User.IsInRole("Administrator") || User.IsInRole("Support");
+				if (!success)
+				{
+					return BadRequest();
+				}
+			}
 
-            if (!isAuthorized)
-            {
-                ticketListItems = tickets
-                .Where(t => t.SenderId == User.GetUserId() && t.TicketState != WEB_ENUMS.TicketState.Completed)
-                .Select(t => new SelectListItem
-                {
-                    Text = t.Title,
-                    Value = t.Id.ToString()
-                })
-                .ToList();
-            }
-            else
-            {
-                ticketListItems = tickets
-                .Where(t => t.TicketState != WEB_ENUMS.TicketState.Completed)
-                .Select(t => new SelectListItem
-                {
-                    Text = t.Title,
-                    Value = t.Id.ToString()
-                })
-                .ToList();
-            }
+			return Ok();
+		}
 
-            var result = ticketListItems.ToArray();
+		[HttpGet("downloadattached/{id}")]
+		public IActionResult DownloadAttached([FromRoute(Name = "id")] int id)
+		{
+			byte[] messageFiles = this.messages.GetAttachedFiles(id);
 
-            return result;
-        }
+			if (messageFiles == null)
+			{
+				return BadRequest();
+			}
 
-        private static MessageViewModel ConvertMessage(MessageListingServiceModel serviceMessage)
-        {
-            var message = new MessageViewModel
-            {
-                Id = serviceMessage.Id,
-                PostDate = serviceMessage.PostDate,
-                Author = serviceMessage.Author,
-                Content = serviceMessage.Content
-            };
+			return File(messageFiles, "application/zip");
+		}
 
-            return message;
-        }
+		[HttpGet("tickets")]
+		public IEnumerable<SelectListItem> GetTickets()
+		{
+			List<TicketViewModel> tickets = this.tickets.DropdownAll()
+				.Select(ConvertTicket)
+				.ToList();
 
-        private static TicketViewModel ConvertTicket(TicketListingServiceModel serviceTicket)
-        {
-            var ticket = new TicketViewModel
-            {
-                Id = serviceTicket.Id,
-                PostTime = serviceTicket.PostTime,
-                Project = serviceTicket.Project,
-                Sender = serviceTicket.Sender,
-                SenderId = serviceTicket.SenderId,
-                TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), serviceTicket.TicketType.ToString()),
-                TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), serviceTicket.TicketState.ToString()),
-                Title = serviceTicket.Title,
-                Description = serviceTicket.Description,
-                AttachedFiles = serviceTicket.AttachedFiles
-            };
+			var id = User.GetUserId();
 
-            return ticket;
-        }
-    }
+			List<SelectListItem> ticketListItems = new List<SelectListItem>();
+
+			bool isAuthorized = User.IsInRole("Administrator") || User.IsInRole("Support");
+
+			if (!isAuthorized)
+			{
+				ticketListItems = tickets
+				.Where(t => t.SenderId == User.GetUserId() && t.TicketState != WEB_ENUMS.TicketState.Completed)
+				.Select(t => new SelectListItem
+				{
+					Text = t.Title,
+					Value = t.Id.ToString()
+				})
+				.ToList();
+			}
+			else
+			{
+				ticketListItems = tickets
+				.Where(t => t.TicketState != WEB_ENUMS.TicketState.Completed)
+				.Select(t => new SelectListItem
+				{
+					Text = t.Title,
+					Value = t.Id.ToString()
+				})
+				.ToList();
+			}
+
+			var result = ticketListItems.ToArray();
+
+			return result;
+		}
+
+		private static MessageViewModel ConvertMessage(MessageListingServiceModel serviceMessage)
+		{
+			var message = new MessageViewModel
+			{
+				Id = serviceMessage.Id,
+				PostDate = serviceMessage.PostDate,
+				Author = serviceMessage.Author,
+				Content = serviceMessage.Content
+			};
+
+			return message;
+		}
+
+		private static TicketViewModel ConvertTicket(TicketListingServiceModel serviceTicket)
+		{
+			var ticket = new TicketViewModel
+			{
+				Id = serviceTicket.Id,
+				PostTime = serviceTicket.PostTime,
+				Project = serviceTicket.Project,
+				Sender = serviceTicket.Sender,
+				SenderId = serviceTicket.SenderId,
+				TicketType = (WEB_ENUMS.TicketType)Enum.Parse(typeof(WEB_ENUMS.TicketType), serviceTicket.TicketType.ToString()),
+				TicketState = (WEB_ENUMS.TicketState)Enum.Parse(typeof(WEB_ENUMS.TicketState), serviceTicket.TicketState.ToString()),
+				Title = serviceTicket.Title,
+				Description = serviceTicket.Description,
+				AttachedFiles = serviceTicket.AttachedFiles
+			};
+
+			return ticket;
+		}
+	}
 }

@@ -9,27 +9,27 @@ Vue.use(VeeValidate);
 @Component
 
 export default class ChangeUserPassword extends Vue {
-    changePasswordViewModel: AdminUserChangePasswordViewModel = {
-        newPassword: null
-    }
+	changePasswordViewModel: AdminUserChangePasswordViewModel = {
+		newPassword: null
+	}
 
-    private get id(): string {
-        return this.$route.params.userId;
-    }
+	private get id(): string {
+		return this.$route.params.userId;
+	}
 
-    private async changeUserPassword(): Promise<void> {
-        const request: api.AdminUserChangePasswordModel = {
-            newPassword: this.changePasswordViewModel.newPassword
-        }
+	private async changeUserPassword(): Promise<void> {
+		const request: api.AdminUserChangePasswordModel = {
+			newPassword: this.changePasswordViewModel.newPassword
+		}
 
-        const response: void = await api.users.changeUserPassword(this.id, request);
+		const response: void = await api.users.changeUserPassword(this.id, request);
 
-        this.$router.push('/users');
+		this.$router.push('/users');
 
-        return response;
-    }
+		return response;
+	}
 }
 
 interface AdminUserChangePasswordViewModel {
-    newPassword: string;
+	newPassword: string;
 }

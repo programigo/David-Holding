@@ -13,184 +13,186 @@ using IdentityResult = TicketingSystem.Services.IdentityResult;
 
 namespace TicketingSystem.VueTS.Areas.Admin.Controllers
 {
-    [Authorize(Roles = WebConstants.AdministratorRole)]
-    [Route("api/users")]
+	[Authorize(Roles = WebConstants.AdministratorRole)]
+	[Route("api/users")]
 
-    public class UsersController : ControllerBase
-    {
-        private readonly IAdminUserService users;
-        private readonly IUserService userManager;
-        private readonly IRoleService roleManager;
+	public class UsersController : ControllerBase
+	{
+		private readonly IAdminUserService users;
+		private readonly IUserService userManager;
+		private readonly IRoleService roleManager;
 
-        public UsersController(IAdminUserService users, IUserService userManager, IRoleService roleManager)
-        {
-            this.users = users ?? throw new ArgumentNullException(nameof(users));
-            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            this.roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
-        }
+		public UsersController(IAdminUserService users, IUserService userManager, IRoleService roleManager)
+		{
+			this.users = users ?? throw new ArgumentNullException(nameof(users));
+			this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+			this.roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
+		}
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            var users = this.users.GetAllUsers()
-                .ProjectTo<AdminUserListingModel>()
-                .ToArray();
+		[HttpGet]
+		public IActionResult Index()
+		{
+			AdminUserListingModel[] users = this.users.GetAllUsers()
+				.ProjectTo<AdminUserListingModel>()
+				.ToArray();
 
-            var roles = this.roleManager.GetRoles().ToArray();
+			SelectListItem[] roles = this.roleManager.GetRoles().ToArray();
 
-            return Ok(new UserListingModel
-            {
-                Users = users,
-                Roles = roles.Select(r => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
-                {
-                    Text = r.Text,
-                    Value = r.Value
-                })
-            });
-        }
+			var result = new UserListingModel
+			{
+				Users = users,
+				Roles = roles.Select(r => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+				{
+					Text = r.Text,
+					Value = r.Value
+				})
+			};
 
-        [HttpGet("pending")]
-        public IActionResult Pending()
-        {
-            var users = this.users.GetPendingUsers()
-                .ProjectTo<AdminUserListingModel>()
-                .ToArray();
+			return Ok(result);
+		}
 
-            return Ok(new UserPendingModel
-            {
-                Users = users
-            });
-        }
+		[HttpGet("pending")]
+		public IActionResult Pending()
+		{
+			AdminUserListingModel[] users = this.users.GetPendingUsers()
+				.ProjectTo<AdminUserListingModel>()
+				.ToArray();
 
-        [HttpPost("addtorole")]
-        public async Task<IActionResult> AddToRole([FromBody]AddUserToRoleFormModel model)
-        {
-            bool roleExists = await this.roleManager.RoleExistsAsync(model.Role);
-            User user = await this.userManager.FindByIdAsync(model.UserId);
-            bool userExists = user != null;
+			var result = new UserPendingModel
+			{
+				Users = users
+			};
 
-            bool isAlreadyInRole = this.users.IsAlreadyInRole(user.Id);
+			return Ok(result);
+		}
 
-            if (!roleExists || !userExists)
-            {
-                ModelState.AddModelError(string.Empty, "Invalid identity details.");
-            }
+		[HttpPost("addtorole")]
+		public async Task<IActionResult> AddToRole([FromBody]AddUserToRoleFormModel model)
+		{
+			bool roleExists = await this.roleManager.RoleExistsAsync(model.Role);
+			User user = await this.userManager.FindByIdAsync(model.UserId);
+			bool userExists = user != null;
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+			bool isAlreadyInRole = this.users.IsAlreadyInRole(user.Id);
 
-            if (!isAlreadyInRole)
-            {
-                await this.userManager.AddToRoleAsync(user, model.Role);
+			if (!roleExists || !userExists)
+			{
+				ModelState.AddModelError(string.Empty, "Invalid identity details.");
+			}
 
-                return Ok();
-            }
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
 
-            await this.userManager.AddToRoleAsync(user, model.Role);
+			if (!isAlreadyInRole)
+			{
+				await this.userManager.AddToRoleAsync(user, model.Role);
 
-            return Ok();
-        }
+				return Ok();
+			}
 
-        [HttpPost("approve/{id}")]
-        public async Task<IActionResult> Approve([FromRoute(Name = "id")] string id)
-        {
-            User user = await this.userManager.FindByIdAsync(id);
+			await this.userManager.AddToRoleAsync(user, model.Role);
 
-            this.users.Approve(id);
+			return Ok();
+		}
 
-            return Ok();
-        }
+		[HttpPost("approve/{id}")]
+		public async Task<IActionResult> Approve([FromRoute(Name = "id")] string id)
+		{
+			User user = await this.userManager.FindByIdAsync(id);
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.ToBadRequestErrorModel());
-            }
+			if (user == null)
+			{
+				return NotFound("No such user exists.");
+			}
 
-            User user = new User
-            {
-                UserName = model.Username,
-                Email = model.Email,
-                Name = model.Name,
-                IsApproved = true
-            };
+			this.users.Approve(id);
 
-            await userManager.CreateAsync(user, model.Password);
+			return Ok();
+		}
 
-            return Ok();
-        }
+		[HttpPost("register")]
+		public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState.ToBadRequestErrorModel());
+			}
 
-        [HttpPost("remove/{id}")]
-        public async Task<IActionResult> Remove([FromRoute(Name = "id")] string id)
-        {
-            User user = await this.userManager.FindByIdAsync(id);
+			User user = new User
+			{
+				UserName = model.Username,
+				Email = model.Email,
+				Name = model.Name,
+				IsApproved = true
+			};
 
-            this.users.Remove(id);
+			await userManager.CreateAsync(user, model.Password);
 
-            return Ok();
-        }
+			return Ok();
+		}
 
-        [HttpGet("changeuserdata/{id}")]
-        public IActionResult ChangeUserData([FromRoute(Name = "id")] string id)
-        {
-            UserChangeDataModel user = this.users.Details(id)
-                .ProjectTo<UserChangeDataModel>().FirstOrDefault();
+		[HttpPost("remove/{id}")]
+		public async Task<IActionResult> Remove([FromRoute(Name = "id")] string id)
+		{
+			User user = await this.userManager.FindByIdAsync(id);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
+			if (user == null)
+			{
+				return NotFound("No such user exists.");
+			}
 
-            return Ok(user);
-        }
+			this.users.Remove(id);
 
-        [HttpPut("changeuserdata/{id}")]
-        public IActionResult ChangeUserData([FromRoute(Name = "id")] string id, [FromBody]AdminChangeDataModel model)
-        {
-            bool changedUser = this.users.ChangeData(id, model.Name, model.Email);
+			return Ok();
+		}
 
-            if (!changedUser)
-            {
-                return NotFound();
-            }
+		[HttpGet("changeuserdata/{id}")]
+		public IActionResult ChangeUserData([FromRoute(Name = "id")] string id)
+		{
+			UserChangeDataModel user = this.users.Details(id)
+				.ProjectTo<UserChangeDataModel>().FirstOrDefault();
 
-            return Ok();
-        }
+			if (user == null)
+			{
+				return NotFound("No such user exists.");
+			}
 
-        [HttpGet("changeuserpassword/{id}")]
-        public async Task<IActionResult> ChangeUserPassword([FromRoute(Name = "id")] string id)
-        {
-            User user = this.users.GetUser(id).FirstOrDefault();
+			return Ok(user);
+		}
 
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
-            }
+		[HttpPut("changeuserdata/{id}")]
+		public IActionResult ChangeUserData([FromRoute(Name = "id")] string id, [FromBody]AdminChangeDataModel model)
+		{
+			bool changedUser = this.users.ChangeData(id, model.Name, model.Email);
 
-            bool hasPassword = await userManager.HasPasswordAsync(user);
+			if (!changedUser)
+			{
+				return NotFound();
+			}
 
-            AdminUserChangePasswordModel model = new AdminUserChangePasswordModel();
+			return Ok();
+		}
 
-            return Ok(model);
-        }
+		[HttpPut("changeuserpassword/{id}")]
+		public async Task<ActionResult> ChangeUserPassword([FromRoute(Name = "id")] string id, [FromBody]AdminUserChangePasswordModel model)
+		{
+			User user = this.users.GetUser(id).FirstOrDefault();
 
-        [HttpPut("changeuserpassword/{id}")]
-        public async Task<ActionResult> ChangeUserPassword([FromRoute(Name = "id")] string id, [FromBody]AdminUserChangePasswordModel model)
-        {
-            User user = this.users.GetUser(id).FirstOrDefault();
+			if (user == null)
+			{
+				return NotFound("No such user exists.");
+			}
 
-            IdentityResult result = await userManager.RemovePasswordAsync(user);
+			IdentityResult result = await userManager.RemovePasswordAsync(user);
 
-            if (result.Succeeded)
-            {
-                result = await userManager.AddPasswordAsync(user, model.NewPassword);
-            }
+			if (result.Succeeded)
+			{
+				result = await userManager.AddPasswordAsync(user, model.NewPassword);
+			}
 
-            return Ok();
-        }
-    }
+			return Ok();
+		}
+	}
 }

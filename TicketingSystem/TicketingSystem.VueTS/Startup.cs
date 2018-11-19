@@ -17,81 +17,81 @@ using IdentityRole = Microsoft.AspNetCore.Identity.IdentityRole;
 
 namespace TicketingSystem.VueTS
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<TicketingSystemDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddDbContext<TicketingSystemDbContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<DATA_MODELS.User, IdentityRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            })
-                .AddEntityFrameworkStores<TicketingSystemDbContext>()
-                .AddDefaultTokenProviders();
+			services.AddIdentity<DATA_MODELS.User, IdentityRole>(options =>
+			{
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+			})
+				.AddEntityFrameworkStores<TicketingSystemDbContext>()
+				.AddDefaultTokenProviders();
 
-            services.AddAutoMapper();
+			services.AddAutoMapper();
 
-            services.AddDomainServices();
+			services.AddDomainServices();
 
-            services.AddMvc(options =>
-            {
-                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
-            });
+			services.AddMvc(options =>
+			{
+				options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+			});
 
-            services.AddScoped<ISignInService, SignInService>();
-            services.AddScoped<ITicketService, TicketService>();
-            services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IAdminUserService, AdminUserService>();
-            services.AddScoped<IAdminProjectService, AdminProjectService>();
-        }
+			services.AddScoped<ISignInService, SignInService>();
+			services.AddScoped<ITicketService, TicketService>();
+			services.AddScoped<IRoleService, RoleService>();
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IMessageService, MessageService>();
+			services.AddScoped<IAdminUserService, AdminUserService>();
+			services.AddScoped<IAdminProjectService, AdminProjectService>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+				app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+				{
+					HotModuleReplacement = true
+				});
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
 
-            app.UseStaticFiles();
+			app.UseStaticFiles();
 
-            app.UseAuthentication();
+			app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
-            });
+				routes.MapSpaFallbackRoute(
+					name: "spa-fallback",
+					defaults: new { controller = "Home", action = "Index" });
+			});
 
-            app.UseDatabaseMigration();
-        }
-    }
+			app.UseDatabaseMigration();
+		}
+	}
 }

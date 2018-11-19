@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem.Web.Infrastructure.Mapping
 {
-    public interface IMapFrom<TModel>
-    {
-    }
+	public interface IMapFrom<TModel>
+	{
+	}
 }

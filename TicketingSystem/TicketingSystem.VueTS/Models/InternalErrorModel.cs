@@ -2,13 +2,13 @@
 
 namespace TicketingSystem.VueTS.Models
 {
-    [JsonObject("InternalErrorModel")]
-    public class InternalErrorModel: ErrorModel
-    {
-        [JsonProperty("stackTrace")]
-        public string StackTrace { get; set; }
+	[JsonObject("InternalErrorModel")]
+	public class InternalErrorModel : ErrorModel
+	{
+		[JsonProperty("stackTrace")]
+		public string StackTrace { get; set; }
 
-        [JsonProperty("innerError")]
-        public InternalErrorModel InnerError { get; set; }
-    }
+		[JsonProperty("innerError")]
+		public InternalErrorModel InnerError { get; set; }
+	}
 }

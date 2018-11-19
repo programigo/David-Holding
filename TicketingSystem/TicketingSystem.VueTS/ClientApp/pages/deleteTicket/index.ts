@@ -9,17 +9,17 @@ Vue.use(VeeValidate);
 @Component
 
 export default class DeleteTicket extends Vue {
-    private get id(): number {
-        return Number(this.$route.params.ticketId);
-    }
+	private get id(): number {
+		return Number(this.$route.params.ticketId);
+	}
 
-    private async deleteTicket(): Promise<void> {
-        const request: number = this.id;
+	private async deleteTicket(): Promise<void> {
+		const request: number = this.id;
 
-        const response: void = await api.tickets.delete(request);
+		const response: void = await api.tickets.delete(request);
 
-        this.$router.push('/tickets');
+		this.$router.push('/tickets');
 
-        return response;
-    }
+		return response;
+	}
 }

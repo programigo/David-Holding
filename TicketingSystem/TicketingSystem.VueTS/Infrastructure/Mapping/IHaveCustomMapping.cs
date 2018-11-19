@@ -2,8 +2,8 @@
 
 namespace TicketingSystem.VueTS.Infrastructure.Mapping
 {
-    public interface IHaveCustomMapping
-    {
-        void ConfigureMapping(Profile mapper);
-    }
+	public interface IHaveCustomMapping
+	{
+		void ConfigureMapping(Profile mapper);
+	}
 }

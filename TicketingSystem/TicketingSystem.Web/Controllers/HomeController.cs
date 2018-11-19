@@ -9,34 +9,34 @@ using TicketingSystem.Web.Models;
 
 namespace TicketingSystem.Web.Controllers
 {
-    [Route("api/[controller]")]
-    public class HomeController : Controller
-    {
-        private readonly IAdminProjectService projects;
+	[Route("api/[controller]")]
+	public class HomeController : Controller
+	{
+		private readonly IAdminProjectService projects;
 
-        public HomeController(IAdminProjectService projects)
-        {
-            this.projects = projects;
-        }
+		public HomeController(IAdminProjectService projects)
+		{
+			this.projects = projects;
+		}
 
-        public IActionResult Index(int page = 1)
-        {
-            List<ProjectViewModel> projects = this.projects.All(page)
-                .ProjectTo<ProjectViewModel>().ToList();
+		public IActionResult Index(int page = 1)
+		{
+			List<ProjectViewModel> projects = this.projects.All(page)
+				.ProjectTo<ProjectViewModel>().ToList();
 
-            return View(new ProjectListingViewModel
-            {
-                Projects = projects,
-                TotalProjects = this.projects.Total(),
-                CurrentPage = page
-            });
+			return View(new ProjectListingViewModel
+			{
+				Projects = projects,
+				TotalProjects = this.projects.Total(),
+				CurrentPage = page
+			});
 
-            
-        }
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+		}
+
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+	}
 }

@@ -9,17 +9,17 @@ Vue.use(VeeValidate);
 @Component
 
 export default class DeleteProject extends Vue {
-    private get id(): number {
-        return Number(this.$route.params.projectId);
-    }
+	private get id(): number {
+		return Number(this.$route.params.projectId);
+	}
 
-    private async deleteProject(): Promise<void> {
-        const request: number = this.id;
+	private async deleteProject(): Promise<void> {
+		const request: number = this.id;
 
-        const response: void = await api.projects.delete(request);
+		const response: void = await api.projects.delete(request);
 
-        this.$router.push('/');
+		this.$router.push('/');
 
-        return response;
-    }
+		return response;
+	}
 }

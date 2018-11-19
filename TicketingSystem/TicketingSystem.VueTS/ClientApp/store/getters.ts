@@ -3,7 +3,7 @@ import { AppState, SessionInfo } from './types';
 
 export interface AppGetters extends AppState {
 	isLoggedIn: boolean;
-    sessionInfo: SessionInfo;
+	sessionInfo: SessionInfo;
 };
 
 export const getters: GetterTree<AppState, any> = {

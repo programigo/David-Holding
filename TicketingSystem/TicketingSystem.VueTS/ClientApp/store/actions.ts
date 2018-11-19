@@ -27,14 +27,14 @@ export const actions: ActionTree<AppState, any> = {
 		};
 
 		context.commit(LOGOUT, mutationPayload);
-    },
-    [REGISTER](context, payload: RegisterActionPayload) {
-        const mutationPayload: mutations.RegisterMutationPayload = {
-            sessionInfo: payload.sessionInfo
-        };
+	},
+	[REGISTER](context, payload: RegisterActionPayload) {
+		const mutationPayload: mutations.RegisterMutationPayload = {
+			sessionInfo: payload.sessionInfo
+		};
 
-        context.commit(REGISTER, mutationPayload);
-    },
+		context.commit(REGISTER, mutationPayload);
+	},
 	[UPDATE](context, payload: UpdateActionPayload) {
 		const mutationPayload: mutations.UpdateMutationPayload = {
 			sessionInfo: payload.sessionInfo
@@ -52,7 +52,7 @@ export interface LoginActionPayload {
 }
 
 export interface RegisterActionPayload {
-    sessionInfo: SessionInfo;
+	sessionInfo: SessionInfo;
 }
 
 export interface LogoutActionPayload {

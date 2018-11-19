@@ -3,19 +3,19 @@ import { Component } from 'vue-property-decorator';
 import ProjectsList from '../../components/ProjectsList';
 
 @Component({
-    components: {
-        ProjectsList
-    }
+	components: {
+		ProjectsList
+	}
 })
 
 export default class Home extends Vue {
-    private get isLoggedIn(): boolean {
-        return this.$store.getters.isLoggedIn;
-    }
+	private get isLoggedIn(): boolean {
+		return this.$store.getters.isLoggedIn;
+	}
 
-    public async created(): Promise<void> {
-        if (!this.isLoggedIn) {
-            this.$router.push('/login');
-        }
-    }
+	public async created(): Promise<void> {
+		if (!this.isLoggedIn) {
+			this.$router.push('/login');
+		}
+	}
 }

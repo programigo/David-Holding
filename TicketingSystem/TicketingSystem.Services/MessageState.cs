@@ -1,8 +1,8 @@
 ﻿namespace TicketingSystem.Services
 {
-    public enum MessageState
-    {
-        Draft,
-        Published
-    }
+	public enum MessageState
+	{
+		Draft,
+		Published
+	}
 }

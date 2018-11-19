@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace TicketingSystem.Services
 {
-    public interface IAdminProjectService
-    {
-        IQueryable<ProjectListingServiceModel> All(int page = 1);
+	public interface IAdminProjectService
+	{
+		IQueryable<ProjectListingServiceModel> All(int page = 1);
 
-        IEnumerable<ProjectListingServiceModel> DropdownAll();
+		IEnumerable<ProjectListingServiceModel> DropdownAll();
 
-        int Total();
+		int Total();
 
-        void Create(string name, string description);
+		void Create(string name, string description);
 
-        void Delete(int id);
+		void Delete(int id);
 
-        bool Edit(int id, string name, string description);
+		bool Edit(int id, string name, string description);
 
-        IQueryable<ProjectListingServiceModel> Details(int id);
-    }
+		IQueryable<ProjectListingServiceModel> Details(int id);
+	}
 }

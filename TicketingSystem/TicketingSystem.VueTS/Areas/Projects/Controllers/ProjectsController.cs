@@ -10,97 +10,102 @@ using TicketingSystem.VueTS.Models;
 
 namespace TicketingSystem.VueTS.Areas.Projects.Controllers
 {
-    [Authorize]
-    [Route("api/projects")]
-    
-    public class ProjectsController : ControllerBase
-    {
-        private readonly IAdminProjectService projects;
+	[Authorize]
+	[Route("api/projects")]
 
-        public ProjectsController(IAdminProjectService projects)
-        {
-            this.projects = projects ?? throw new ArgumentNullException(nameof(projects));
-        }
+	public class ProjectsController : ControllerBase
+	{
+		private readonly IAdminProjectService projects;
 
-        [HttpGet("{page}")]
-        public IActionResult Index(int page = 1)
-        {
-            var projects = this.projects.All(page)
-                .ProjectTo<ProjectModel>()
-                .ToArray();
+		public ProjectsController(IAdminProjectService projects)
+		{
+			this.projects = projects ?? throw new ArgumentNullException(nameof(projects));
+		}
 
-            var result = new ProjectListingModel
-            {
-                Projects = projects,
-                TotalProjects = this.projects.Total(),
-                CurrentPage = page
-            };
+		[HttpGet("{page}")]
+		public IActionResult Index(int page = 1)
+		{
+			ProjectModel[] projects = this.projects.All(page)
+				.ProjectTo<ProjectModel>()
+				.ToArray();
 
-            return Ok(result);
-        }
+			var result = new ProjectListingModel
+			{
+				Projects = projects,
+				TotalProjects = this.projects.Total(),
+				CurrentPage = page
+			};
 
-        [Authorize(Roles = WebConstants.AdministratorRole)]
-        [HttpPost("create")]
-        public IActionResult Create([FromBody]AddProjectFormModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                var err = ModelState.ToBadRequestErrorModel();
-                return BadRequest(ModelState.ToBadRequestErrorModel());
-            }
+			return Ok(result);
+		}
 
-            this.projects.Create(model.Name, model.Description);
+		[Authorize(Roles = WebConstants.AdministratorRole)]
+		[HttpPost("create")]
+		public IActionResult Create([FromBody]AddProjectFormModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				var err = ModelState.ToBadRequestErrorModel();
+				return BadRequest(ModelState.ToBadRequestErrorModel());
+			}
 
-            return StatusCode(201);
-        }
+			this.projects.Create(model.Name, model.Description);
 
-        [HttpGet("details/{id}")]
-        public IActionResult Details([FromRoute(Name = "id")] int id)
-        {
-            ProjectModel project = this.projects.Details(id)
-                .ProjectTo<ProjectModel>()
-                .FirstOrDefault();
+			return StatusCode(201);
+		}
 
-            return Ok(project);
-        }
+		[HttpGet("details/{id}")]
+		public IActionResult Details([FromRoute(Name = "id")] int id)
+		{
+			ProjectModel project = this.projects.Details(id)
+				.ProjectTo<ProjectModel>()
+				.FirstOrDefault();
 
-        [Authorize(Roles = WebConstants.AdministratorRole)]
-        [HttpGet("edit/{id}")]
-        public IActionResult Edit([FromRoute(Name = "id")] int id)
-        {
-            ProjectModel project = this.projects.Details(id)
-                .ProjectTo<ProjectModel>()
-                .FirstOrDefault();
-        
-            if (project == null)
-            {
-                return NotFound();
-            }
+			if (project == null)
+			{
+				return NotFound("No such project exists.");
+			}
 
-            return Ok(project);
-        }
+			return Ok(project);
+		}
 
-        [Authorize(Roles = WebConstants.AdministratorRole)]
-        [HttpPut("edit/{id}")]
-        public IActionResult Edit([FromRoute(Name = "id")] int id, [FromBody]AddProjectFormModel model)
-        {
-            bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
+		[Authorize(Roles = WebConstants.AdministratorRole)]
+		[HttpGet("edit/{id}")]
+		public IActionResult Edit([FromRoute(Name = "id")] int id)
+		{
+			ProjectModel project = this.projects.Details(id)
+				.ProjectTo<ProjectModel>()
+				.FirstOrDefault();
 
-            if (!updatedProject)
-            {
-                return NotFound();
-            }
+			if (project == null)
+			{
+				return NotFound();
+			}
 
-            return Ok();
-        }
+			return Ok(project);
+		}
 
-        [Authorize(Roles = WebConstants.AdministratorRole)]
-        [HttpDelete("delete/{id}")]
-        public IActionResult Delete([FromRoute(Name = "id")] int id)
-        {
-            this.projects.Delete(id);
+		[Authorize(Roles = WebConstants.AdministratorRole)]
+		[HttpPut("edit/{id}")]
+		public IActionResult Edit([FromRoute(Name = "id")] int id, [FromBody]AddProjectFormModel model)
+		{
+			bool updatedProject = this.projects.Edit(id, model.Name, model.Description);
 
-            return StatusCode(204);
-        }
-    }
+			if (!updatedProject)
+			{
+				return NotFound();
+			}
+
+			return Ok();
+		}
+
+		[Authorize(Roles = WebConstants.AdministratorRole)]
+		[HttpDelete("delete/{id}")]
+		public IActionResult Delete([FromRoute(Name = "id")] int id)
+		{
+			this.projects.Delete(id);
+
+			return StatusCode(204);
+		}
+	}
 }

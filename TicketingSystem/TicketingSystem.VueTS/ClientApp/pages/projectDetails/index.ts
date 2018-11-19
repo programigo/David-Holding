@@ -9,43 +9,43 @@ Vue.use(VeeValidate);
 @Component
 
 export default class ProjectDetails extends Vue {
-    renderProject: ProjectViewModel = {
-        id: null,
-        name: null,
-        description: null
-    }
+	renderProject: ProjectViewModel = {
+		id: null,
+		name: null,
+		description: null
+	}
 
-    public async mounted(): Promise<void> {
-        await this.getProject();
-    }
+	public async mounted(): Promise<void> {
+		await this.getProject();
+	}
 
-    private get userRole(): string {
-        return this.$store.getters.sessionInfo.role;
-    }
+	private get userRole(): string {
+		return this.$store.getters.sessionInfo.role;
+	}
 
-    private get id(): number {
-        return Number(this.$route.params.projectId);
-    }
+	private get id(): number {
+		return Number(this.$route.params.projectId);
+	}
 
-    private async getProject(): Promise<ProjectViewModel> {
-        const request: number = this.id;
+	private async getProject(): Promise<ProjectViewModel> {
+		const request: number = this.id;
 
-        const response: api.ProjectModel = await api.projects.getDetails(request);
+		const response: api.ProjectModel = await api.projects.getDetails(request);
 
-        const project: ProjectViewModel = {
-            id: response.id,
-            name: response.name,
-            description: response.description
-        };
+		const project: ProjectViewModel = {
+			id: response.id,
+			name: response.name,
+			description: response.description
+		};
 
-        this.renderProject = project;
+		this.renderProject = project;
 
-        return project;
-    }
+		return project;
+	}
 }
 
 interface ProjectViewModel {
-    id: number;
-    name: string;
-    description: string;
+	id: number;
+	name: string;
+	description: string;
 }

@@ -10,28 +10,28 @@ using SelectListItem = TicketingSystem.Services.SelectListItem;
 
 namespace TicketingSystem.Web.Services
 {
-    public class RoleService : RoleManager<IdentityRole>, IRoleService
-    {
-        public RoleService(IRoleStore<IdentityRole> store, IEnumerable<IRoleValidator<IdentityRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<IdentityRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
-        {
-        }
+	public class RoleService : RoleManager<IdentityRole>, IRoleService
+	{
+		public RoleService(IRoleStore<IdentityRole> store, IEnumerable<IRoleValidator<IdentityRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<IdentityRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
+		{
+		}
 
-        public IEnumerable<SelectListItem> GetRoles()
-        => this.Roles
-               .Select(r => new SelectListItem
-               {
-                   Text = r.Name,
-                   Value = r.Name
-               })
-               .ToList();
+		public IEnumerable<SelectListItem> GetRoles()
+		=> this.Roles
+			   .Select(r => new SelectListItem
+			   {
+				   Text = r.Name,
+				   Value = r.Name
+			   })
+			   .ToList();
 
-        Task IRoleService.CreateAsync(ServiceIdentityRole identityRole)
-        {
-            var systemIdentityRole = new IdentityRole(identityRole.Name); 
+		Task IRoleService.CreateAsync(ServiceIdentityRole identityRole)
+		{
+			var systemIdentityRole = new IdentityRole(identityRole.Name);
 
-            var res = base.CreateAsync(systemIdentityRole);
+			var res = base.CreateAsync(systemIdentityRole);
 
-            return res;
-        }
-    }
+			return res;
+		}
+	}
 }

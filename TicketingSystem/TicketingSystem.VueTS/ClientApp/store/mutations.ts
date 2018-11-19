@@ -13,19 +13,19 @@ export const mutations: MutationTree<AppState> = {
 		return state;
 	},
 	[LOGIN](state: AppState, payload: LoginMutationPayload) {
-        state.sessionInfo = payload.sessionInfo;
-        state.isLoggedIn = true;
+		state.sessionInfo = payload.sessionInfo;
+		state.isLoggedIn = true;
 		return state;
 	},
 	[LOGOUT](state: AppState) {
-        state.sessionInfo = null;
-        state.isLoggedIn = false;
+		state.sessionInfo = null;
+		state.isLoggedIn = false;
 		return state;
-    },
-    [REGISTER](state: AppState, payload: RegisterMutationPayload) {
-        state.sessionInfo = payload.sessionInfo;
-        return state;
-    },
+	},
+	[REGISTER](state: AppState, payload: RegisterMutationPayload) {
+		state.sessionInfo = payload.sessionInfo;
+		return state;
+	},
 	[UPDATE](state: AppState, payload: UpdateMutationPayload) {
 		state.sessionInfo = null;
 		state.sessionInfo = payload.sessionInfo;
@@ -41,7 +41,7 @@ export interface LoginMutationPayload {
 }
 
 export interface RegisterMutationPayload {
-    sessionInfo: SessionInfo;
+	sessionInfo: SessionInfo;
 }
 
 export interface UpdateMutationPayload {
