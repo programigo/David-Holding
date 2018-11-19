@@ -3,9 +3,7 @@ import { Component } from 'vue-property-decorator';
 import * as api from '../../api/projects';
 
 @Component({
-    name: 'projects-list',
-    components: {
-    }
+    name: 'projects-list'
 })
 
 export default class ProjectsList extends Vue {

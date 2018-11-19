@@ -85,7 +85,7 @@ namespace TicketingSystem.Web.Controllers
                     ModelState.AddModelError(string.Empty, "You must wait to be approved by administrator.");
                     return View(model);
                 }
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, lockoutOnFailure: false);
                 if (result.Succeeded && isApprovedUser)
                 {
                     _logger.LogInformation("User logged in.");

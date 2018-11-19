@@ -29,12 +29,14 @@ namespace TicketingSystem.VueTS.Areas.Projects.Controllers
                 .ProjectTo<ProjectModel>()
                 .ToArray();
 
-            return Ok(new ProjectListingModel
+            var result = new ProjectListingModel
             {
                 Projects = projects,
                 TotalProjects = this.projects.Total(),
                 CurrentPage = page
-            });
+            };
+
+            return Ok(result);
         }
 
         [Authorize(Roles = WebConstants.AdministratorRole)]

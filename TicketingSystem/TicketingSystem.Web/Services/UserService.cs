@@ -14,13 +14,18 @@ using ExternalLoginInfo = TicketingSystem.Services.ExternalLoginInfo;
 using IdentityResult = TicketingSystem.Services.IdentityResult;
 using UserLoginInfo = TicketingSystem.Services.UserLoginInfo;
 using System.Linq;
+using DATA = TicketingSystem.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TicketingSystem.Web.Services
 {
     public class UserService : UserManager<DATA_MODELS.User>, IUserService
     {
-        public UserService(IUserStore<DATA_MODELS.User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<DATA_MODELS.User> passwordHasher, IEnumerable<IUserValidator<DATA_MODELS.User>> userValidators, IEnumerable<IPasswordValidator<DATA_MODELS.User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<DATA_MODELS.User>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+        private readonly DATA.TicketingSystemDbContext db;
+
+        public UserService(DATA.TicketingSystemDbContext db, IUserStore<DATA_MODELS.User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<DATA_MODELS.User> passwordHasher, IEnumerable<IUserValidator<DATA_MODELS.User>> userValidators, IEnumerable<IPasswordValidator<DATA_MODELS.User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<DATA_MODELS.User>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
+            this.db = db;
         }
 
         IdentityOptionsModel IUserService.Options { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -309,14 +314,13 @@ namespace TicketingSystem.Web.Services
             return returnRes;
         }
 
-        public Microsoft.AspNetCore.Identity.IdentityRole GetUserRole(string id)
+        public async Task<Microsoft.AspNetCore.Identity.IdentityRole> GetUserRole(string id)
         {
-            throw new NotImplementedException();
-        }
+            var roleId = await this.db.UserRoles.Where(r => r.UserId == id).FirstOrDefaultAsync();
 
-        public string ReturnUserId(string id)
-        {
-            throw new NotImplementedException();
+            var role = await this.db.Roles.Where(r => r.Id == roleId.RoleId).FirstOrDefaultAsync();
+
+            return role;
         }
     }
 }
