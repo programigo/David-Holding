@@ -109,26 +109,7 @@ namespace TicketingSystem.VueTS.Areas.Admin.Controllers
 
 			this.users.Approve(id);
 
-			return Ok();
-		}
-
-		[HttpPost("register")]
-		public async Task<IActionResult> Register([FromBody]RegisterModel model, string returnUrl = null)
-		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState.ToBadRequestErrorModel());
-			}
-
-			User user = new User
-			{
-				UserName = model.Username,
-				Email = model.Email,
-				Name = model.Name,
-				IsApproved = true
-			};
-
-			await userManager.CreateAsync(user, model.Password);
+			await this.userManager.AddToRoleAsync(user, WebConstants.ClientRole);
 
 			return Ok();
 		}

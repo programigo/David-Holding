@@ -31,7 +31,7 @@ const routes = [
 	{ name: 'login', path: '/login', component: Login, meta: { requiresAuth: false } },
 	{ name: 'register', path: '/register', component: Register, meta: { requiresAuth: false } },
 	{ name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
-	{ name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true } },
+	{ name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true, adminAuth: true } },
 	{ name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },
 	{ name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
 	{ name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
@@ -59,6 +59,11 @@ export const router = new VueRouter({
 router.beforeEach((to: Route, from: Route, next) => {
 	const authRequired: boolean = to.matched.some((route) => route.meta.auth);
 
+	var session = store.state.sessionInfo;
+	if (session !== null) {
+		console.log(session.role);
+	}
+	
 	if (store.state.sessionInfo) {
 		if (to.name === "login") {
 			next({

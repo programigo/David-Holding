@@ -13,19 +13,19 @@
 		</b-card>
 
 		<div>
-			<b-btn v-b-toggle.collapse1 variant="primary">Messages({{renderTicket.messages.length}})</b-btn>
+			<b-btn v-if="hasMessages" v-b-toggle.collapse1 variant="primary">Messages({{renderTicket.messages.length}})</b-btn>
 			<b-collapse id="collapse1" class="mt-2">
-				<b-card v-if="renderTicket.messages.length">
+				<b-card v-if="hasMessages">
 					<div v-for="message in renderTicket.messages" id="message-toggle-div">
 
 						<b-card tag="article" style="max-width: 40rem;" class="mb-2">
-							<p>Sent on  {{message.postDate}}, {{message.postDate.getHours}} by {{message.author}}</p>
+							<p>Sent on {{message.postDate}}, {{message.postDate.getHours}} by {{message.author}}</p>
 							<p class="card-text">
 								{{message.content}}
 							</p>
 							<div style="text-align:center">
 								<b-button v-if="message.attachedFiles" v-on:click="downloadMessageFile(message.id)" style="background-color:blue">Download Files</b-button>
-								<b-button v-bind:to="{name: 'message-attach-files'}" style="background-color:blueviolet">Attach Files</b-button>
+								<b-button v-bind:to="{path: '/messages/attachfiles/' + message.id}" style="background-color:blueviolet">Attach Files</b-button>
 							</div>
 						</b-card>
 

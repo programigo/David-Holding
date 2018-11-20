@@ -24,7 +24,7 @@
 				</tbody>
 			</table>
 		</div>
-		<p v-else>There are no pending requests.</p>
+		<p v-else style="text-align:center">There are no pending requests.</p>
 	</div>
 </template>
 

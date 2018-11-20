@@ -30,6 +30,10 @@ export default class TicketDetails extends Vue {
 		return Number(this.$route.params.ticketId);
 	}
 
+	private get hasMessages(): boolean {
+		return this.renderTicket.messages !== null;
+	}
+
 	private get userRole(): string {
 		return this.$store.getters.sessionInfo.role;
 	}
