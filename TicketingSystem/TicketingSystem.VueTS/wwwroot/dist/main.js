@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3ba51003878e59b02cd9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6821ebace006e7b17296"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28572,13 +28572,6 @@ var ProjectsList = /** @class */ (function (_super) {
             });
         });
     };
-    Object.defineProperty(ProjectsList.prototype, "userRole", {
-        get: function () {
-            return this.$store.getters.sessionInfo.role;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ProjectsList.prototype, "hasProjects", {
         get: function () {
             return this.renderProjects !== null;
@@ -54600,43 +54593,7 @@ var render = function() {
                               _vm._s(project.description) +
                               "\n\t\t\t\t\t"
                           )
-                        ]),
-                        _vm._v(" "),
-                        _vm.userRole !== null &&
-                        _vm.userRole === "Administrator"
-                          ? _c(
-                              "div",
-                              { staticStyle: { "text-align": "center" } },
-                              [
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        path: "projects/edit/" + project.id
-                                      },
-                                      variant: "warning"
-                                    }
-                                  },
-                                  [_vm._v("Edit")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        path: "projects/delete/" + project.id
-                                      },
-                                      variant: "danger"
-                                    }
-                                  },
-                                  [_vm._v("Delete")]
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e()
+                        ])
                       ],
                       1
                     )

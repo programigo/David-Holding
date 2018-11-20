@@ -23,10 +23,6 @@ export default class ProjectsList extends Vue {
 		await this.getAllProjects(this.currentPage);
 	}
 
-	private get userRole(): string {
-		return this.$store.getters.sessionInfo.role;
-	}
-
 	private get hasProjects(): boolean {
 		return this.renderProjects !== null;
 	}

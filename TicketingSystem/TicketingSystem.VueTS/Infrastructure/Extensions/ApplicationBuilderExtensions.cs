@@ -66,7 +66,7 @@ namespace TicketingSystem.VueTS.Infrastructure.Extensions
 							IsApproved = true
 						};
 
-						await userManager.CreateAsync(adminUser, "undertaker");
+						await userManager.CreateAsync(adminUser, "admin");
 
 						var admin = db.Users.Where(u => u.UserName == "Administrator")
 						.Select(u => new User
