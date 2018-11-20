@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2b4372892c9ae490ddc2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3ba51003878e59b02cd9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28595,13 +28595,15 @@ var ProjectsList = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].getProjects(page)];
                     case 1:
                         response = _a.sent();
-                        projects = response.projects
-                            .map(function (project) {
-                            return _this.createProjectViewModel(project);
-                        });
-                        this.renderProjects.projects = projects;
-                        this.renderProjects.totalProjects = response.totalProjects;
-                        this.renderProjects.totalPages = response.totalPages;
+                        if (response.projects !== undefined) {
+                            projects = response.projects
+                                .map(function (project) {
+                                return _this.createProjectViewModel(project);
+                            });
+                            this.renderProjects.projects = projects;
+                            this.renderProjects.totalProjects = response.totalProjects;
+                            this.renderProjects.totalPages = response.totalPages;
+                        }
                         return [2 /*return*/, this.renderProjects];
                 }
             });
@@ -54600,6 +54602,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
+                        _vm.userRole !== null &&
                         _vm.userRole === "Administrator"
                           ? _c(
                               "div",

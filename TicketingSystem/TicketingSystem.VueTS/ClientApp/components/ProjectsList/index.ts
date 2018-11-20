@@ -34,14 +34,16 @@ export default class ProjectsList extends Vue {
 	private async getAllProjects(page: number): Promise<ProjectListingViewModel> {
 		const response: ProjectListingViewModel = await api.projects.getProjects(page);
 
-		const projects: ProjectViewModel[] = response.projects
-			.map(project => {
-				return this.createProjectViewModel(project);
-			});
+		if (response.projects !== undefined) {
+			const projects: ProjectViewModel[] = response.projects
+				.map(project => {
+					return this.createProjectViewModel(project);
+				});
 
-		this.renderProjects.projects = projects;
-		this.renderProjects.totalProjects = response.totalProjects;
-		this.renderProjects.totalPages = response.totalPages;
+			this.renderProjects.projects = projects;
+			this.renderProjects.totalProjects = response.totalProjects;
+			this.renderProjects.totalPages = response.totalPages;
+		}
 
 		return this.renderProjects;
 	}

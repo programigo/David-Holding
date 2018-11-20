@@ -11,7 +11,7 @@
 						<p class="card-text">
 							{{project.description}}
 						</p>
-						<div v-if="userRole === 'Administrator'" style="text-align:center">
+						<div v-if="userRole !== null && userRole === 'Administrator'" style="text-align:center">
 							<b-button :to="{ path: 'projects/edit/' + project.id }" variant="warning">Edit</b-button>
 							<b-button :to="{ path: 'projects/delete/' + project.id }" variant="danger">Delete</b-button>
 						</div>
