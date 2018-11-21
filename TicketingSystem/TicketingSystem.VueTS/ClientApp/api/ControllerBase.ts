@@ -22,10 +22,21 @@ export abstract class ControllerBase {
 	protected async ajaxPost<TRequest, TResponse>(relativeUrl: string, data?: TRequest): Promise<AxiosResponse<TResponse>> {
 		const url: string = `${this._baseUrl}/${relativeUrl}`;
 		const config: AxiosRequestConfig = {
-			data: data
+			data: data,
 		};
 
 		const response: AxiosResponse<TResponse> = await axios.post<TResponse>(url, null, config);
+
+		return response;
+	}
+
+	protected async ajaxPostFile<TRequest, TResponse>(relativeUrl: string, data?: TRequest, headers?: any): Promise<AxiosResponse<TResponse>> {
+		const url: string = `${this._baseUrl}/${relativeUrl}`;
+		const config: AxiosRequestConfig = {
+			headers: headers
+		};
+
+		const response: AxiosResponse<TResponse> = await axios.post<TResponse>(url, data, config);
 
 		return response;
 	}

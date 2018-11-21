@@ -1,6 +1,6 @@
 ﻿import Vue from "vue";
 import Component from "vue-class-component";
-import axios from 'axios';
+import * as ticketsApi from '../../api/tickets';
 import * as api from '../../api';
 
 import VeeValidate from 'vee-validate';
@@ -22,15 +22,9 @@ export default class TicketAttachFiles extends Vue {
 		return Number(this.$route.params.ticketId);
 	}
 
-	private startUpload(): void {
+	private async startUpload(): Promise<void> {
 		try {
-			axios.post(`/api/tickets/attachfiles/${this.id}`,
-				this.attachFileModel,
-				{
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				});
+			await ticketsApi.tickets.attachFiles(this.id, this.attachFileModel);
 
 			this.$router.push('/tickets');
 

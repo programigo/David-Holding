@@ -44,6 +44,10 @@ export class TicketsController extends ControllerBase {
 		return response.data;
 	}
 
+	public async attachFiles(id: number, data: FormData): Promise<void> {
+		await super.ajaxPostFile<FormData, null>(`attachfiles/${id}`, data, { 'Content-Type': 'multipart/form-data' });
+	}
+
 	public async downloadFiles(id: number): Promise<File> {
 		const response = await super.ajaxGet<void, any>(`downloadattached/${id}`, null, "blob");
 
