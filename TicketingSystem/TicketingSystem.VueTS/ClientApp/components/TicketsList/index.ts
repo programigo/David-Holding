@@ -25,7 +25,7 @@ export default class TicketsList extends Vue {
 	}
 
 	private get hasTickets(): boolean {
-		return this.allTickets !== null;
+		return this.allTickets.tickets !== null;
 	}
 
 	private get userRole(): string {

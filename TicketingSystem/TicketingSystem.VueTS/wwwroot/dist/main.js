@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ebcd89d347f57da4e766"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bfe77b175d8a61586f6a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28272,14 +28272,14 @@ var routes = [
     { name: 'projects', path: '/projects', component: __WEBPACK_IMPORTED_MODULE_6__pages_projects__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'project-create', path: '/projects/create', component: __WEBPACK_IMPORTED_MODULE_7__pages_createProject__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
     { name: 'project-details', path: '/projects/details/:projectId', component: __WEBPACK_IMPORTED_MODULE_10__pages_projectDetails__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'project-edit', path: '/projects/edit/:projectId', component: __WEBPACK_IMPORTED_MODULE_8__pages_editProject__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'project-delete', path: '/projects/delete/:projectId', component: __WEBPACK_IMPORTED_MODULE_9__pages_deleteProject__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'users', path: '/users', component: __WEBPACK_IMPORTED_MODULE_11__pages_allUsers__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'users-addToRole', path: '/users/addtorole', component: __WEBPACK_IMPORTED_MODULE_11__pages_allUsers__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'register-user', path: '/users/register', component: __WEBPACK_IMPORTED_MODULE_12__pages_registerUser__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'user-changeData', path: '/users/changeuserdata/:userId', component: __WEBPACK_IMPORTED_MODULE_13__pages_changeUserData__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: __WEBPACK_IMPORTED_MODULE_14__pages_changeUserPassword__["a" /* default */], meta: { requiresAuth: true } },
-    { name: 'pending-users', path: '/users/pending', component: __WEBPACK_IMPORTED_MODULE_15__pages_pendingUsers__["a" /* default */], meta: { requiresAuth: true } },
+    { name: 'project-edit', path: '/projects/edit/:projectId', component: __WEBPACK_IMPORTED_MODULE_8__pages_editProject__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'project-delete', path: '/projects/delete/:projectId', component: __WEBPACK_IMPORTED_MODULE_9__pages_deleteProject__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'users', path: '/users', component: __WEBPACK_IMPORTED_MODULE_11__pages_allUsers__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'users-addToRole', path: '/users/addtorole', component: __WEBPACK_IMPORTED_MODULE_11__pages_allUsers__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'register-user', path: '/users/register', component: __WEBPACK_IMPORTED_MODULE_12__pages_registerUser__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'user-changeData', path: '/users/changeuserdata/:userId', component: __WEBPACK_IMPORTED_MODULE_13__pages_changeUserData__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: __WEBPACK_IMPORTED_MODULE_14__pages_changeUserPassword__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
+    { name: 'pending-users', path: '/users/pending', component: __WEBPACK_IMPORTED_MODULE_15__pages_pendingUsers__["a" /* default */], meta: { requiresAuth: true, adminAuth: true } },
     { name: 'tickets', path: '/tickets', component: __WEBPACK_IMPORTED_MODULE_16__pages_tickets__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'ticket-create', path: '/tickets/create', component: __WEBPACK_IMPORTED_MODULE_17__pages_createTicket__["a" /* default */], meta: { requiresAuth: true } },
     { name: 'ticket-details', path: '/tickets/details/:ticketId', component: __WEBPACK_IMPORTED_MODULE_20__pages_ticketDetails__["a" /* default */], meta: { requiresAuth: true } },
@@ -28295,10 +28295,18 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
 });
 router.beforeEach(function (to, from, next) {
     var authRequired = to.matched.some(function (route) { return route.meta.auth; });
-    //var state = JSON.parse(window.localStorage.getItem('APP_STATE'));
+    var role;
     var session = __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state.sessionInfo;
     if (session !== null) {
-        console.log(session.role);
+        role = session.role;
+    }
+    if (to.meta.adminAuth) {
+        if (role === 'Administrator') {
+            next();
+        }
+        else {
+            next('/');
+        }
     }
     if (__WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state.sessionInfo) {
         if (to.name === "login") {
@@ -30644,7 +30652,7 @@ var TicketsList = /** @class */ (function (_super) {
     };
     Object.defineProperty(TicketsList.prototype, "hasTickets", {
         get: function () {
-            return this.allTickets !== null;
+            return this.allTickets.tickets !== null;
         },
         enumerable: true,
         configurable: true

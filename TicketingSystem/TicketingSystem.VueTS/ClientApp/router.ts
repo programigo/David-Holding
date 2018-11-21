@@ -33,14 +33,14 @@ const routes = [
 	{ name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
 	{ name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true, adminAuth: true } },
 	{ name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },
-	{ name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true } },
-	{ name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true } },
-	{ name: 'users', path: '/users', component: AllUsers, meta: { requiresAuth: true } },
-	{ name: 'users-addToRole', path: '/users/addtorole', component: AllUsers, meta: { requiresAuth: true } },
-	{ name: 'register-user', path: '/users/register', component: RegisterUser, meta: { requiresAuth: true } },
-	{ name: 'user-changeData', path: '/users/changeuserdata/:userId', component: ChangeUserData, meta: { requiresAuth: true } },
-	{ name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true } },
-	{ name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true } },
+	{ name: 'project-edit', path: '/projects/edit/:projectId', component: EditProject, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'project-delete', path: '/projects/delete/:projectId', component: DeleteProject, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'users', path: '/users', component: AllUsers, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'users-addToRole', path: '/users/addtorole', component: AllUsers, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'register-user', path: '/users/register', component: RegisterUser, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'user-changeData', path: '/users/changeuserdata/:userId', component: ChangeUserData, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'user-changePassword', path: '/users/changeuserpassword/:userId', component: ChangeUserPassword, meta: { requiresAuth: true, adminAuth: true } },
+	{ name: 'pending-users', path: '/users/pending', component: PendingUsers, meta: { requiresAuth: true, adminAuth: true } },
 	{ name: 'tickets', path: '/tickets', component: Tickets, meta: { requiresAuth: true } },
 	{ name: 'ticket-create', path: '/tickets/create', component: CreateTicket, meta: { requiresAuth: true } },
 	{ name: 'ticket-details', path: '/tickets/details/:ticketId', component: TicketDetails, meta: { requiresAuth: true } },
@@ -59,11 +59,20 @@ export const router = new VueRouter({
 router.beforeEach((to: Route, from: Route, next) => {
 	const authRequired: boolean = to.matched.some((route) => route.meta.auth);
 
+	var role;
 	var session = store.state.sessionInfo;
 	if (session !== null) {
-		console.log(session.role);
+		role = session.role;
 	}
-	
+
+	if (to.meta.adminAuth) {
+		if (role === 'Administrator') {
+			next();
+		} else {
+			next('/');
+		}
+	}
+
 	if (store.state.sessionInfo) {
 		if (to.name === "login") {
 			next({
