@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bfe77b175d8a61586f6a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "70577f449712781fd766"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -57401,43 +57401,7 @@ var render = function() {
                               : _vm._e()
                           ],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        _vm.userRole === "Administrator" ||
-                        _vm.userRole === "Support"
-                          ? _c(
-                              "div",
-                              { staticStyle: { "text-align": "center" } },
-                              [
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      to: { path: "tickets/edit/" + ticket.id },
-                                      variant: "warning"
-                                    }
-                                  },
-                                  [_vm._v("Edit")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      to: {
-                                        path: "tickets/delete/" + ticket.id
-                                      },
-                                      variant: "danger"
-                                    }
-                                  },
-                                  [_vm._v("Delete")]
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e()
+                        )
                       ],
                       1
                     )

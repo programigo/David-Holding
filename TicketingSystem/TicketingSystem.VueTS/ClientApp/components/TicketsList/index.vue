@@ -18,12 +18,6 @@
 							<b-button v-if="ticket.attachedFiles" v-on:click="downloadFile(ticket.id)" style="background-color:blue">Download Files</b-button>
 							<b-button v-if="ticket.sender === $store.getters.sessionInfo.userName" :to="{ path: 'tickets/attachfiles/' + ticket.id }" style="background-color:blueviolet">Attach Files</b-button>
 						</div>
-						<br />
-						<div v-if="userRole === 'Administrator' || userRole === 'Support'" style="text-align:center">
-							<b-button :to="{ path: 'tickets/edit/' + ticket.id }" variant="warning">Edit</b-button>
-							<b-button :to="{ path: 'tickets/delete/' + ticket.id }" variant="danger">Delete</b-button>
-						</div>
-
 					</b-card>
 				</div>
 			</div>
