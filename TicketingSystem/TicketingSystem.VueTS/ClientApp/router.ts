@@ -1,6 +1,7 @@
 ﻿import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
 import { store } from './store';
+import { SessionInfo } from './store/types';
 
 Vue.use(VueRouter);
 
@@ -59,8 +60,8 @@ export const router = new VueRouter({
 router.beforeEach((to: Route, from: Route, next) => {
 	const authRequired: boolean = to.matched.some((route) => route.meta.auth);
 
-	var role;
-	var session = store.state.sessionInfo;
+	let role;
+	let session: SessionInfo = store.state.sessionInfo;
 	if (session !== null) {
 		role = session.role;
 	}

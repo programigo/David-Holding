@@ -13,9 +13,7 @@ export class ProjectsController extends ControllerBase {
 	}
 
 	public async create(request?: AddProjectFormModel): Promise<void> {
-		const response = await super.ajaxPost<AddProjectFormModel, void>("create", request);
-
-		return response.data;
+		await super.ajaxPost<AddProjectFormModel, void>("create", request);
 	}
 
 	public async getDetails(id: number): Promise<ProjectModel> {
@@ -25,14 +23,10 @@ export class ProjectsController extends ControllerBase {
 	}
 
 	public async edit(id: number, request?: AddProjectFormModel): Promise<void> {
-		const response = await super.ajaxPut<AddProjectFormModel, void>(`edit/${id}`, request);
-
-		return response.data;
+		await super.ajaxPut<AddProjectFormModel, void>(`edit/${id}`, request);
 	}
 
 	public async delete(id: number): Promise<void> {
-		const response = await super.ajaxDelete<number, void>(`delete/${id}`);
-
-		return response.data;
+		await super.ajaxDelete<number, void>(`delete/${id}`);
 	}
 }

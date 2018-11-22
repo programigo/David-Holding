@@ -36,7 +36,6 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				var error = ModelState.ToBadRequestErrorModel();
 				return BadRequest(ModelState.ToBadRequestErrorModel());
 			}
 
@@ -61,23 +60,22 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 		[HttpPost("attachfiles/{id}")]
 		public IActionResult AttachFiles([FromRoute(Name = "id")] int id, IFormCollection files)
 		{
-			foreach (var file in files.Files)
+			var file = files.Files.Last();
+
+			if (!file.FileName.EndsWith(".zip")
+			|| file.Length > DataConstants.AttachedFileLength)
 			{
-				if (!file.FileName.EndsWith(".zip")
-				|| file.Length > DataConstants.AttachedFileLength)
-				{
+				ModelState.AddModelError(string.Empty, "Your file should be .zip with maximum size of 2 MB.");
+				return BadRequest(ModelState.ToBadRequestErrorModel());
+			}
 
-					return BadRequest();
-				}
+			byte[] fileContents = file.ToByteArray();
 
-				byte[] fileContents = file.ToByteArray();
+			bool success = this.messages.SaveFiles(id, fileContents);
 
-				bool success = this.messages.SaveFiles(id, fileContents);
-
-				if (!success)
-				{
-					return BadRequest();
-				}
+			if (!success)
+			{
+				return BadRequest();
 			}
 
 			return Ok();

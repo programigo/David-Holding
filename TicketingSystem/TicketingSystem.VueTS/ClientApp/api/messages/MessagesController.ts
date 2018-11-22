@@ -9,15 +9,17 @@ export class MessagesController extends ControllerBase {
 	}
 
 	public async create(request?: AddMessageFormModel): Promise<void> {
-		const response = await super.ajaxPost<AddMessageFormModel, void>("create", request);
-
-		return response.data;
+		await super.ajaxPost<AddMessageFormModel, void>("create", request);
 	}
 
 	public async getTickets(): Promise<SelectListItem[]> {
 		const response = await super.ajaxGet<void, SelectListItem[]>("tickets");
 
 		return response.data;
+	}
+
+	public async attachFiles(id: number, data: FormData): Promise<void> {
+		await super.ajaxPostFile<FormData, null>(`attachfiles/${id}`, data, { 'Content-Type': 'multipart/form-data' });
 	}
 
 	public async downloadFiles(id: number): Promise<File> {
