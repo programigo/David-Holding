@@ -24,7 +24,7 @@ export default class ProjectsList extends Vue {
 	}
 
 	private get hasProjects(): boolean {
-		return this.renderProjects !== null;
+		return this.renderProjects.projects !== null;
 	}
 
 	private async getAllProjects(page: number): Promise<ProjectListingViewModel> {

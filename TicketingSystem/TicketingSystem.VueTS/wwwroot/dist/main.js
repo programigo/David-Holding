@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c7319f1629d157d81df8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b48dda4d42e30cf14167"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28621,7 +28621,7 @@ var ProjectsList = /** @class */ (function (_super) {
     };
     Object.defineProperty(ProjectsList.prototype, "hasProjects", {
         get: function () {
-            return this.renderProjects !== null;
+            return this.renderProjects.projects !== null;
         },
         enumerable: true,
         configurable: true
