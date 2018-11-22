@@ -18,7 +18,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Models.Messages
 		public DateTime PostDate { get; set; }
 
 		[JsonProperty("state")]
-		public MessageState State { get; set; }
+		public MessageState? State { get; set; }
 
 		[JsonProperty("content")]
 		[Required]

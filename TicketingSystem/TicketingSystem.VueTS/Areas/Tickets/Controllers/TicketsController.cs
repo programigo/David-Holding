@@ -79,7 +79,12 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
 			TicketType ticketType = (TicketType)Enum.Parse(typeof(TicketType), model.TicketType.ToString());
 
-			TicketState ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
+			TicketState? ticketState = null;
+
+			if (model.TicketState != null)
+			{
+				ticketState = (TicketState)Enum.Parse(typeof(TicketState), model.TicketState.ToString());
+			}
 
 			this.tickets.Create(model.Title, model.Description, DateTime.UtcNow, ticketType, ticketState, senderId, model.ProjectId);
 

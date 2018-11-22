@@ -41,7 +41,12 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Controllers
 
 			string authorId = this.userManager.GetUserId(User);
 
-			MessageState messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
+			MessageState? messageState = null;
+
+			if (model.State != null)
+			{
+				messageState = (MessageState)Enum.Parse(typeof(MessageState), model.State.ToString());
+			}
 
 			this.messages.Create(model.Content, DateTime.UtcNow, messageState, model.TicketId, authorId);
 

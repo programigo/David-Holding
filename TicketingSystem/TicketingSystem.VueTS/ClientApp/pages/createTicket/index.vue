@@ -31,7 +31,7 @@
 				<br />
 				<div v-if="userRole === 'Administrator' || userRole === 'Support'" class="form-group col-12 row justify-content-center">
 					<label class="col-12" for="ticketState">Ticket State</label>
-					<select v-model="createTicketViewModel.ticketState" required>
+					<select v-model="createTicketViewModel.ticketState">
 						<option v-for="state in ticketStates" v-bind:value="Number(state.value)">{{state.text}}</option>
 					</select>
 					<span v-show="errors.has('ticketState')" class="text-danger col-12 text-center">{{ errors.first('ticketState') }}</span>

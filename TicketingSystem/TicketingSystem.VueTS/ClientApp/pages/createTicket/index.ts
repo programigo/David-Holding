@@ -62,7 +62,7 @@ export default class CreateTicket extends Vue {
 			const request: ticketsApi.SubmitTicketFormModel = {
 				title: this.createTicketViewModel.title,
 				description: this.createTicketViewModel.description,
-				postTime: new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds() + ' ' + new Date().getUTCDay() + '/' + new Date().getUTCMonth() + '/' + new Date().getUTCFullYear(),
+				postTime: new Date(new Date().getUTCDay(), new Date().getUTCMonth(), new Date().getUTCFullYear()),
 				ticketType: this.createTicketViewModel.ticketType,
 				ticketState: this.createTicketViewModel.ticketState,
 				projectId: this.createTicketViewModel.projectId,
@@ -95,7 +95,7 @@ export default class CreateTicket extends Vue {
 interface CreateTicketViewModel {
 	title: string,
 	description: string,
-	postTime: string,
+	postTime: Date,
 	ticketType: TicketType,
 	ticketState: TicketState,
 	projectId: number,

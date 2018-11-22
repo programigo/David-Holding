@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "92355c528797a576bc51"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c7319f1629d157d81df8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -31079,7 +31079,7 @@ var CreateTicket = /** @class */ (function (_super) {
                         request = {
                             title: this.createTicketViewModel.title,
                             description: this.createTicketViewModel.description,
-                            postTime: new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds() + ' ' + new Date().getUTCDay() + '/' + new Date().getUTCMonth() + '/' + new Date().getUTCFullYear(),
+                            postTime: new Date(new Date().getUTCDay(), new Date().getUTCMonth(), new Date().getUTCFullYear()),
                             ticketType: this.createTicketViewModel.ticketType,
                             ticketState: this.createTicketViewModel.ticketState,
                             projectId: this.createTicketViewModel.projectId,
@@ -57936,7 +57936,6 @@ var render = function() {
                               expression: "createTicketViewModel.ticketState"
                             }
                           ],
-                          attrs: { required: "" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter

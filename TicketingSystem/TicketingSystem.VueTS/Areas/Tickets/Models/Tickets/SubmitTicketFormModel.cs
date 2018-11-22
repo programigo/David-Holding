@@ -34,7 +34,7 @@ namespace TicketingSystem.VueTS.Areas.Tickets.Models.Tickets
 
 		[JsonProperty("ticketState")]
 		[Display(Name = "Ticket State")]
-		public TicketState TicketState { get; set; }
+		public TicketState? TicketState { get; set; }
 
 		[JsonProperty("projectId")]
 		[Display(Name = "Project")]

@@ -39,7 +39,7 @@ export interface MessageModel {
 export interface SubmitTicketFormModel {
 	title: string,
 	description: string,
-	postTime: string,
+	postTime: Date,
 	ticketType: TicketType,
 	ticketState: TicketState,
 	projectId: number,
