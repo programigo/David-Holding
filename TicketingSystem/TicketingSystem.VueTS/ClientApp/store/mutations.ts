@@ -10,6 +10,7 @@ export const UPDATE = "UPDATE";
 export const mutations: MutationTree<AppState> = {
 	[UNAUTHORIZED](state: AppState, payload: UnauthorizedMutationPayload): AppState {
 		state.sessionInfo = null;
+		state.isLoggedIn = false;
 		return state;
 	},
 	[LOGIN](state: AppState, payload: LoginMutationPayload) {

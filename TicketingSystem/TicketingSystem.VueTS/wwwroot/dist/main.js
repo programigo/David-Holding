@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "021821199fa112435a99"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "961656783a7f03572b18"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -24918,17 +24918,8 @@ var App = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
-                    //const payload: actions.LogoutActionPayload = {
-                    //};
-                    //
-                    //await this.$store.dispatch(actions.LOGOUT, payload);
-                    return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_3__api__["a" /* account */].isLoggedOn()];
+                    case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_3__api__["a" /* account */].isLoggedOn()];
                     case 1:
-                        //const payload: actions.LogoutActionPayload = {
-                        //};
-                        //
-                        //await this.$store.dispatch(actions.LOGOUT, payload);
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -25462,13 +25453,12 @@ var AccountController = /** @class */ (function (_super) {
     };
     AccountController.prototype.register = function (request) {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, _super.prototype.ajaxPost.call(this, "register", request)];
                     case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result.data];
+                        _a.sent();
+                        return [2 /*return*/];
                 }
             });
         });
@@ -25511,6 +25501,7 @@ var UPDATE = "UPDATE";
 var mutations = (_a = {},
     _a[UNAUTHORIZED] = function (state, payload) {
         state.sessionInfo = null;
+        state.isLoggedIn = false;
         return state;
     },
     _a[LOGIN] = function (state, payload) {

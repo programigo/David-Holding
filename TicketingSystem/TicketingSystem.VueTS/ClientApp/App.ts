@@ -13,11 +13,6 @@ import * as api from './api';
 export default class App extends Vue {
 	public async beforeCreate(): Promise<void> {
 
-		//const payload: actions.LogoutActionPayload = {
-		//};
-		//
-		//await this.$store.dispatch(actions.LOGOUT, payload);
-
 		await api.account.isLoggedOn();
 	}
 

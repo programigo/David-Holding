@@ -1,5 +1,5 @@
 import { ControllerBase } from '../ControllerBase';
-import { LoginRequest, LoginResult, RegisterRequest, RegisterResult } from './types';
+import { LoginRequest, LoginResult, RegisterRequest } from './types';
 
 export class AccountController extends ControllerBase {
 	public constructor() {
@@ -13,7 +13,11 @@ export class AccountController extends ControllerBase {
 	}
 
 	public async isLoggedOn(): Promise<void> {
-		await super.ajaxGet<void, void>("isLoggedOn");
+		try {
+			await super.ajaxGet<void, void>("isLoggedOn");
+		} catch (e) {
+			
+		}
 	}
 
 	public async logOut(): Promise<void> {
@@ -21,9 +25,7 @@ export class AccountController extends ControllerBase {
 	}
 
 	public async register(request?: RegisterRequest): Promise<void> {
-		const result = await super.ajaxPost<RegisterRequest, void>("register", request);
-
-		return result.data;
+		await super.ajaxPost<RegisterRequest, void>("register", request);
 	}
 
 	public async getUserRole(id: string): Promise<string> {

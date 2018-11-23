@@ -94,7 +94,7 @@ namespace TicketingSystem.VueTS.Controllers
 			return role.Name;
 		}
 
-		[Authorize]
+		[AllowAnonymous]
 		[HttpGet("isLoggedOn")]
 		public IActionResult IsLoggedOn()
 		{
