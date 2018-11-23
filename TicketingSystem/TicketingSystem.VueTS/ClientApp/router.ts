@@ -8,6 +8,7 @@ Vue.use(VueRouter);
 import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
+import ChangePassword from './pages/changePassword';
 import Projects from './pages/projects';
 import CreateProject from './pages/createProject';
 import EditProject from './pages/editProject';
@@ -31,6 +32,7 @@ const routes = [
 	{ name: 'home', path: '/', component: Home, meta: { requiresAuth: true } },
 	{ name: 'login', path: '/login', component: Login, meta: { requiresAuth: false } },
 	{ name: 'register', path: '/register', component: Register, meta: { requiresAuth: false } },
+	{ name: 'change-password', path: '/manage/changepassword', component: ChangePassword, meta: { requiresAuth: false } },
 	{ name: 'projects', path: '/projects', component: Projects, meta: { requiresAuth: true } },
 	{ name: 'project-create', path: '/projects/create', component: CreateProject, meta: { requiresAuth: true, adminAuth: true } },
 	{ name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { requiresAuth: true } },

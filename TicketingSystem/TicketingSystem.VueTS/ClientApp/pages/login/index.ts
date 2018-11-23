@@ -48,7 +48,6 @@ export default class Login extends Vue {
 			const error = <api.ErrorModel>e.response.data;
 			this.error = error.message;
 		}
-
 	}
 
 	private validateBeforeLogin(): void {

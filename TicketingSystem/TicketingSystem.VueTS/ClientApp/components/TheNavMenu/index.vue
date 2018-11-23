@@ -13,7 +13,6 @@
 				<b-nav-item v-if="userRole === 'Administrator' || userRole === 'Support'" to="/tickets">All Tickets</b-nav-item>
 				<b-nav-item v-else to="/tickets">My Tickets</b-nav-item>
 				<b-nav-item to="/tickets/create">Create Ticket</b-nav-item>
-
 				<b-nav-item to="/messages/create">Send Message</b-nav-item>
 			</b-navbar-nav>
 			<b-navbar-nav class="ml-auto">
@@ -23,13 +22,10 @@
 					</b-nav-item>
 				</div>
 				<div v-else class="form-inline">
-					<b-nav-text>
-						{{$t('hello')}}, <em>{{userName}} !</em>
-					</b-nav-text>
-					<b-nav-item @click="logout">
-
-						{{$t('logout')}}
-					</b-nav-item>
+					<b-nav-item-dropdown right v-bind:text="userName">
+						<b-dropdown-item to="/manage/changepassword">Change Password</b-dropdown-item>
+						<b-dropdown-item @click="logout">{{$t('logout')}}</b-dropdown-item>
+					</b-nav-item-dropdown>
 				</div>
 			</b-navbar-nav>
 		</b-collapse>

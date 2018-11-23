@@ -5,13 +5,13 @@ using System;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using TicketingSystem.Services;
-using TicketingSystem.VueTS.Common.Models;
+using TicketingSystem.VueTS.Models;
 using TicketingSystem.Web.Models.ManageViewModels;
 
 namespace TicketingSystem.VueTS.Controllers
 {
 	[Authorize]
-	[Route("api/[controller]")]
+	[Route("api/manage")]
 	public class ManageController : Controller
 	{
 		private readonly IUserService _userManager;
@@ -33,12 +33,12 @@ namespace TicketingSystem.VueTS.Controllers
 		public string StatusMessage { get; set; }
 
 		[AllowAnonymous]
-		[HttpPost("changepassword")]
+		[HttpPut("changepassword")]
 		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
-				return BadRequest();
+				return BadRequest(ModelState.ToBadRequestErrorModel());
 			}
 
 			User user = await _userManager.GetUserAsync(User);
@@ -50,13 +50,10 @@ namespace TicketingSystem.VueTS.Controllers
 
 			var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
 
-			var changePasswordReturnResult = new Microsoft.AspNetCore.Identity.IdentityResult { };
-
 			if (!changePasswordResult.Succeeded)
 			{
-				IdentityResultWeb changePasswordRes = new IdentityResultWeb(changePasswordReturnResult);
-				AddErrors(changePasswordRes);
-				return BadRequest();
+				ModelState.AddModelError(string.Empty, "The old password is wrong.");
+				return BadRequest(ModelState.ToBadRequestErrorModel());
 			}
 
 			await _signInManager.SignInAsync(user, isPersistent: false);
@@ -64,14 +61,6 @@ namespace TicketingSystem.VueTS.Controllers
 			StatusMessage = "Your password has been changed.";
 
 			return Ok();
-		}
-
-		private void AddErrors(IdentityResultWeb result)
-		{
-			foreach (var error in result.Errors)
-			{
-				ModelState.AddModelError(string.Empty, error.Description);
-			}
 		}
 	}
 }

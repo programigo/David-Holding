@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\api\manage\index.ts" />
+    <None Remove="ClientApp\api\manage\ManageController.ts" />
+    <None Remove="ClientApp\api\manage\types.ts" />
     <None Remove="ClientApp\api\messages\index.ts" />
     <None Remove="ClientApp\api\messages\MessagesController.ts" />
     <None Remove="ClientApp\api\messages\types.ts" />
@@ -21,6 +24,7 @@
     <None Remove="ClientApp\components\sidebar\index.ts" />
     <None Remove="ClientApp\components\TicketsList\index.ts" />
     <None Remove="ClientApp\pages\allUsers\index.ts" />
+    <None Remove="ClientApp\pages\changePassword\index.ts" />
     <None Remove="ClientApp\pages\changeUserData\index.ts" />
     <None Remove="ClientApp\pages\changeUserPassword\index.ts" />
     <None Remove="ClientApp\pages\createMessage\index.ts" />
@@ -64,6 +68,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\api\manage\index.ts" />
+    <TypeScriptCompile Include="ClientApp\api\manage\ManageController.ts" />
+    <TypeScriptCompile Include="ClientApp\api\manage\types.ts" />
     <TypeScriptCompile Include="ClientApp\api\messages\index.ts" />
     <TypeScriptCompile Include="ClientApp\api\messages\MessagesController.ts" />
     <TypeScriptCompile Include="ClientApp\api\messages\types.ts" />
@@ -76,6 +83,7 @@
     <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
     <TypeScriptCompile Include="ClientApp\components\TicketsList\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\allUsers\index.ts" />
+    <TypeScriptCompile Include="ClientApp\pages\changePassword\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changeUserData\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changeUserPassword\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\createMessage\index.ts" />
