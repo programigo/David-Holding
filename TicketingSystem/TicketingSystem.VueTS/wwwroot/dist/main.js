@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8c86367631660ea6a0db"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b7ac8cd262ef7849b44b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28295,8 +28295,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
 var routes = [
     { name: 'home', path: '/', component: __WEBPACK_IMPORTED_MODULE_3__pages_home__["a" /* default */] },
     { name: 'login', path: '/login', component: __WEBPACK_IMPORTED_MODULE_4__pages_login__["a" /* default */] },
-    { name: 'register', path: '/register', component: __WEBPACK_IMPORTED_MODULE_5__pages_register__["a" /* default */], meta: { auth: false } },
-    { name: 'change-password', path: '/manage/changepassword', component: __WEBPACK_IMPORTED_MODULE_6__pages_changePassword__["a" /* default */], meta: { auth: false } },
+    { name: 'register', path: '/register', component: __WEBPACK_IMPORTED_MODULE_5__pages_register__["a" /* default */] },
+    { name: 'change-password', path: '/manage/changepassword', component: __WEBPACK_IMPORTED_MODULE_6__pages_changePassword__["a" /* default */] },
     { name: 'projects', path: '/projects', component: __WEBPACK_IMPORTED_MODULE_7__pages_projects__["a" /* default */], meta: { auth: true } },
     { name: 'project-create', path: '/projects/create', component: __WEBPACK_IMPORTED_MODULE_8__pages_createProject__["a" /* default */], meta: { auth: true, adminAuth: true } },
     { name: 'project-details', path: '/projects/details/:projectId', component: __WEBPACK_IMPORTED_MODULE_11__pages_projectDetails__["a" /* default */], meta: { auth: true } },
@@ -54933,7 +54933,7 @@ var render = function() {
             _c("b-pagination-nav", {
               staticClass: "pagination-buttons",
               attrs: {
-                "base-url": "#",
+                "base-url": "projects#",
                 "number-of-pages": _vm.renderProjects.totalPages
               },
               model: {
@@ -55584,7 +55584,7 @@ var render = function() {
                       staticClass: "col-12",
                       attrs: { for: "confirmPassword" }
                     },
-                    [_vm._v("Confirm password")]
+                    [_vm._v("Confirm Password")]
                   ),
                   _vm._v(" "),
                   _c("b-form-input", {
@@ -55600,7 +55600,7 @@ var render = function() {
                     attrs: {
                       type: "password",
                       name: "confirmPassword",
-                      "data-vv-as": "ConfirmPassword",
+                      "data-vv-as": "Confirm Password",
                       id: "confirmPassword"
                     },
                     model: {

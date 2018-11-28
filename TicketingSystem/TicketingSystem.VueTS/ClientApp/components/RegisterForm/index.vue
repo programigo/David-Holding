@@ -32,8 +32,8 @@
 				</div>
 				<br />
 				<div class="form-group col-12 row justify-content-center">
-					<label class="col-12" for="confirmPassword">Confirm password</label>
-					<b-form-input type="password" class="form-control col-4" name="confirmPassword" data-vv-as="ConfirmPassword" v-validate="'required'" v-model="registerViewModel.confirmPassword" id="confirmPassword">
+					<label class="col-12" for="confirmPassword">Confirm Password</label>
+					<b-form-input type="password" class="form-control col-4" name="confirmPassword" data-vv-as="Confirm Password" v-validate="'required'" v-model="registerViewModel.confirmPassword" id="confirmPassword">
 					</b-form-input>
 					<span v-show="errors.has('confirmPassword')" class="text-danger col-12 text-center">{{ errors.first('confirmPassword') }}</span>
 				</div>

@@ -52,7 +52,3 @@ export interface UpdateMutationPayload {
 export interface LogoutMutationPayload {
 
 }
-
-export interface UpdateLocaleMutationPayload {
-	culture: string;
-}
