@@ -1,7 +1,6 @@
 ﻿import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import TheNavMenu from './components/TheNavMenu';
-import * as actions from './store/actions';
 import * as api from './api';
 
 @Component({

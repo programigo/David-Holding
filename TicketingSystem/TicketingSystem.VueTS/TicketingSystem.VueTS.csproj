@@ -21,7 +21,6 @@
     <None Remove="ClientApp\api\tickets\types.ts" />
     <None Remove="ClientApp\api\users\UsersController.ts" />
     <None Remove="ClientApp\App.ts" />
-    <None Remove="ClientApp\components\sidebar\index.ts" />
     <None Remove="ClientApp\components\TicketsList\index.ts" />
     <None Remove="ClientApp\pages\allUsers\index.ts" />
     <None Remove="ClientApp\pages\changePassword\index.ts" />
@@ -80,7 +79,6 @@
     <TypeScriptCompile Include="ClientApp\api\tickets\types.ts" />
     <TypeScriptCompile Include="ClientApp\api\users\UsersController.ts" />
     <TypeScriptCompile Include="ClientApp\App.ts" />
-    <TypeScriptCompile Include="ClientApp\components\sidebar\index.ts" />
     <TypeScriptCompile Include="ClientApp\components\TicketsList\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\allUsers\index.ts" />
     <TypeScriptCompile Include="ClientApp\pages\changePassword\index.ts" />
