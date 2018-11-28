@@ -12,7 +12,6 @@ using DATA_MODELS = TicketingSystem.Data.Models;
 
 namespace TicketingSystem.VueTS.Controllers
 {
-	[Authorize]
 	[Route("api/account")]
 	public class AccountController : ControllerBase
 	{
@@ -36,7 +35,6 @@ namespace TicketingSystem.VueTS.Controllers
 		[TempData]
 		public string ErrorMessage { get; set; }
 
-		[AllowAnonymous]
 		[HttpPost("login")]
 		public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
 		{
@@ -94,7 +92,7 @@ namespace TicketingSystem.VueTS.Controllers
 			return role.Name;
 		}
 
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet("isLoggedOn")]
 		public IActionResult IsLoggedOn()
 		{

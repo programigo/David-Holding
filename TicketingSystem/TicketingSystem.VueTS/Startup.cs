@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
+using System.Threading.Tasks;
 using TicketingSystem.Data;
 using TicketingSystem.Implementations;
 using TicketingSystem.Services;
@@ -26,21 +29,63 @@ namespace TicketingSystem.VueTS
 
 		public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+
 			services.AddDbContext<TicketingSystemDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddIdentity<DATA_MODELS.User, IdentityRole>(options =>
-			{
-				options.Password.RequireDigit = false;
-				options.Password.RequireLowercase = false;
-				options.Password.RequireNonAlphanumeric = false;
-				options.Password.RequireUppercase = false;
-			})
+			services.AddIdentity<DATA_MODELS.User, IdentityRole>()
 				.AddEntityFrameworkStores<TicketingSystemDbContext>()
 				.AddDefaultTokenProviders();
+
+			services
+				.ConfigureApplicationCookie(options =>
+				{
+					options.Cookie.HttpOnly = true;
+					options.LoginPath = "/account/login";
+					options.LogoutPath = "/account/logout";
+					options.AccessDeniedPath = "/Account/login";
+					options.SlidingExpiration = true;
+					options.ReturnUrlParameter = "returnUrl";
+					options.Events = new CookieAuthenticationEvents
+					{
+						OnRedirectToLogin = ctx =>
+						{
+							if (ctx.Request.Path.StartsWithSegments("/api"))
+							{
+								ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+							}
+							else
+							{
+								ctx.Response.Redirect(ctx.RedirectUri);
+							}
+
+							return Task.FromResult(0);
+						},
+						OnRedirectToAccessDenied = ctx =>
+						{
+							if (ctx.Request.Path.StartsWithSegments("/api"))
+							{
+								ctx.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+							}
+							else
+							{
+								ctx.Response.Redirect(ctx.RedirectUri);
+							}
+
+							return Task.FromResult(0);
+						},
+					};
+				});
+
+			services.AddScoped<ISignInService, SignInService>();
+			services.AddScoped<ITicketService, TicketService>();
+			services.AddScoped<IRoleService, RoleService>();
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IMessageService, MessageService>();
+			services.AddScoped<IAdminUserService, AdminUserService>();
+			services.AddScoped<IAdminProjectService, AdminProjectService>();
 
 			services.AddAutoMapper();
 
@@ -51,16 +96,8 @@ namespace TicketingSystem.VueTS
 				options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 			});
 
-			services.AddScoped<ISignInService, SignInService>();
-			services.AddScoped<ITicketService, TicketService>();
-			services.AddScoped<IRoleService, RoleService>();
-			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<IMessageService, MessageService>();
-			services.AddScoped<IAdminUserService, AdminUserService>();
-			services.AddScoped<IAdminProjectService, AdminProjectService>();
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())

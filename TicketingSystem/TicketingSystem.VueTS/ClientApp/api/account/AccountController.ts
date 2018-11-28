@@ -13,11 +13,7 @@ export class AccountController extends ControllerBase {
 	}
 
 	public async isLoggedOn(): Promise<void> {
-		try {
-			await super.ajaxGet<void, void>("isLoggedOn");
-		} catch (e) {
-			
-		}
+		await super.ajaxGet<void, void>("isLoggedOn");
 	}
 
 	public async logOut(): Promise<void> {
