@@ -35,7 +35,13 @@ namespace TicketingSystem.VueTS
 			services.AddDbContext<TicketingSystemDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddIdentity<DATA_MODELS.User, IdentityRole>()
+			services.AddIdentity<DATA_MODELS.User, IdentityRole>(options =>
+			{
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+			})
 				.AddEntityFrameworkStores<TicketingSystemDbContext>()
 				.AddDefaultTokenProviders();
 

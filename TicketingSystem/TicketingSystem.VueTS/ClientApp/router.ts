@@ -31,8 +31,8 @@ import MessageAttachFiles from './pages/messageAttachFiles';
 const routes = [
 	{ name: 'home', path: '/', component: Home },
 	{ name: 'login', path: '/login', component: Login },
-	{ name: 'register', path: '/register', component: Register },
-	{ name: 'change-password', path: '/manage/changepassword', component: ChangePassword },
+	{ name: 'register', path: '/register', component: Register, meta: { auth: false } },
+	{ name: 'change-password', path: '/manage/changepassword', component: ChangePassword, meta: { auth: false } },
 	{ name: 'projects', path: '/projects', component: Projects, meta: { auth: true } },
 	{ name: 'project-create', path: '/projects/create', component: CreateProject, meta: { auth: true, adminAuth: true } },
 	{ name: 'project-details', path: '/projects/details/:projectId', component: ProjectDetails, meta: { auth: true } },
