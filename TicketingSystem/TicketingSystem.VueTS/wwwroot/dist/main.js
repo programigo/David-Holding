@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e59714f2fee90ceef864"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8c86367631660ea6a0db"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -28580,7 +28580,7 @@ var ProjectsList = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].getProjects(page)];
                     case 1:
                         response = _a.sent();
-                        if (response.projects !== undefined) {
+                        if (response.projects !== null) {
                             projects = response.projects
                                 .map(function (project) {
                                 return _this.createProjectViewModel(project);
