@@ -69,11 +69,9 @@ export default class CreateTicket extends Vue {
 				projects: this.createTicketViewModel.projects
 			}
 
-			const response: void = await ticketsApi.tickets.create(request);
+			await ticketsApi.tickets.create(request);
 
 			this.$router.push('/tickets');
-
-			return response;
 
 		} catch (e) {
 			const error = <api.ErrorModel>e.response.data;

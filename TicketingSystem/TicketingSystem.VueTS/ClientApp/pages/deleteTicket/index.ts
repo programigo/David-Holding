@@ -16,10 +16,8 @@ export default class DeleteTicket extends Vue {
 	private async deleteTicket(): Promise<void> {
 		const request: number = this.id;
 
-		const response: void = await api.tickets.delete(request);
+		await api.tickets.delete(request);
 
 		this.$router.push('/tickets');
-
-		return response;
 	}
 }

@@ -26,11 +26,9 @@ export default class ChangePassword extends Vue {
 				confirmPassword: this.changePasswordViewModel.confirmPassword
 			}
 
-			const response: void = await manageApi.manage.changePassword(request);
+			await manageApi.manage.changePassword(request);
 
 			this.$router.push('/');
-
-			return response;
 
 		} catch (e) {
 			const error = <api.ErrorModel>e.response.data;

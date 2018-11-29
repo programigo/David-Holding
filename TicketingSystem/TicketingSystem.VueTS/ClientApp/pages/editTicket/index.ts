@@ -60,11 +60,9 @@ export default class EditTicket extends Vue {
 			ticketState: this.editTicketModel.ticketState
 		};
 
-		const response: void = await api.tickets.edit(this.id, request);
+		await api.tickets.edit(this.id, request);
 
 		this.$router.push('/tickets');
-
-		return response;
 	}
 }
 

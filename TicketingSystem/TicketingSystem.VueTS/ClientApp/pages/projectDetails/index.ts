@@ -10,7 +10,6 @@ Vue.use(VeeValidate);
 
 export default class ProjectDetails extends Vue {
 	renderProject: ProjectViewModel = {
-		id: null,
 		name: null,
 		description: null
 	}
@@ -33,7 +32,6 @@ export default class ProjectDetails extends Vue {
 		const response: api.ProjectModel = await api.projects.getDetails(request);
 
 		const project: ProjectViewModel = {
-			id: response.id,
 			name: response.name,
 			description: response.description
 		};
@@ -45,7 +43,6 @@ export default class ProjectDetails extends Vue {
 }
 
 interface ProjectViewModel {
-	id: number;
 	name: string;
 	description: string;
 }

@@ -60,11 +60,9 @@ export default class CreateMessage extends Vue {
 				tickets: this.createMessageViewModel.tickets
 			}
 
-			const response: void = await messagesApi.messages.create(request);
+			await messagesApi.messages.create(request);
 
 			this.$router.push('/tickets');
-
-			return response;
 
 		} catch (e) {
 			const error = <api.ErrorModel>e.response.data;

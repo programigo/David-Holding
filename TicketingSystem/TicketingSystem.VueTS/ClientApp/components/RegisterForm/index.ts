@@ -35,11 +35,9 @@ export default class RegisterForm extends Vue {
 				confirmPassword: this.registerViewModel.confirmPassword
 			}
 
-			const response: void = await api.account.register(request);
+			await api.account.register(request);
 
 			this.$router.push('/');
-
-			return response;
 
 		} catch (e) {
 			const error = <api.ErrorModel>e.response.data;

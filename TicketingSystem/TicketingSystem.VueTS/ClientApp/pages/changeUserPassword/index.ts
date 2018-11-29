@@ -22,11 +22,9 @@ export default class ChangeUserPassword extends Vue {
 			newPassword: this.changePasswordViewModel.newPassword
 		}
 
-		const response: void = await api.users.changeUserPassword(this.id, request);
+		await api.users.changeUserPassword(this.id, request);
 
 		this.$router.push('/users');
-
-		return response;
 	}
 }
 

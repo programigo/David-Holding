@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b7ac8cd262ef7849b44b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "af8f509eef900946ee8c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -29080,7 +29080,7 @@ var RegisterForm = /** @class */ (function (_super) {
     });
     RegisterForm.prototype.register = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, e_1, error;
+            var request, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -29094,9 +29094,9 @@ var RegisterForm = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api__["a" /* account */].register(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/');
-                        return [2 /*return*/, response];
+                        return [3 /*break*/, 3];
                     case 2:
                         e_1 = _a.sent();
                         error = e_1.response.data;
@@ -29216,7 +29216,7 @@ var ChangePassword = /** @class */ (function (_super) {
     });
     ChangePassword.prototype.changePassword = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, e_1, error;
+            var request, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -29228,9 +29228,9 @@ var ChangePassword = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_manage__["a" /* manage */].changePassword(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/');
-                        return [2 /*return*/, response];
+                        return [3 /*break*/, 3];
                     case 2:
                         e_1 = _a.sent();
                         error = e_1.response.data;
@@ -29462,7 +29462,7 @@ var CreateProject = /** @class */ (function (_super) {
     });
     CreateProject.prototype.create = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, e_1, error;
+            var request, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -29473,9 +29473,9 @@ var CreateProject = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].create(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/');
-                        return [2 /*return*/, response];
+                        return [3 /*break*/, 3];
                     case 2:
                         e_1 = _a.sent();
                         error = e_1.response.data;
@@ -29621,7 +29621,7 @@ var EditProject = /** @class */ (function (_super) {
     });
     EditProject.prototype.editProject = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response;
+            var request;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -29631,9 +29631,9 @@ var EditProject = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].edit(this.id, request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/');
-                        return [2 /*return*/, response];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -29729,16 +29729,16 @@ var DeleteProject = /** @class */ (function (_super) {
     });
     DeleteProject.prototype.deleteProject = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response;
+            var request;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         request = this.id;
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_projects__["a" /* projects */].delete(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/');
-                        return [2 /*return*/, response];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -29824,7 +29824,6 @@ var ProjectDetails = /** @class */ (function (_super) {
     function ProjectDetails() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.renderProject = {
-            id: null,
             name: null,
             description: null
         };
@@ -29867,7 +29866,6 @@ var ProjectDetails = /** @class */ (function (_super) {
                     case 1:
                         response = _a.sent();
                         project = {
-                            id: response.id,
                             name: response.name,
                             description: response.description
                         };
@@ -30397,7 +30395,7 @@ var ChangeUserData = /** @class */ (function (_super) {
     };
     ChangeUserData.prototype.changeUserData = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response;
+            var request;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -30408,9 +30406,9 @@ var ChangeUserData = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].changeUserData(this.id, request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/users');
-                        return [2 /*return*/, response];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -30510,7 +30508,7 @@ var ChangeUserPassword = /** @class */ (function (_super) {
     });
     ChangeUserPassword.prototype.changeUserPassword = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response;
+            var request;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -30519,9 +30517,9 @@ var ChangeUserPassword = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].changeUserPassword(this.id, request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/users');
-                        return [2 /*return*/, response];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -30655,13 +30653,12 @@ var PendingUsers = /** @class */ (function (_super) {
     };
     PendingUsers.prototype.approveUser = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* users */].approve(id)];
                     case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result];
+                        _a.sent();
+                        return [2 /*return*/];
                 }
             });
         });
@@ -31214,7 +31211,7 @@ var CreateTicket = /** @class */ (function (_super) {
     };
     CreateTicket.prototype.create = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, e_1, error;
+            var request, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -31230,9 +31227,9 @@ var CreateTicket = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_tickets__["a" /* tickets */].create(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/tickets');
-                        return [2 /*return*/, response];
+                        return [3 /*break*/, 3];
                     case 2:
                         e_1 = _a.sent();
                         error = e_1.response.data;
@@ -31409,7 +31406,7 @@ var EditTicket = /** @class */ (function (_super) {
     };
     EditTicket.prototype.editTicket = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response;
+            var request;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -31421,9 +31418,9 @@ var EditTicket = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_tickets__["a" /* tickets */].edit(this.id, request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/tickets');
-                        return [2 /*return*/, response];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -31533,16 +31530,16 @@ var DeleteTicket = /** @class */ (function (_super) {
     });
     DeleteTicket.prototype.deleteTicket = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response;
+            var request;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         request = this.id;
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_tickets__["a" /* tickets */].delete(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/tickets');
-                        return [2 /*return*/, response];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -32150,7 +32147,7 @@ var CreateMessage = /** @class */ (function (_super) {
     };
     CreateMessage.prototype.create = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var request, response, e_1, error;
+            var request, e_1, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -32164,9 +32161,9 @@ var CreateMessage = /** @class */ (function (_super) {
                         };
                         return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_2__api_messages__["a" /* messages */].create(request)];
                     case 1:
-                        response = _a.sent();
+                        _a.sent();
                         this.$router.push('/tickets');
-                        return [2 /*return*/, response];
+                        return [3 /*break*/, 3];
                     case 2:
                         e_1 = _a.sent();
                         error = e_1.response.data;
@@ -58688,8 +58685,7 @@ var render = function() {
                       type: "text",
                       name: "name",
                       "data-vv-as": "Title",
-                      id: "title",
-                      disabled: ""
+                      id: "title"
                     },
                     model: {
                       value: _vm.editTicketModel.title,
@@ -58721,8 +58717,7 @@ var render = function() {
                       rows: 5,
                       name: "description",
                       "data-vv-as": "Description",
-                      id: "description",
-                      disabled: ""
+                      id: "description"
                     },
                     model: {
                       value: _vm.editTicketModel.description,

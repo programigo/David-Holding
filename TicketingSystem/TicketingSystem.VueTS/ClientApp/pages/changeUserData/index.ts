@@ -42,11 +42,9 @@ export default class ChangeUserData extends Vue {
 			email: this.changeDataViewModel.email
 		}
 
-		const response: void = await api.users.changeUserData(this.id, request);
+		await api.users.changeUserData(this.id, request);
 
 		this.$router.push('/users');
-
-		return response;
 	}
 }
 

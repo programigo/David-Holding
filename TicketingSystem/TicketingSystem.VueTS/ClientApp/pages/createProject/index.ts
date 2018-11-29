@@ -28,11 +28,9 @@ export default class CreateProject extends Vue {
 				description: this.addProjectViewModel.description
 			}
 
-			const response: void = await projectsApi.projects.create(request);
+			await projectsApi.projects.create(request);
 
 			this.$router.push('/');
-
-			return response;
 
 		} catch (e) {
 			const error = <api.ErrorModel>e.response.data;

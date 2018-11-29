@@ -34,9 +34,7 @@ export default class PendingUsers extends Vue {
 	}
 
 	private async approveUser(id: string): Promise<void> {
-		const result = await api.users.approve(id);
-
-		return result;
+		await api.users.approve(id);
 	}
 }
 
