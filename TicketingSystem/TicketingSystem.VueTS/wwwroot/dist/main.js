@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "af8f509eef900946ee8c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8743b390b37254b0d16c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -30797,7 +30797,7 @@ var TicketsList = /** @class */ (function (_super) {
         _this.currentPage = 1;
         return _this;
     }
-    TicketsList.prototype.created = function () {
+    TicketsList.prototype.mounted = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -30828,6 +30828,25 @@ var TicketsList = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    TicketsList.prototype.getTicketType = function (type) {
+        var returnType = TicketType[type];
+        switch (returnType) {
+            case "BugReport":
+                returnType = "Bug Report";
+                break;
+            case "FeatureRequest":
+                returnType = "Feature Request";
+                break;
+            case "AssistanceRequest":
+                returnType = "Assistance Request";
+                break;
+            default:
+        }
+        return returnType;
+    };
+    TicketsList.prototype.getTicketState = function (state) {
+        return TicketState[state];
+    };
     Object.defineProperty(TicketsList.prototype, "userRole", {
         get: function () {
             return this.$store.getters.sessionInfo.role;
@@ -30888,6 +30907,8 @@ var TicketsList = /** @class */ (function (_super) {
             projectId: ticket.projectId,
             project: ticket.project,
             sender: ticket.sender,
+            ticketType: ticket.ticketType,
+            ticketState: ticket.ticketState,
             title: ticket.title,
             description: ticket.description,
             attachedFiles: ticket.attachedFiles
@@ -30902,6 +30923,20 @@ var TicketsList = /** @class */ (function (_super) {
     return TicketsList;
 }(__WEBPACK_IMPORTED_MODULE_0_vue__["default"]));
 /* harmony default export */ __webpack_exports__["a"] = (TicketsList);
+var TicketType;
+(function (TicketType) {
+    TicketType[TicketType["BugReport"] = 0] = "BugReport";
+    TicketType[TicketType["FeatureRequest"] = 1] = "FeatureRequest";
+    TicketType[TicketType["AssistanceRequest"] = 2] = "AssistanceRequest";
+    TicketType[TicketType["Other"] = 3] = "Other";
+})(TicketType || (TicketType = {}));
+var TicketState;
+(function (TicketState) {
+    TicketState[TicketState["Draft"] = 0] = "Draft";
+    TicketState[TicketState["New"] = 1] = "New";
+    TicketState[TicketState["Running"] = 2] = "Running";
+    TicketState[TicketState["Completed"] = 3] = "Completed";
+})(TicketState || (TicketState = {}));
 
 
 /***/ }),
@@ -31625,7 +31660,6 @@ var TicketDetails = /** @class */ (function (_super) {
     function TicketDetails() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.renderTicket = {
-            id: null,
             postTime: null,
             projectId: null,
             project: null,
@@ -31684,7 +31718,6 @@ var TicketDetails = /** @class */ (function (_super) {
                     case 1:
                         response = _a.sent();
                         ticket = {
-                            id: response.id,
                             postTime: response.postTime,
                             projectId: response.projectId,
                             project: response.project,
@@ -54944,7 +54977,9 @@ var render = function() {
           ],
           2
         )
-      : _c("p", [_c("em", [_vm._v("Loading...")])])
+      : _c("p", { staticStyle: { "text-align": "center" } }, [
+          _c("em", [_vm._v("Loading...")])
+        ])
   ])
 }
 var staticRenderFns = []
@@ -57955,6 +57990,20 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
+                        _c("p", { staticStyle: { "text-align": "center" } }, [
+                          _vm._v(
+                            "Type: " +
+                              _vm._s(_vm.getTicketType(ticket.ticketType))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticStyle: { "text-align": "center" } }, [
+                          _vm._v(
+                            "State: " +
+                              _vm._s(_vm.getTicketState(ticket.ticketState))
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "p",
                           { staticStyle: { "text-align": "center" } },
@@ -58053,7 +58102,7 @@ var render = function() {
           2
         )
       : _c("p", { staticStyle: { "text-align": "center" } }, [
-          _c("em", [_vm._v("No active tickets.")])
+          _c("em", [_vm._v("Loading...")])
         ])
   ])
 }

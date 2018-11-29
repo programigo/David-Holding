@@ -16,7 +16,7 @@ export default class TicketsList extends Vue {
 
 	currentPage: number = 1;
 
-	public async created(): Promise<void> {
+	public async mounted(): Promise<void> {
 		await this.getAllTickets(this.currentPage);
 	}
 
@@ -26,6 +26,30 @@ export default class TicketsList extends Vue {
 
 	private get hasTickets(): boolean {
 		return this.allTickets.tickets !== null;
+	}
+
+	private getTicketType(type: TicketType): string {
+
+		let returnType: string = TicketType[type];
+
+		switch (returnType) {
+			case "BugReport":
+				returnType = "Bug Report";
+				break;
+			case "FeatureRequest":
+				returnType = "Feature Request";
+				break;
+			case "AssistanceRequest":
+				returnType = "Assistance Request";
+				break;
+			default:
+		}
+
+		return returnType;
+	}
+
+	private getTicketState(state: TicketState): string {
+		return TicketState[state];
 	}
 
 	private get userRole(): string {
@@ -73,6 +97,8 @@ export default class TicketsList extends Vue {
 			projectId: ticket.projectId,
 			project: ticket.project,
 			sender: ticket.sender,
+			ticketType: ticket.ticketType,
+			ticketState: ticket.ticketState,
 			title: ticket.title,
 			description: ticket.description,
 			attachedFiles: ticket.attachedFiles
@@ -94,7 +120,23 @@ interface TicketViewModel {
 	projectId: number,
 	project: string,
 	sender: string,
+	ticketType: TicketType,
+	ticketState: TicketState,
 	title: string,
 	description: string,
 	attachedFiles: []
+}
+
+enum TicketType {
+	BugReport,
+	FeatureRequest,
+	AssistanceRequest,
+	Other
+}
+
+enum TicketState {
+	Draft,
+	New,
+	Running,
+	Completed
 }

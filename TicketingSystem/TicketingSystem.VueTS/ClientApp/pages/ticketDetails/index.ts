@@ -8,7 +8,6 @@ import { File } from "../../api";
 
 export default class TicketDetails extends Vue {
 	renderTicket: TicketViewModel = {
-		id: null,
 		postTime: null,
 		projectId: null,
 		project: null,
@@ -44,7 +43,6 @@ export default class TicketDetails extends Vue {
 		const response: ticketsApi.TicketModel = await ticketsApi.tickets.details(request);
 
 		const ticket: TicketViewModel = {
-			id: response.id,
 			postTime: response.postTime,
 			projectId: response.projectId,
 			project: response.project,
@@ -84,7 +82,6 @@ export default class TicketDetails extends Vue {
 }
 
 interface TicketViewModel {
-	id: number,
 	postTime: Date,
 	projectId: number,
 	project: string,

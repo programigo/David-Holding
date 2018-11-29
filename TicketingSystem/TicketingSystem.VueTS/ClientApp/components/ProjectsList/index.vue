@@ -16,7 +16,7 @@
 			</div>
 			<b-pagination-nav class="pagination-buttons" base-url="projects#" :number-of-pages="renderProjects.totalPages" v-model="currentPage" />
 		</div>
-		<p v-else><em>Loading...</em></p>
+		<p v-else style="text-align:center"><em>Loading...</em></p>
 	</div>
 
 </template>
