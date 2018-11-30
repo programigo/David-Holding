@@ -37,6 +37,12 @@ export default class TicketDetails extends Vue {
 		return this.$store.getters.sessionInfo.role;
 	}
 
+	private getDate(postTime: Date): string {
+		let postDate: string = `${new Date(postTime).getUTCDate()}.${new Date(postTime).getUTCMonth() + 1}.${new Date(postTime).getUTCFullYear()}`;
+		let postHour: string = `${new Date(postTime).getHours() + 2}:${(new Date(postTime).getUTCMinutes() < 10 ? '0' : '') + new Date(postTime).getUTCMinutes()}`;
+		return `${postDate} ${postHour}`;
+	}
+
 	private async getTicket(): Promise<TicketViewModel> {
 		const request: number = this.id;
 

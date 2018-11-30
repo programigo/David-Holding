@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8743b390b37254b0d16c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6e13c9e71a473cb8dc50"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -30847,6 +30847,11 @@ var TicketsList = /** @class */ (function (_super) {
     TicketsList.prototype.getTicketState = function (state) {
         return TicketState[state];
     };
+    TicketsList.prototype.getDate = function (postTime) {
+        var postDate = new Date(postTime).getUTCDate() + "." + (new Date(postTime).getUTCMonth() + 1) + "." + new Date(postTime).getUTCFullYear();
+        var postHour = new Date(postTime).getHours() + 2 + ":" + ((new Date(postTime).getUTCMinutes() < 10 ? '0' : '') + new Date(postTime).getUTCMinutes());
+        return postDate + " " + postHour;
+    };
     Object.defineProperty(TicketsList.prototype, "userRole", {
         get: function () {
             return this.$store.getters.sessionInfo.role;
@@ -31707,6 +31712,11 @@ var TicketDetails = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    TicketDetails.prototype.getDate = function (postTime) {
+        var postDate = new Date(postTime).getUTCDate() + "." + (new Date(postTime).getUTCMonth() + 1) + "." + new Date(postTime).getUTCFullYear();
+        var postHour = new Date(postTime).getHours() + 2 + ":" + ((new Date(postTime).getUTCMinutes() < 10 ? '0' : '') + new Date(postTime).getUTCMinutes());
+        return postDate + " " + postHour;
+    };
     TicketDetails.prototype.getTicket = function () {
         return __awaiter(this, void 0, void 0, function () {
             var request, response, ticket;
@@ -57984,7 +57994,7 @@ var render = function() {
                         _c("p", { staticStyle: { "text-align": "center" } }, [
                           _vm._v(
                             "Published on " +
-                              _vm._s(ticket.postTime) +
+                              _vm._s(_vm.getDate(ticket.postTime)) +
                               " by " +
                               _vm._s(ticket.sender)
                           )
@@ -59128,7 +59138,7 @@ var render = function() {
           _c("p", [
             _vm._v(
               "Published on " +
-                _vm._s(_vm.renderTicket.postTime) +
+                _vm._s(_vm.getDate(_vm.renderTicket.postTime)) +
                 " by " +
                 _vm._s(_vm.renderTicket.sender)
             )

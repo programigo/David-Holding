@@ -1,7 +1,7 @@
 ﻿<template>
 	<div class="form-title">
 		<b-card :title="renderTicket.title" tag="article" style="max-width: 45rem;" class="mb-2">
-			<p>Published on {{renderTicket.postTime}} by {{renderTicket.sender}}</p>
+			<p>Published on {{getDate(renderTicket.postTime)}} by {{renderTicket.sender}}</p>
 			<hr />
 			<p class="card-text">
 				{{renderTicket.description}}

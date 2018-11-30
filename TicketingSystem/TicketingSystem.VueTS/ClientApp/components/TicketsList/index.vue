@@ -7,7 +7,7 @@
 						<b-link :to="{ path: 'tickets/details/' + ticket.id }">
 							<h3 style="text-align:center">{{ticket.title}}</h3>
 						</b-link>
-						<p style="text-align:center">Published on {{ticket.postTime}} by {{ticket.sender}}</p>
+						<p style="text-align:center">Published on {{getDate(ticket.postTime)}} by {{ticket.sender}}</p>
 						<p style="text-align:center">Type: {{getTicketType(ticket.ticketType)}}</p>
 						<p style="text-align:center">State: {{getTicketState(ticket.ticketState)}}</p>
 						<p style="text-align:center">Project: <b-link :to="{path: 'projects/details/' + ticket.projectId}">{{ticket.project}}</b-link></p>
