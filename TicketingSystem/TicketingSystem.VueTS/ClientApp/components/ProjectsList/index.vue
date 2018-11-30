@@ -8,7 +8,7 @@
 							<h3 style="text-align:center">{{project.name}}</h3>
 						</b-link>
 						<hr />
-						<p class="card-text">
+						<p class="card-text" style="text-align:center">
 							{{project.description}}
 						</p>
 					</b-card>

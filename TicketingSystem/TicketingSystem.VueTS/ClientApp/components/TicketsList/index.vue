@@ -3,7 +3,7 @@
 		<div v-if="hasTickets">
 			<div v-for="ticket in allTickets.tickets" class="row">
 				<div>
-					<b-card style="max-width: 25rem;" class="mb-2">
+					<b-card style="width: 25rem;" class="mb-2">
 						<b-link :to="{ path: 'tickets/details/' + ticket.id }">
 							<h3 style="text-align:center">{{ticket.title}}</h3>
 						</b-link>
@@ -12,7 +12,7 @@
 						<p style="text-align:center">State: {{getTicketState(ticket.ticketState)}}</p>
 						<p style="text-align:center">Project: <b-link :to="{path: 'projects/details/' + ticket.projectId}">{{ticket.project}}</b-link></p>
 						<hr />
-						<p class="card-text">
+						<p class="card-text" style="text-align:center">
 							{{ticket.description}}
 						</p>
 						<hr />

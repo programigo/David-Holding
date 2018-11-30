@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6e13c9e71a473cb8dc50"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "85e132e9efc21572611c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -54954,13 +54954,20 @@ var render = function() {
                         _vm._v(" "),
                         _c("hr"),
                         _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _vm._v(
-                            "\n\t\t\t\t\t\t" +
-                              _vm._s(project.description) +
-                              "\n\t\t\t\t\t"
-                          )
-                        ])
+                        _c(
+                          "p",
+                          {
+                            staticClass: "card-text",
+                            staticStyle: { "text-align": "center" }
+                          },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t" +
+                                _vm._s(project.description) +
+                                "\n\t\t\t\t\t"
+                            )
+                          ]
+                        )
                       ],
                       1
                     )
@@ -57970,10 +57977,7 @@ var render = function() {
                   [
                     _c(
                       "b-card",
-                      {
-                        staticClass: "mb-2",
-                        staticStyle: { "max-width": "25rem" }
-                      },
+                      { staticClass: "mb-2", staticStyle: { width: "25rem" } },
                       [
                         _c(
                           "b-link",
@@ -58036,13 +58040,20 @@ var render = function() {
                         _vm._v(" "),
                         _c("hr"),
                         _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _vm._v(
-                            "\n\t\t\t\t\t\t" +
-                              _vm._s(ticket.description) +
-                              "\n\t\t\t\t\t"
-                          )
-                        ]),
+                        _c(
+                          "p",
+                          {
+                            staticClass: "card-text",
+                            staticStyle: { "text-align": "center" }
+                          },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t" +
+                                _vm._s(ticket.description) +
+                                "\n\t\t\t\t\t"
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("hr"),
                         _vm._v(" "),
